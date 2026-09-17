@@ -59,3 +59,8 @@ describe("cache", () => {
     expect(store.size).toBe(CACHE_MAX_ENTRIES + 1); // entries + index
   });
 });
+
+it("concurrent set() calls do not lose index entries", async () => {
+  await Promise.all([cache.set(j("1"), j("2")), cache.set(j("3"), j("4")), cache.set(j("5"))]);
+  expect(await cache.count()).toBe(5);
+});

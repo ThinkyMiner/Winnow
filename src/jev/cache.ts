@@ -51,7 +51,19 @@ export async function get(url: string, depth: JudgmentDepth, version: number): P
 }
 
 /** Store judgments, update the index, evict oldest beyond CACHE_MAX_ENTRIES. */
-export async function set(...judgments: Judgment[]): Promise<void> {
+/** chrome.storage has no transactions; feed chunks call set() concurrently, so index writes are serialized. */
+let lock: Promise<unknown> = Promise.resolve();
+function serialized<T>(fn: () => Promise<T>): Promise<T> {
+  const next = lock.then(fn, fn);
+  lock = next.catch(() => undefined);
+  return next;
+}
+
+export function set(...judgments: Judgment[]): Promise<void> {
+  return serialized(() => setNow(judgments));
+}
+
+async function setNow(judgments: Judgment[]): Promise<void> {
   if (!judgments.length) return;
   const now = Date.now();
   const items: Record<string, Entry> = {};
@@ -61,15 +73,18 @@ export async function set(...judgments: Judgment[]): Promise<void> {
     items[key] = { judgment: j, storedAt: now };
     fresh.push({ key, at: now });
   }
-  // ponytail: insertion-order eviction, no bump on read; TTL covers staleness. Concurrent set() calls can
-  // race on the index (chrome.storage has no transactions); worst case an orphan entry or two.
+  // ponytail: insertion-order eviction, no bump on read; TTL covers staleness.
   const index = (await loadIndex()).filter((e) => !(e.key in items)).concat(fresh);
   const evicted = index.splice(0, Math.max(0, index.length - CACHE_MAX_ENTRIES));
   await chrome.storage.local.set({ ...items, [STORAGE_KEYS.cacheIndex]: index });
   if (evicted.length) await chrome.storage.local.remove(evicted.map((e) => e.key));
 }
 
-async function remove(keys: string[]): Promise<void> {
+function remove(keys: string[]): Promise<void> {
+  return serialized(() => removeNow(keys));
+}
+
+async function removeNow(keys: string[]): Promise<void> {
   const drop = new Set(keys);
   const index = (await loadIndex()).filter((e) => !drop.has(e.key));
   await chrome.storage.local.remove(keys);
