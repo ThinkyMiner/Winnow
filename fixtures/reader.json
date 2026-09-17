@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "goals": "Dense, original thinking about software engineering, ML systems and applied math. I skip generic productivity advice, product announcements, and outrage.",
+  "topics": [
+    { "topic": "software_engineering", "count": 14, "lastSeen": 1758150000000 },
+    { "topic": "ai_ml", "count": 9, "lastSeen": 1758100000000 },
+    { "topic": "math", "count": 4, "lastSeen": 1757900000000 },
+    { "topic": "security", "count": 2, "lastSeen": 1757500000000 },
+    { "topic": "productivity_selfhelp", "count": 1, "lastSeen": 1757000000000 }
+  ],
+  "feedback": [
+    { "url": "https://example.test/read/1", "title": "Why our consensus layer lost quorum for eleven minutes", "topic": "software_engineering", "action": "read", "at": 1758150000000 },
+    { "url": "https://example.test/read/2", "title": "Measuring retrieval drift after every embedding retrain", "topic": "ai_ml", "action": "read", "at": 1758100000000 },
+    { "url": "https://example.test/read/3", "title": "A gentle derivation of the evidence lower bound", "topic": "math", "action": "read", "at": 1757900000000 },
+    { "url": "https://example.test/read/4", "title": "Tail latency in a lock-free allocator: what the flame graph hid", "topic": "software_engineering", "action": "read", "at": 1757800000000 },
+    { "url": "https://example.test/skip/1", "title": "11 Morning Habits of Highly Effective Engineers", "topic": "productivity_selfhelp", "action": "skip", "at": 1757700000000 },
+    { "url": "https://example.test/skip/2", "title": "Introducing Nimbus 4.0: faster, smarter, better", "topic": "consumer_tech_products", "action": "skip", "at": 1757600000000 },
+    { "url": "https://example.test/skip/3", "title": "Tech Twitter Is FURIOUS About This Framework Decision", "topic": "software_engineering", "action": "skip", "at": 1757500000000 }
+  ]
+}

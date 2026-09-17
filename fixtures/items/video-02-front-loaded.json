@@ -1,0 +1,315 @@
+{
+  "id": "video-02-front-loaded",
+  "content": {
+    "kind": "video",
+    "url": "https://www.youtube.com/watch?v=vN3hK8wXd2Q",
+    "videoId": "vN3hK8wXd2Q",
+    "title": "Consistent Hashing: Why Virtual Nodes Actually Matter",
+    "channel": "Systems Sketchbook",
+    "durationSec": 1092,
+    "transcript": [
+      {
+        "start": 0,
+        "dur": 18,
+        "text": "hey so today i want to talk about consistent hashing and specifically about virtual nodes because um most explanations spend all their time on the ring and then mention virtual nodes as an afterthought and honestly the virtual nodes are the whole point"
+      },
+      {
+        "start": 18,
+        "dur": 16,
+        "text": "so here is the one thing i want you to take away plain consistent hashing with one point per server on the ring does not balance load well at all like at ten servers you should expect the busiest one to get about two to three times the average"
+      },
+      {
+        "start": 34,
+        "dur": 21,
+        "text": "and that is not because your hash function is bad it is because you only have one random sample per server so the gap between neighbouring points on the ring is basically a random spacing and random spacings are really uneven"
+      },
+      {
+        "start": 55,
+        "dur": 17,
+        "text": "if you drop n points at random on a circle the biggest gap is about the natural log of n divided by n so at ten servers that is roughly two point three over ten and the biggest arc covers twenty three percent of the ring not ten"
+      },
+      {
+        "start": 72,
+        "dur": 15,
+        "text": "and actually the expected max is a bit higher than that once you account for the constant so call it two point nine times the average at ten nodes and it does not get much better as you add servers because log n keeps growing"
+      },
+      {
+        "start": 87,
+        "dur": 22,
+        "text": "so virtual nodes fix this by giving each server not one point on the ring but say a hundred or a hundred and fifty points and now each server owns a hundred and fifty little arcs instead of one big one"
+      },
+      {
+        "start": 109,
+        "dur": 19,
+        "text": "and the reason that helps is just averaging right each little arc is still random but you are summing a hundred and fifty of them so the variation shrinks by roughly the square root of a hundred and fifty which is about twelve"
+      },
+      {
+        "start": 128,
+        "dur": 20,
+        "text": "so that two to three x imbalance becomes something like plus or minus ten percent around the average with a hundred and fifty virtual nodes per server and that is the number most real systems land on somewhere between a hundred and two hundred"
+      },
+      {
+        "start": 148,
+        "dur": 16,
+        "text": "the second thing virtual nodes buy you and this one is less talked about is what happens when a server dies with one point per server its entire arc goes to one neighbour so that neighbour now has double the load"
+      },
+      {
+        "start": 164,
+        "dur": 18,
+        "text": "with virtual nodes the dead server's hundred and fifty little arcs get absorbed by a hundred and fifty different neighbours so the extra load spreads across the whole cluster and nobody doubles okay that is the whole idea now let me actually walk through it"
+      },
+      {
+        "start": 182,
+        "dur": 18,
+        "text": "so let me back up and do the basics for anyone who has not seen the ring before um you take your hash function output space say zero to two to the thirty two and you imagine it wrapped around into a circle"
+      },
+      {
+        "start": 200,
+        "dur": 16,
+        "text": "then for each server you hash its name or its address or whatever and that gives you a point on the circle and for each key you hash the key and that gives you another point on the circle"
+      },
+      {
+        "start": 216,
+        "dur": 21,
+        "text": "and the rule is a key belongs to the first server you hit walking clockwise from the key's point so every server owns the arc between the previous server's point and its own point"
+      },
+      {
+        "start": 237,
+        "dur": 17,
+        "text": "and the reason people like this is that when you add or remove a server only the keys in one arc move right everything else stays put which is way better than the naive hash mod n approach where almost everything moves"
+      },
+      {
+        "start": 254,
+        "dur": 15,
+        "text": "okay so let me draw this with real numbers um i have four servers here call them a b c and d and i am going to use a tiny ring from zero to a hundred just to keep the arithmetic easy"
+      },
+      {
+        "start": 269,
+        "dur": 22,
+        "text": "so let us say a hashes to twelve b hashes to thirty c hashes to fifty five and d hashes to sixty so already you can probably see the problem right c and d are five apart and a and d are fifty two apart the long way"
+      },
+      {
+        "start": 291,
+        "dur": 19,
+        "text": "so a owns everything from sixty one wrapping around to twelve which is fifty two units b owns thirteen to thirty which is eighteen c owns thirty one to fifty five which is twenty five and d owns fifty six to sixty which is five"
+      },
+      {
+        "start": 310,
+        "dur": 20,
+        "text": "so if keys are spread uniformly around the ring server a is doing fifty two percent of the work and server d is doing five percent that is a ten x difference between the busiest and the quietest and this is a totally normal random outcome"
+      },
+      {
+        "start": 330,
+        "dur": 16,
+        "text": "and i want to stress that these are just four random numbers i did not pick them to be dramatic um if you generate four random points on a circle this kind of spread is what you get most of the time"
+      },
+      {
+        "start": 346,
+        "dur": 18,
+        "text": "so the thing people sometimes do at this point is say okay my hash function must be bad let me try a different one and um that does not help you can use the best cryptographic hash in the world and four random points are still four random points"
+      },
+      {
+        "start": 364,
+        "dur": 18,
+        "text": "like the unevenness is a property of having few samples not a property of the hash so no amount of hash function shopping fixes it you need more samples per server and that is what virtual nodes are"
+      },
+      {
+        "start": 382,
+        "dur": 16,
+        "text": "okay so let us do the same four servers with virtual nodes and to keep it drawable i am only going to use three virtual nodes each so twelve points on the ring total in reality you would use a hundred plus"
+      },
+      {
+        "start": 398,
+        "dur": 21,
+        "text": "so for server a i hash a one a two a three and get say twelve forty four and seventy eight for b i get thirty sixty six and ninety one and so on i am going to put them all up on the screen here"
+      },
+      {
+        "start": 419,
+        "dur": 17,
+        "text": "and now if you add up the arcs each server owns um a owns three arcs totalling twenty nine units b owns three totalling twenty three c owns twenty six and d owns twenty two so that is a range of twenty two to twenty nine"
+      },
+      {
+        "start": 436,
+        "dur": 15,
+        "text": "compare that to five to fifty two before right so even with just three virtual nodes each we went from a ten x spread to like a one point three x spread and with a hundred and fifty it gets much tighter than that"
+      },
+      {
+        "start": 451,
+        "dur": 22,
+        "text": "let me restate why that works because i think it is worth saying twice each individual arc is still random and still uneven but a server's total load is the sum of its arcs and sums of random things are much more predictable than the individual things"
+      },
+      {
+        "start": 473,
+        "dur": 19,
+        "text": "it is the same reason a casino is happy to take a thousand bets even though it cannot predict any single one um the individual outcomes are noisy but the total is very tight around the average"
+      },
+      {
+        "start": 492,
+        "dur": 20,
+        "text": "so now the removal case let me remove server d from the plain ring first so d was at sixty owning fifty six to sixty and when it dies those keys walk clockwise and land on a so a goes from fifty two to fifty seven"
+      },
+      {
+        "start": 512,
+        "dur": 16,
+        "text": "okay in this specific example that is not so bad because d was small but imagine the reverse imagine a dies and its fifty two units all land on b so b goes from eighteen to seventy and it probably falls over too"
+      },
+      {
+        "start": 528,
+        "dur": 18,
+        "text": "and that is the cascading failure story right one node dies its neighbour doubles the neighbour dies and now the next neighbour has triple and um you can lose a whole ring this way from a single failure"
+      },
+      {
+        "start": 546,
+        "dur": 18,
+        "text": "now with virtual nodes when a dies its three arcs at twelve forty four and seventy eight each get absorbed by whatever is clockwise of each of them which is three different servers in my example so the load spreads"
+      },
+      {
+        "start": 564,
+        "dur": 16,
+        "text": "with a hundred and fifty virtual nodes it is a hundred and fifty different arcs going to essentially every other server in the cluster so if you had twenty servers each one picks up about a twentieth of the dead server's load and nobody notices much"
+      },
+      {
+        "start": 580,
+        "dur": 21,
+        "text": "okay let me talk about how many virtual nodes to use because a hundred and fifty is the number i keep saying and um there is a real tradeoff there it is not free so let me be honest about the cost"
+      },
+      {
+        "start": 601,
+        "dur": 17,
+        "text": "the cost is memory and lookup time right you have to store all those points in a sorted structure and do a binary search on lookup so with a thousand servers and two hundred virtual nodes each that is two hundred thousand entries which is fine but not nothing"
+      },
+      {
+        "start": 618,
+        "dur": 15,
+        "text": "and the benefit follows a square root curve so going from one to a hundred gets you ten x tighter going from a hundred to four hundred only gets you another two x so there are diminishing returns pretty quickly"
+      },
+      {
+        "start": 633,
+        "dur": 22,
+        "text": "which is why you see numbers in the hundred to two hundred range in most real systems um it is the knee of the curve where you have gotten most of the benefit and the table is still small enough to not care about"
+      },
+      {
+        "start": 655,
+        "dur": 19,
+        "text": "one more thing on that some systems let you give different servers different numbers of virtual nodes so if one machine has twice the capacity you give it twice the points and it gets about twice the load which is a nice property for free"
+      },
+      {
+        "start": 674,
+        "dur": 20,
+        "text": "okay let me do a slower walkthrough of an actual lookup with virtual nodes because i think seeing the mechanics helps um so i have my twelve points sorted in an array with the server each one belongs to"
+      },
+      {
+        "start": 694,
+        "dur": 16,
+        "text": "a key comes in i hash it and get say forty eight so i binary search the array for the first point greater than or equal to forty eight and in my example that is fifty five which belongs to c so the key goes to c"
+      },
+      {
+        "start": 710,
+        "dur": 18,
+        "text": "another key hashes to ninety five the first point at or above ninety five um there is not one so i wrap around to the first point in the array which is twelve belonging to a so that key goes to a that is the wraparound case"
+      },
+      {
+        "start": 728,
+        "dur": 18,
+        "text": "and that is it that is the whole lookup it is one hash and one binary search and um the virtual nodes do not change the algorithm at all they just change how many entries are in the array"
+      },
+      {
+        "start": 746,
+        "dur": 16,
+        "text": "now let me add a server e with three virtual nodes um they hash to say twenty fifty and eighty five so i insert those three points into the sorted array and now some keys that used to go to other servers will hit e first"
+      },
+      {
+        "start": 762,
+        "dur": 21,
+        "text": "and specifically the keys that move are the ones in the arc just before each of e's points so keys between thirteen and twenty move from b to e keys between forty five and fifty move from whoever owned that to e and so on"
+      },
+      {
+        "start": 783,
+        "dur": 17,
+        "text": "and everything else stays exactly where it was so adding a server moves roughly one fifth of the keys when you have five servers which is the minimum possible and um this is the property people actually mean when they say consistent"
+      },
+      {
+        "start": 800,
+        "dur": 15,
+        "text": "let me restate the whole thing one more time in one breath the ring gives you minimal movement on add and remove one point per server gives you terrible balance because random spacings are uneven and virtual nodes fix the balance by averaging"
+      },
+      {
+        "start": 815,
+        "dur": 22,
+        "text": "okay quick aside um if you like these kind of walkthroughs i do a written version every couple weeks in the systems sketchbook newsletter with the diagrams cleaned up and some extra examples link is in the description no pressure"
+      },
+      {
+        "start": 837,
+        "dur": 19,
+        "text": "back to it so um a question i get a lot is what about when keys are not uniform like what if one key is super hot and the answer is virtual nodes do not help with that at all"
+      },
+      {
+        "start": 856,
+        "dur": 20,
+        "text": "right virtual nodes balance the ring space they make sure each server owns about the same amount of the circle but if ninety percent of your traffic is one key then whoever owns that one key is hot regardless"
+      },
+      {
+        "start": 876,
+        "dur": 16,
+        "text": "so that is a different problem with different solutions like replicating hot keys or salting them or caching in front and um i might do a separate video on that but i wanted to be clear it is not what we are solving today"
+      },
+      {
+        "start": 892,
+        "dur": 18,
+        "text": "another question is whether you need to store the virtual node table on every client or whether it lives in some central place and um it can be either the table is small and deterministic so every client can just compute it from the server list"
+      },
+      {
+        "start": 910,
+        "dur": 18,
+        "text": "as long as everyone agrees on the hash function and the server list and the number of virtual nodes they will all compute the same ring and route the same key to the same server without talking to each other"
+      },
+      {
+        "start": 928,
+        "dur": 16,
+        "text": "which is honestly the most elegant part of this to me like there is no coordinator the ring is just a pure function of the membership list and um that makes it really easy to reason about and really easy to test"
+      },
+      {
+        "start": 944,
+        "dur": 21,
+        "text": "okay let me go back to the imbalance numbers one more time because i said two to three x at the top and i want to make sure that lands so um with n servers and one point each the biggest arc is about log n over n"
+      },
+      {
+        "start": 965,
+        "dur": 17,
+        "text": "at ten servers log of ten is about two point three so the biggest arc is roughly twenty three percent of the ring versus an average of ten percent and once you account for the constant it is closer to twenty nine percent so almost three x"
+      },
+      {
+        "start": 982,
+        "dur": 15,
+        "text": "at a hundred servers log of a hundred is about four point six so the biggest arc is four point six percent versus an average of one percent so um it is actually worse at a hundred servers than at ten in ratio terms"
+      },
+      {
+        "start": 997,
+        "dur": 22,
+        "text": "which surprises people right adding more servers does not fix the imbalance with plain consistent hashing it makes the ratio slightly worse because that log term keeps growing only virtual nodes bring it down"
+      },
+      {
+        "start": 1019,
+        "dur": 19,
+        "text": "and with a hundred and fifty virtual nodes at a hundred servers you are summing a hundred and fifty arcs per server the standard deviation drops by about twelve x and you end up within roughly ten percent of average almost all the time"
+      },
+      {
+        "start": 1038,
+        "dur": 20,
+        "text": "so to recap one last time um plain ring is two to three x imbalanced because few samples virtual nodes give you many samples and averaging brings it to about ten percent and they also spread the load when a server dies"
+      },
+      {
+        "start": 1058,
+        "dur": 16,
+        "text": "if this was useful the newsletter has the written version and the next video is going to be about the hot key problem i mentioned um so subscribe if you want that and leave a comment if there is a specific system you want me to sketch out"
+      },
+      {
+        "start": 1074,
+        "dur": 18,
+        "text": "thanks for watching and um as always if i got something wrong tell me in the comments i read all of them and i would rather be corrected than be confidently wrong see you next time"
+      }
+    ],
+    "description": "A whiteboard-style explainer on consistent hashing that leads with the part most tutorials skip: why one point per server gives badly uneven load and how virtual nodes fix it. Includes a worked four-server example, a lookup walkthrough, and the server-removal case."
+  },
+  "notes": "Tests whether the summariser recognises a front-loaded video and does not over-weight the long tail of worked examples, restatements and a newsletter plug. The payoff (plain consistent hashing yields roughly 2-3x max-to-average load imbalance because of random spacings, ~150 virtual nodes average it down to about plus or minus 10 percent, and virtual nodes also spread a dead server's load across the cluster) lives in segments 0-9; segments 10-59 only elaborate and restate it."
+}

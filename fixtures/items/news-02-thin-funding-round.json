@@ -1,0 +1,15 @@
+{
+  "id": "news-02-thin-funding-round",
+  "content": {
+    "kind": "article",
+    "url": "https://venturebrief.example/harborline-series-a",
+    "title": "Harborline Raises Series A to Bring AI to Supply Chain Planning",
+    "text": "Harborline, a startup building artificial intelligence tools for supply chain planning, announced on Thursday that it has closed a Series A funding round. The size of the round was not disclosed.\n\nThe round was led by Ridgeback Ventures, with participation from existing investors, according to a press release issued by the company. Harborline said the funding would be used to \"accelerate product development, expand the team, and deepen relationships with enterprise customers.\"\n\n\"We are thrilled to partner with Ridgeback as we enter our next phase of growth,\" Harborline co-founder and chief executive Devan Malhotra said in the release. \"Supply chains are the backbone of the global economy, and we believe intelligent planning tools can unlock enormous value for the businesses that run them.\"\n\nA source familiar with the deal said the round was \"in the tens of millions\" but declined to be more specific. Harborline did not respond to a request for details on valuation, revenue, or customer numbers.\n\nFounded in 2023, Harborline describes itself as a company on a mission to make supply chains more resilient, sustainable, and efficient through the power of machine learning. Its platform, according to the company's website, ingests data from enterprise resource planning systems and produces demand forecasts and inventory recommendations. The company says it works with \"leading brands across retail, manufacturing, and consumer goods\" but has not publicly named any customers.\n\n\"Harborline's team combines deep domain expertise with world-class technical talent,\" Ridgeback Ventures partner Selena Ortiz said in the release. \"We are excited to support them as they redefine what is possible in supply chain planning.\"\n\nThe company said it plans to grow its headcount over the coming year, with a focus on engineering and go-to-market roles. It currently employs \"dozens\" of people, according to the release, across offices in two cities that were not named.\n\nThe supply chain software market has attracted significant investor interest in recent years as companies look to reduce the disruptions that have affected global trade. Harborline joins a number of startups in the space that have raised venture funding.\n\nHarborline said further product announcements would follow later this year.",
+    "wordCount": 352,
+    "readingMinutes": 2,
+    "byline": "Staff Reporter",
+    "siteName": "Venture Brief",
+    "readabilityHit": true
+  },
+  "notes": "Thin funding-round item that restates a press release: undisclosed amount, one anonymous source, no customers named, no valuation or revenue, padded with mission boilerplate and generic market context. Judge should flag the lack of independent verification and concrete numbers and rate it low-value."
+}

@@ -1,0 +1,315 @@
+{
+  "id": "video-01-payoff-late",
+  "content": {
+    "kind": "video",
+    "url": "https://www.youtube.com/watch?v=qR7tZk2pLm9",
+    "videoId": "qR7tZk2pLm9",
+    "title": "How Our Retry Storms Took Down Our Own Service",
+    "channel": "Northlake Systems Conference",
+    "durationSec": 2130,
+    "transcript": [
+      {
+        "start": 0,
+        "dur": 35,
+        "text": "okay um hi everyone can you hear me in the back yeah okay great so thanks for coming out to the two thirty slot i know this is right after lunch my name is devika and i lead the fulfillment platform team at tidewater logistics"
+      },
+      {
+        "start": 35,
+        "dur": 33,
+        "text": "so before i get into anything i want to say thanks to the northlake organizers this is my third year here and um the coffee situation has improved dramatically so whoever fixed that you are the real reliability engineer and also thanks to our sponsors for the lanyards"
+      },
+      {
+        "start": 68,
+        "dur": 38,
+        "text": "right so the title of this talk is how our retry storms took down our own service and um yes that is exactly what happened and no it was not a fun quarter but i think there is something useful in here that i have not seen talked about much"
+      },
+      {
+        "start": 106,
+        "dur": 36,
+        "text": "a little bit about tidewater for context we do last mile logistics for mid sized retailers so um a store sells something online and we figure out which van it goes on and when we are in about forty cities now and we move roughly two million parcels a week"
+      },
+      {
+        "start": 142,
+        "dur": 32,
+        "text": "the fulfillment platform is the piece in the middle so orders come in from retailer integrations they hit our routing service which talks to a bunch of downstream things like the address normaliser the depot capacity service the driver scheduling thing and um a few others"
+      },
+      {
+        "start": 174,
+        "dur": 40,
+        "text": "and the team that owns all of that is my team we are eleven people which is um a lot bigger than when i joined and i want to take a detour because i think the history matters for how we ended up where we ended up"
+      },
+      {
+        "start": 214,
+        "dur": 34,
+        "text": "so when i joined tidewater about six years ago the whole platform was one big ruby app and there were four of us and honestly it was fine it was slow and it fell over sometimes but the volume was small enough that nobody really noticed except us"
+      },
+      {
+        "start": 248,
+        "dur": 37,
+        "text": "and then we had this growth year where volume went up something like eight x and um everything that had been fine stopped being fine and so we did what everyone does we split it up into services and we wrote a lot of go"
+      },
+      {
+        "start": 285,
+        "dur": 31,
+        "text": "and one of the first things we built during that split was a shared client library right because we had like eight services calling each other and we did not want eight different implementations of timeouts and retries and connection pooling so we made one library and everyone used it"
+      },
+      {
+        "start": 316,
+        "dur": 39,
+        "text": "and i want to be clear that library was a good idea it saved us a ton of pain it had sensible defaults it had exponential backoff with jitter it had circuit breakers eventually and um it is still in use today with some changes that i will get to"
+      },
+      {
+        "start": 355,
+        "dur": 35,
+        "text": "the team went through a few shapes after that at one point we were split into a routing squad and a depot squad and that did not work because everything touched everything so we merged back and um then two people left and three joined"
+      },
+      {
+        "start": 390,
+        "dur": 33,
+        "text": "i mention all this because one thing that happened during all that churn is that the person who originally wrote the retry code left and the person who took over the library was focused on the circuit breaker stuff and nobody looked at the backoff implementation for three years"
+      },
+      {
+        "start": 423,
+        "dur": 38,
+        "text": "which is fine that is normal that is how software works you have code that works and nobody touches it that is usually a good sign not a bad one but it does mean that when there is something subtle in there nobody has fresh eyes on it"
+      },
+      {
+        "start": 461,
+        "dur": 36,
+        "text": "okay so let me try to show you the setup we had i have a little demo environment here um let me switch over to the screen hold on is that showing okay it is okay so this is a scaled down version of our platform running locally"
+      },
+      {
+        "start": 497,
+        "dur": 32,
+        "text": "so what you are seeing is um a load generator on the left sending requests into a fake routing service and the routing service is calling a fake depot capacity service on the right and there are twenty client instances all using the same client library"
+      },
+      {
+        "start": 529,
+        "dur": 40,
+        "text": "let me start the load generator um okay it is starting it takes a second to warm up there we go so you can see we are running at about two hundred requests a second in this toy setup and the latency graph down here is nice and flat"
+      },
+      {
+        "start": 569,
+        "dur": 34,
+        "text": "um sorry the graph is a little small let me zoom in a bit there okay so flat latency around forty milliseconds and the depot service is happily returning two hundreds for everything and this is what a normal tuesday looked like for us"
+      },
+      {
+        "start": 603,
+        "dur": 37,
+        "text": "now i am going to do something to the depot service in a minute but before i do let me talk a little about what we thought we knew about reliability at that point because i think our assumptions were pretty typical"
+      },
+      {
+        "start": 640,
+        "dur": 31,
+        "text": "so we had read all the usual stuff right retries are good but bound them use exponential backoff add jitter so you do not get thundering herds use circuit breakers so you stop hammering something that is down and we had done all of those things or so we thought"
+      },
+      {
+        "start": 671,
+        "dur": 39,
+        "text": "and we had dashboards and alerts and um we had done a few game days where we killed a service and watched things recover and they generally did recover so we felt okay about it not great but okay we had bigger fires to worry about honestly"
+      },
+      {
+        "start": 710,
+        "dur": 35,
+        "text": "we also had this general principle that i think a lot of teams have where you assume the downstream is the problem right if the depot service is slow that is the depot service's problem and our job is just to be patient and retry politely"
+      },
+      {
+        "start": 745,
+        "dur": 33,
+        "text": "and um that framing turned out to be exactly wrong for us because the thing that took down the depot service was not the depot service it was us being patient and polite in a very specific and very synchronised way but i am getting ahead of myself"
+      },
+      {
+        "start": 778,
+        "dur": 38,
+        "text": "okay let me get back to the demo so i am going to inject a little latency into the depot service um just enough to push some requests past our client timeout which is set to five hundred milliseconds in this setup let me turn that on"
+      },
+      {
+        "start": 816,
+        "dur": 36,
+        "text": "okay so um you can see latency going up on the depot side some requests are now timing out on the client and the client library is doing what it is supposed to do it is retrying with backoff and jitter you can see the retry counter ticking up here"
+      },
+      {
+        "start": 852,
+        "dur": 32,
+        "text": "watch the request rate at the depot service um it went from two hundred to about six hundred that is what you expect with a couple retries per request and it is stressed but it is holding on we had tested this case in game days"
+      },
+      {
+        "start": 884,
+        "dur": 40,
+        "text": "so in a second i am going to show you what happens when i restart all twenty clients at once which is what a deploy looked like for us but um let me first spend a minute on why deploys are relevant here because it is not obvious"
+      },
+      {
+        "start": 924,
+        "dur": 34,
+        "text": "so we deployed the routing service a lot like several times a day and our deploy process was a rolling restart but the rolling part was aggressive um we did a third of the fleet at once and it had never caused a problem"
+      },
+      {
+        "start": 958,
+        "dur": 37,
+        "text": "and the client library initialised its random number generator at process start right like every library does and um the seed came from a helper function that someone had written years ago and that helper is the entire story of this talk but hold that thought"
+      },
+      {
+        "start": 995,
+        "dur": 31,
+        "text": "let me also say a word about how we do incident review at tidewater because it is relevant to how we found this we do blameless postmortems the usual thing and um we have a rule that you have to find a mechanism not just a trigger"
+      },
+      {
+        "start": 1026,
+        "dur": 39,
+        "text": "so a trigger would be like the depot service got slow and a mechanism would be why did slowness turn into an outage and that rule is the only reason we kept digging on this one because honestly the first three explanations we had were all wrong"
+      },
+      {
+        "start": 1065,
+        "dur": 35,
+        "text": "the first incident was in march um the depot service had a slow database query for about two minutes which by itself should have been a blip and instead we had a forty minute outage of the whole fulfillment path and the on call thought it was the database"
+      },
+      {
+        "start": 1100,
+        "dur": 33,
+        "text": "the second incident was in april same shape a little hiccup downstream turned into a huge outage and this time the on call thought it was the network and um to be fair the network graphs did look weird because of what was actually happening"
+      },
+      {
+        "start": 1133,
+        "dur": 38,
+        "text": "the third one was in may and that is when we finally noticed that all three had happened within a couple minutes of a deploy of the routing service and um that was the clue that got us looking at the client side instead of the downstream"
+      },
+      {
+        "start": 1171,
+        "dur": 36,
+        "text": "okay let me actually do the thing in the demo now so the depot service is still a bit slow and the clients are retrying at a modest rate and i am going to restart all twenty client processes right now um there we go"
+      },
+      {
+        "start": 1207,
+        "dur": 32,
+        "text": "look at that so the request rate at the depot went from six hundred to a spike of about eight thousand and then it drops to zero and then eight thousand again and zero again and now the depot service is completely dead and it was fine before"
+      },
+      {
+        "start": 1239,
+        "dur": 40,
+        "text": "so the shape you are looking at there with the spikes and the gaps that is the signature of the thing and um it took us honestly about three weeks of staring at graphs like this before someone on the team said wait why are the spikes so narrow"
+      },
+      {
+        "start": 1279,
+        "dur": 34,
+        "text": "so here is the actual mechanism the client library used exponential backoff with full jitter which is the right thing sleep a random amount between zero and base times two to the attempt but the random generator was seeded from a helper that returned the current unix time in seconds"
+      },
+      {
+        "start": 1313,
+        "dur": 37,
+        "text": "and that sounds harmless until you restart a third of your fleet in the same second because every one of those processes gets the same seed which means the same random sequence which means when they all hit a timeout they all draw the same jitter value"
+      },
+      {
+        "start": 1350,
+        "dur": 31,
+        "text": "so the jitter was doing nothing the whole point of jitter is to spread retries across the backoff window and we had two hundred processes all sleeping for exactly the same number of milliseconds and waking up in the same forty millisecond window and hitting the depot together"
+      },
+      {
+        "start": 1381,
+        "dur": 39,
+        "text": "and here is the math our baseline into depot was about two thousand requests per second with a retry budget of three attempts so a full retry cascade is four x that is eight thousand per second averaged over time which is bad but survivable"
+      },
+      {
+        "start": 1420,
+        "dur": 35,
+        "text": "but synchronised it is not averaged so six thousand retries that should have been spread across a two second backoff window landed in forty milliseconds and six thousand over point zero four is a hundred and fifty thousand requests per second instantaneous which is seventy five times our normal peak"
+      },
+      {
+        "start": 1455,
+        "dur": 33,
+        "text": "and worse those requests all time out together so they retry together so the second wave is synchronised too and it doubles the backoff so you get these pulses at one second two seconds four seconds and the depot never gets a quiet moment to drain its queue"
+      },
+      {
+        "start": 1488,
+        "dur": 38,
+        "text": "and the thing that made it hard to find is that on a normal day with only a few processes restarting the seeds were different enough and it looked fine and our game days killed the downstream not the clients so we never restarted clients under load in a test"
+      },
+      {
+        "start": 1526,
+        "dur": 36,
+        "text": "so the fix had three parts first seed the generator from the crypto random source not the clock which removes the synchronisation entirely second we switched to decorrelated jitter where each sleep is random between the base and three times the previous sleep capped at ten seconds"
+      },
+      {
+        "start": 1562,
+        "dur": 32,
+        "text": "and third a retry budget capping retries at ten percent of successful volume in a rolling window so worst case amplification is one point one x not four x and when we replayed the may traffic in staging peak dropped from a hundred and fifty thousand to twenty two hundred"
+      },
+      {
+        "start": 1594,
+        "dur": 40,
+        "text": "so um that is the talk basically the seed was the clock the jitter was fake and the retries were synchronised and we fixed it with a real seed decorrelated jitter and a budget i have a few minutes for questions i think yeah go ahead"
+      },
+      {
+        "start": 1634,
+        "dur": 34,
+        "text": "okay the question is did we consider just slowing down the deploy so fewer processes restart at once and um yes we did that too we went from a third of the fleet to five percent at a time but honestly that is treating the trigger not the mechanism"
+      },
+      {
+        "start": 1668,
+        "dur": 37,
+        "text": "like the seed problem would still be there and one day something else would restart everything at once like a node failure or a config push and um you would be right back where you started so we did both but the seed change is the one that matters"
+      },
+      {
+        "start": 1705,
+        "dur": 31,
+        "text": "yeah question in the middle so how did we confirm it was the seed and not something else and the answer is we logged the first five jitter values from every process after a restart and they were identical across two hundred processes it was very obvious once we looked"
+      },
+      {
+        "start": 1736,
+        "dur": 39,
+        "text": "next question yes so the question is about the ten percent retry budget and whether that means we drop requests that would have succeeded on retry and yes it does and that is the point right if you are retrying more than ten percent of your traffic something is wrong"
+      },
+      {
+        "start": 1775,
+        "dur": 35,
+        "text": "and you would rather fail a few requests fast than take the whole downstream out and fail everything for forty minutes so um it is a tradeoff but it is a very good tradeoff in our experience we have not had a single retry storm in the nine months since"
+      },
+      {
+        "start": 1810,
+        "dur": 33,
+        "text": "okay one more over there yes the question is whether the library is open source and no it is internal but the pattern is not special the decorrelated jitter thing is described and a retry budget is just a token bucket you can build it in an afternoon"
+      },
+      {
+        "start": 1843,
+        "dur": 38,
+        "text": "also if you have a shared client library that is more than a couple years old go look at how it seeds its random number generator today like literally this afternoon because we were not doing anything weird it was just a helper someone wrote and nobody questioned"
+      },
+      {
+        "start": 1881,
+        "dur": 36,
+        "text": "okay time for one more yeah so did the circuit breakers not help and um they did trip eventually but the breaker was per process and needed a certain number of failures before it opened and the first synchronised wave happened before any breaker had seen enough"
+      },
+      {
+        "start": 1917,
+        "dur": 32,
+        "text": "so by the time the breakers opened the depot service was already down and then they all half opened at the same time because same seed same timing so the circuit breakers were also synchronised which was a fun discovery we fixed that with the same seed change"
+      },
+      {
+        "start": 1949,
+        "dur": 40,
+        "text": "okay i am getting the signal so um to wrap up the takeaways are jitter only works if it is actually random check your seeds retries need a budget not just a max count and test restarting your clients under load not just killing your downstreams"
+      },
+      {
+        "start": 1989,
+        "dur": 34,
+        "text": "and um the bigger lesson for us was the mechanism rule in postmortems if we had stopped at the database was slow or the network was weird we would have had this happen a fourth and fifth time so um push past the trigger even when it is annoying"
+      },
+      {
+        "start": 2023,
+        "dur": 37,
+        "text": "i want to thank my team especially um the two people who did most of the graph staring and the person who wrote the replay tool that let us reproduce this in staging that tool ended up being useful for a bunch of other things too"
+      },
+      {
+        "start": 2060,
+        "dur": 31,
+        "text": "if you want to talk more about this i will be around at the tidewater table in the hallway for the rest of the afternoon and um we are hiring for the fulfillment platform team so if this sounds like the kind of problem you would enjoy come say hi"
+      },
+      {
+        "start": 2091,
+        "dur": 39,
+        "text": "also i wrote this up in a lot more detail on our engineering blog it should go up next week with the actual graphs and the code for the retry budget so um look for that and thanks again to northlake for having me and thank you all for listening"
+      }
+    ],
+    "description": "Devika from the fulfillment platform team at Tidewater Logistics walks through three outages that turned out to be caused by the team's own retry logic. Covers the investigation, the surprising root cause in a shared client library, and the fixes that eliminated the problem. Recorded at Northlake Systems Conference."
+  },
+  "notes": "Tests whether the summariser skips ~21 minutes of intro, sponsor thanks, company background, team history, slow demo setup and generic reliability remarks to find the buried mechanism. The payoff (clock-seeded PRNG making jitter identical across simultaneously restarted clients, the 75x instantaneous amplification math, and the three-part fix with numbers) lives in segments 36-44; segments 45-59 are Q&A restating it plus thanks and plugs."
+}
