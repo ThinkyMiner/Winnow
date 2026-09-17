@@ -92,12 +92,37 @@ function capSegments(segs: TranscriptSegment[]): TranscriptSegment[] {
 }
 
 /**
+ * Caption URLs embedded in the watch page are gated by a proof-of-origin token since 2025 and return an
+ * empty 200 body when fetched directly (observed 2026-09-18). The InnerTube player endpoint, asked as the
+ * iOS client, hands back ungated URLs. Same-origin from the content script; no extra permissions.
+ */
+export async function fetchCaptionTracks(videoId: string): Promise<Any[]> {
+  try {
+    const res = await fetch("https://www.youtube.com/youtubei/v1/player?prettyPrint=false", {
+      method: "POST",
+      credentials: "omit",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        context: { client: { clientName: "IOS", clientVersion: "20.10.4", deviceModel: "iPhone16,2", hl: "en" } },
+        videoId,
+      }),
+    });
+    if (!res.ok) return [];
+    const j: Any = await res.json();
+    return j?.captions?.playerCaptionsTracklistRenderer?.captionTracks ?? [];
+  } catch {
+    return [];
+  }
+}
+
+/**
  * Fetches captions for the chosen track: json3 first, raw timedtext XML as fallback.
  * Returns undefined on any failure (no tracks, network error, unparsable body) —
  * the caller still returns a VideoContent, just without `transcript`.
  */
-async function fetchTranscript(pr: Any): Promise<TranscriptSegment[] | undefined> {
-  const tracks: Any[] = pr?.captions?.playerCaptionsTracklistRenderer?.captionTracks ?? [];
+async function fetchTranscript(pr: Any, videoId: string): Promise<TranscriptSegment[] | undefined> {
+  const pageTracks: Any[] = pr?.captions?.playerCaptionsTracklistRenderer?.captionTracks ?? [];
+  const tracks = (await fetchCaptionTracks(videoId)).concat(pageTracks);
   const track = pickTrack(tracks);
   if (!track?.baseUrl) return undefined;
   try {
@@ -142,7 +167,7 @@ export async function extractYouTube(doc: Document, url: string): Promise<VideoC
       if (m) durationSec = Number(m[1] ?? 0) * 3600 + Number(m[2] ?? 0) * 60 + Number(m[3] ?? 0) || undefined;
     }
     const description = typeof vd.shortDescription === "string" ? vd.shortDescription.slice(0, 1000) : undefined;
-    const transcript = await fetchTranscript(pr);
+    const transcript = await fetchTranscript(pr, videoId);
     return { kind: "video", url, videoId, title, channel, durationSec, transcript, description };
   } catch {
     return null;

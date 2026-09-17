@@ -34,6 +34,8 @@ export function computeVerdict(j: Judgment, t: Thresholds): Verdict {
   const minutes = j.readingMinutes ?? (j.durationSec != null ? j.durationSec / 60 : undefined);
   const long = minutes != null && minutes > t.save_min_minutes;
   const goalFit = a.serves_reader_goals >= t.read_now_min_goal_fit;
+  // Title+snippet judgments cannot see the body: density, AI-written and claims rules would only measure the headline.
+  const body = j.depth === "full";
   let label: VerdictLabel | undefined;
 
   const fire = (rule: string, l: VerdictLabel, reason: string | undefined, ...c: number[]) => {
@@ -49,11 +51,11 @@ export function computeVerdict(j: Judgment, t: Thresholds): Verdict {
     fire("sales_pitch", "skip", `Likely a sales pitch (${pct(a.undisclosed_sales_pitch)})`, noulConf(a.undisclosed_sales_pitch));
   } else if (a.already_known_to_reader >= t.skip_min_known) {
     fire("already_known", "skip", `You likely know this already (${pct(a.already_known_to_reader)})`, noulConf(a.already_known_to_reader));
-  } else if (density <= t.skip_max_density) {
+  } else if (body && density <= t.skip_max_density) {
     fire("low_density", "skip", `Insight density ${density}/10`, a.insight_density.confidence);
-  } else if (a.ai_written >= t.skip_min_ai_written && density < t.read_now_min_density) {
+  } else if (body && a.ai_written >= t.skip_min_ai_written && density < t.read_now_min_density) {
     fire("ai_written", "skip", `Probably AI-written (${pct(a.ai_written)})`, noulConf(a.ai_written), a.insight_density.confidence);
-  } else if (density >= t.read_now_min_density && a.already_known_to_reader <= t.read_now_max_known && goalFit) {
+  } else if (body && density >= t.read_now_min_density && a.already_known_to_reader <= t.read_now_max_known && goalFit) {
     fire(
       long ? "read_now_long_save" : "read_now",
       long ? "save" : "read_now",
@@ -62,7 +64,7 @@ export function computeVerdict(j: Judgment, t: Thresholds): Verdict {
       noulConf(a.already_known_to_reader),
       noulConf(a.serves_reader_goals),
     );
-  } else if (goalFit && density >= 5 && long) {
+  } else if (body && goalFit && density >= 5 && long) {
     fire("skim_long_save", "save", undefined, a.insight_density.confidence, noulConf(a.serves_reader_goals));
   } else if (a.jev_verdict.confidence >= 0.5) {
     // No threshold zone claimed this item; let Jev's own read break the tie.
@@ -71,13 +73,16 @@ export function computeVerdict(j: Judgment, t: Thresholds): Verdict {
     fire("default_skim", "skim", undefined, a.insight_density.confidence);
   }
 
-  if ((ct.choice === "opinion" || ct.choice === "news") && a.claims_supported < t.skip_max_claims_supported && (label === "read_now" || label === "skim")) {
+  if (body && (ct.choice === "opinion" || ct.choice === "news") && a.claims_supported < t.skip_max_claims_supported && (label === "read_now" || label === "skim")) {
     fire("unsupported_claims", label === "read_now" ? "skim" : "skip", `Claims mostly unsupported (${pct(1 - a.claims_supported)})`, noulConf(a.claims_supported));
   }
 
   const final = label!;
   const mean = contrib.length ? contrib.reduce((x, y) => x + y, 0) / contrib.length : 0;
-  const confidence = a.jev_verdict.probabilities[final] ?? mean;
+  // read_now vs save is decided by length in code, not by Jev, so both share the "worth your time" mass.
+  const p = a.jev_verdict.probabilities;
+  const jevMass = final === "read_now" || final === "save" ? (p.read_now ?? 0) + (p.save ?? 0) : p[final];
+  const confidence = jevMass != null && Object.keys(p).length ? jevMass : mean;
   if (confidence < t.min_confidence) rules.push("low_confidence");
 
   // Always-on context lines, deduped against rule reasons.

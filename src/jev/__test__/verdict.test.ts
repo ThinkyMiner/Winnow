@@ -43,7 +43,7 @@ describe("computeVerdict rules", () => {
     const v = computeVerdict(judgment(), T);
     expect(v.label).toBe("read_now");
     expect(v.firedRules).toEqual(["read_now"]);
-    expect(v.confidence).toBe(0.7);
+    expect(v.confidence).toBeCloseTo(0.75);
     expect(v.reasons).toContain("Insight density 9/10");
     expect(v.reasons).toContain("Serves your goals (85%)");
     expect(v.reasons).toContain("~8 min read");
@@ -156,5 +156,30 @@ describe("toCardModel", () => {
     const art = toCardModel(judgment(), computeVerdict(judgment(), T), false);
     expect(art.kind).toBe("article");
     expect(art.payloadTimestamps).toBeUndefined();
+  });
+});
+
+describe("snippet depth (title-only feed items)", () => {
+  const snip = (over: Partial<JudgmentAnswers> = {}) => judgment(over, { depth: "snippet", readingMinutes: undefined });
+  it("does not skip on low density measured from a headline", () => {
+    const v = computeVerdict(snip({ insight_density: { score: 0, confidence: 0.9, levels: 5 } }), T);
+    expect(v.firedRules).not.toContain("low_density");
+    expect(v.label).toBe("read_now"); // jev_tiebreak
+  });
+  it("does not promote to read_now from a headline either", () => {
+    const v = computeVerdict(snip({ jev_verdict: { choice: "skim", confidence: 0.3, probabilities: { skim: 0.4, read_now: 0.3, skip: 0.3 } } }), T);
+    expect(v.firedRules).toEqual(["default_skim"]);
+  });
+  it("still skips rage bait and sales pitches", () => {
+    expect(computeVerdict(snip({ content_type: { choice: "rage_bait", confidence: 0.9, probabilities: { rage_bait: 0.9 } } }), T).label).toBe("skip");
+    expect(computeVerdict(snip({ undisclosed_sales_pitch: 0.9 }), T).label).toBe("skip");
+  });
+});
+
+describe("confidence", () => {
+  it("save shares the read_now probability mass", () => {
+    const v = computeVerdict(judgment({}, { readingMinutes: 40 }), T);
+    expect(v.label).toBe("save");
+    expect(v.confidence).toBeCloseTo(0.75);
   });
 });

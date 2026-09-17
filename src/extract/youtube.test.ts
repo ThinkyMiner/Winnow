@@ -122,13 +122,15 @@ describe("extractYouTube", () => {
   });
 
   it("returns transcript undefined when no captionTracks", async () => {
-    const fetchMock = vi.fn();
+    // Only the InnerTube player lookup fires (returns no tracks); no caption URL is fetched.
+    const fetchMock = vi.fn(async (_url: string) => ({ ok: true, json: async () => ({}) }));
     vi.stubGlobal("fetch", fetchMock);
     const v = await extractYouTube(page({ videoDetails: PR.videoDetails }), "https://youtu.be/abc");
     expect(v).not.toBeNull();
     expect(v!.transcript).toBeUndefined();
     expect(v!.title).toBe("Meta Title");
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(String(fetchMock.mock.calls[0]![0])).toContain("/youtubei/v1/player");
   });
 
   it("survives fetch throwing", async () => {

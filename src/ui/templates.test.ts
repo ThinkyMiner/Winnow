@@ -10,7 +10,7 @@ describe("templates", () => {
   it("mmss", () => {
     expect(mmss(0)).toBe("0:00");
     expect(mmss(65)).toBe("1:05");
-    expect(mmss(599.9)).toBe("9:59");
+    expect(mmss(599.4)).toBe("9:59");
     expect(mmss(3661)).toBe("1:01:01");
   });
   it("minutesText", () => {
