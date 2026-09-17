@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Worth It — options</title>
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; max-width: 40rem; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
+    h1 { font-size: 1.5rem; } h2 { font-size: 1.1rem; margin-top: 2rem; }
+    section { border-top: 1px solid #ddd; padding-top: .5rem; }
+    label { display: block; margin: .4rem 0; }
+    textarea { width: 100%; box-sizing: border-box; font: inherit; min-height: 5rem; }
+    input[type=password] { width: 100%; box-sizing: border-box; font: inherit; padding: .4rem; margin: .4rem 0; }
+    input[type=range] { width: 100%; }
+    button { font: inherit; padding: .4rem .8rem; cursor: pointer; margin-right: .5rem; }
+    small { color: #555; display: block; }
+    .row { display: flex; justify-content: space-between; gap: 1rem; }
+    .err { color: #b00020; } .ok { color: #1b7f3b; }
+    #status { color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Worth It</h1>
+  <p id="status" role="status">Loading…</p>
+
+  <section>
+    <h2>Reading goals</h2>
+    <small>Free text. Sent with every judgment so verdicts fit what you actually want to learn.</small>
+    <textarea id="goals" placeholder="e.g. Deepen my distributed systems knowledge; skip AI hype; I already know Rust basics."></textarea>
+    <button id="saveGoals" type="button">Save goals</button> <span id="goalsMsg"></span>
+  </section>
+
+  <section id="settings">
+    <h2>Modes</h2>
+    <label><input type="checkbox" id="pageMode" /> Page mode: judge the article or video you are on</label>
+    <label><input type="checkbox" id="feedMode" /> Feed mode: badge links in feeds</label>
+    <div style="margin-left:1.5rem">
+      <label><input type="checkbox" id="feed-hn" /> Hacker News</label>
+      <label><input type="checkbox" id="feed-youtube" /> YouTube</label>
+      <label><input type="checkbox" id="feed-generic" /> Other link lists</label>
+    </div>
+    <label><input type="checkbox" id="prefetchLinkText" /> Prefetch link text in feeds (judges body text instead of title; asks for access to all sites)</label>
+
+    <h2>Excluded hosts</h2>
+    <small>One per line. Matches the host exactly or any subdomain. Nothing runs on http:, localhost or private networks regardless.</small>
+    <textarea id="excludedHosts"></textarea>
+
+    <h2>Thresholds</h2>
+    <div id="thresholds"></div>
+    <button id="resetThresholds" type="button">Reset to defaults</button>
+  </section>
+
+  <section>
+    <h2>Data</h2>
+    <button id="clearCache" type="button">Clear cache</button>
+    <button id="resetReader" type="button">Reset reader state</button>
+    <span id="dataMsg"></span>
+  </section>
+
+  <section>
+    <h2>API key</h2>
+    <form id="keyForm">
+      <input id="key" type="password" autocomplete="off" placeholder="New Jev API key" required />
+      <button id="verify" type="submit">Verify and replace</button>
+      <span id="keyMsg"></span>
+    </form>
+  </section>
+
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

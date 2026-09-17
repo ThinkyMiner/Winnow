@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Worth It preview</title>
+<style>
+  :root { color-scheme: light dark; font: 15px/1.5 Georgia, serif; }
+  body { margin: 0; padding: 24px; background: Canvas; color: CanvasText; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  h2 { font-size: 16px; margin: 32px 0 12px; font-family: system-ui, sans-serif; }
+  #cards { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+  #feed { list-style: none; padding: 0; margin: 0; max-width: 640px; }
+  #feed li { padding: 6px 0; border-bottom: 1px solid color-mix(in srgb, CanvasText 15%, transparent); line-height: 1.5; }
+  #feed a { color: inherit; }
+  #log { font: 12px/1.4 ui-monospace, monospace; opacity: .7; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<header>
+  <strong>Worth It preview</strong>
+  <label><input type="checkbox" id="dark" /> Dark</label>
+</header>
+<h2>Cards</h2>
+<div id="cards"></div>
+<h2>Feed</h2>
+<ul id="feed"></ul>
+<h2>Events</h2>
+<div id="log"></div>
+<script type="module" src="./preview.ts"></script>
+</body>
+</html>

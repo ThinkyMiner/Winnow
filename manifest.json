@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Worth It",
+  "version": "0.1.0",
+  "description": "Labels articles and videos with a read-now / skim / save / skip verdict before you spend time on them.",
+  "icons": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "action": { "default_title": "Worth It settings" },
+  "permissions": ["storage", "unlimitedStorage"],
+  "host_permissions": ["https://api.typesafe.ai/*"],
+  "optional_host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "src/background/index.ts", "type": "module" },
+  "content_scripts": [
+    { "matches": ["<all_urls>"], "js": ["src/content/page.ts", "src/content/feed.ts"], "run_at": "document_idle" }
+  ],
+  "options_ui": { "page": "src/options/index.html", "open_in_tab": true }
+}

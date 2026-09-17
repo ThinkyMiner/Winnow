@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Worth It — set up</title>
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; max-width: 32rem; margin: 4rem auto; padding: 0 1rem; color: #1a1a1a; }
+    h1 { font-size: 1.5rem; }
+    input, button { font: inherit; padding: .5rem .75rem; }
+    input { width: 100%; box-sizing: border-box; margin: .5rem 0; }
+    button { cursor: pointer; }
+    .err { color: #b00020; }
+    [hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Worth It</h1>
+  <p>Paste your Jev API key from <a href="https://typesafe.ai" target="_blank" rel="noreferrer">typesafe.ai</a>. It is stored locally and only ever sent to api.typesafe.ai.</p>
+  <form id="form">
+    <input id="key" type="password" autocomplete="off" placeholder="Jev API key" required />
+    <button id="verify" type="submit">Verify</button>
+    <p id="status" role="status"></p>
+  </form>
+  <section id="done" hidden>
+    <p>Key verified. Model: <strong id="model"></strong>.</p>
+    <p><a href="../options/index.html">Set your reading goals in options</a>, or just start browsing.</p>
+  </section>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>
