@@ -123,7 +123,9 @@ export async function extractYouTube(doc: Document, url: string): Promise<VideoC
   const videoId = getVideoId(url);
   if (!videoId) return null;
   try {
-    const pr = findPlayerResponse(doc);
+    let pr = findPlayerResponse(doc);
+    // After YouTube SPA navigation the inline player response still describes the first-loaded video.
+    if (pr?.videoDetails?.videoId && pr.videoDetails.videoId !== videoId) pr = undefined;
     const vd = pr?.videoDetails ?? {};
     const meta = (sel: string) => doc.querySelector(sel)?.getAttribute("content")?.trim() || undefined;
     const title =
