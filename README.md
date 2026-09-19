@@ -189,8 +189,14 @@ Usage: the mark is the rounded three-piece W, as drawn, with no outlines, shadow
 
 [MIT](LICENSE) © 2026 ThinkyMiner.
 
-## Acknowledgements
+## Credits
 
-- [TypeSafe](https://typesafe.ai) for Jev and its typed-answer API.
+Winnow stands on other people's work. Every dependency, typeface, image and source is listed with its licence and link in [CREDITS.md](CREDITS.md). The short version:
+
+- [TypeSafe](https://typesafe.ai) for [Jev](https://docs.typesafe.ai) and its typed-answer API. Get a key at [console.typesafe.ai](https://console.typesafe.ai).
 - [Mozilla Readability](https://github.com/mozilla/readability) for article extraction.
-- [crxjs](https://crxjs.dev) for making MV3 builds with Vite painless.
+- [Vite](https://vite.dev) and [crxjs](https://crxjs.dev) for the MV3 build, [Vitest](https://vitest.dev) for the tests.
+- [Cabinet Grotesk](https://www.fontshare.com/fonts/cabinet-grotesk), [Inter](https://rsms.me/inter/) and [JetBrains Mono](https://www.jetbrains.com/lp/mono/) for the type.
+- Site imagery generated for this project; the archived draft in `site-oasis/` uses Creative Commons photographs credited [here](site-oasis/assets/photos/CREDITS.md).
+
+Winnow is not affiliated with TypeSafe AI.
