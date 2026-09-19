@@ -314,7 +314,7 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
 
 .footer__media::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background: linear-gradient(to bottom, rgba(15,23,42,0), rgba(15,23,42,.7) 60%, rgba(15,23,42,.7)); }
 
-.footer__stage { position: absolute; left: 0; right: 0; top: 34%; transform: translateY(-50%); z-index: 1; text-align: center; padding: 48px 16px; }
+.footer__stage { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); z-index: 1; text-align: center; padding: 48px 16px; }
 .footer__stage::before { content: ""; position: absolute; inset: -8% -10%; z-index: -1; background: radial-gradient(60% 70% at 50% 50%, rgba(15,23,42,.62), rgba(15,23,42,.34) 55%, rgba(15,23,42,0) 78%); }
 
 .footer__lockup { display: flex; align-items: center; justify-content: center; gap: 20px; font: 700 clamp(3.25rem, 7.6vw, 6.75rem)/1 var(--display); letter-spacing: -.035em; }
