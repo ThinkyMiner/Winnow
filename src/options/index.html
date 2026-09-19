@@ -2,68 +2,159 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Winnow — options</title>
-  <style>
-    body { font: 15px/1.5 system-ui, sans-serif; max-width: 40rem; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
-    h1 { font-size: 1.5rem; } h2 { font-size: 1.1rem; margin-top: 2rem; }
-    section { border-top: 1px solid #ddd; padding-top: .5rem; }
-    label { display: block; margin: .4rem 0; }
-    textarea { width: 100%; box-sizing: border-box; font: inherit; min-height: 5rem; }
-    input[type=password] { width: 100%; box-sizing: border-box; font: inherit; padding: .4rem; margin: .4rem 0; }
-    input[type=range] { width: 100%; }
-    button { font: inherit; padding: .4rem .8rem; cursor: pointer; margin-right: .5rem; }
-    small { color: #555; display: block; }
-    .row { display: flex; justify-content: space-between; gap: 1rem; }
-    .err { color: #b00020; } .ok { color: #1b7f3b; }
-    #status { color: #555; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../ui/pages.css" />
+  <title>Winnow — Options</title>
 </head>
 <body>
-  <h1>Winnow</h1>
-  <p id="status" role="status">Loading…</p>
+  <header class="bar">
+    <span class="bar__left">
+      <span class="brand">
+        <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="15" y1="25" x2="33" y2="76" stroke-width="20" />
+            <line x1="85" y1="25" x2="67" y2="76" stroke-width="20" />
+            <path d="M42 26 L58 26 L50 50 Z" fill="currentColor" stroke-width="14" />
+          </g>
+        </svg>
+        Winnow
+      </span>
+      <span class="bar__kind">Options</span>
+    </span>
+    <p id="status" class="note" role="status" aria-live="polite"><span class="dot" id="statusDot"></span><span id="statusText">Loading…</span></p>
+  </header>
 
-  <section>
-    <h2>Reading goals</h2>
-    <small>Free text. Sent with every judgment so verdicts fit what you actually want to learn.</small>
-    <textarea id="goals" placeholder="e.g. Deepen my distributed systems knowledge; skip AI hype; I already know Rust basics."></textarea>
-    <button id="saveGoals" type="button">Save goals</button> <span id="goalsMsg"></span>
-  </section>
+  <div class="wrap">
+    <div class="opt">
+      <main class="opt__main">
 
-  <section id="settings">
-    <h2>Modes</h2>
-    <label><input type="checkbox" id="pageMode" /> Page mode: judge the article or video you are on</label>
-    <label><input type="checkbox" id="feedMode" /> Feed mode: badge links in feeds</label>
-    <div style="margin-left:1.5rem">
-      <label><input type="checkbox" id="feed-hn" /> Hacker News</label>
-      <label><input type="checkbox" id="feed-youtube" /> YouTube</label>
-      <label><input type="checkbox" id="feed-generic" /> Other link lists</label>
+        <section class="plate opt__plate">
+          <span class="reg" aria-hidden="true"></span>
+          <p class="eyebrow">01 · Personalisation</p>
+          <h2 class="h2">Your goals</h2>
+          <p class="desc">Free text, sent with every judgment so the verdicts fit what you actually want to learn.</p>
+          <div class="opt__body">
+            <label class="field__label" for="goals">Reading Goals</label>
+            <textarea id="goals" rows="5" placeholder="e.g. Deepen my distributed systems knowledge; skip AI hype; I already know Rust basics."></textarea>
+            <p class="help">Changing goals re-judges everything: the cache is invalidated.</p>
+            <div class="actions">
+              <button id="saveGoals" class="btn btn--ghost" type="button">Save goals</button>
+              <span id="goalsMsg" class="note" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+        </section>
+
+        <div id="settings" class="opt__main">
+          <section class="plate opt__plate">
+            <span class="reg" aria-hidden="true"></span>
+            <p class="eyebrow">02 · Surfaces</p>
+            <h2 class="h2">Where Winnow runs</h2>
+            <p class="desc">Two modes: a card on the page you are reading, and pills on the links in a feed.</p>
+            <div class="opt__body">
+              <fieldset>
+                <legend class="field__label">Modes</legend>
+                <label class="check" for="pageMode">
+                  <input type="checkbox" id="pageMode" />
+                  <span class="check__text">Page mode<small>Judge the article or video you are on.</small></span>
+                </label>
+                <label class="check" for="feedMode">
+                  <input type="checkbox" id="feedMode" />
+                  <span class="check__text">Feed mode<small>Badge the links in a feed before you click them.</small></span>
+                </label>
+              </fieldset>
+              <fieldset class="subset">
+                <legend class="field__label">Feeds</legend>
+                <label class="check" for="feed-hn"><input type="checkbox" id="feed-hn" /><span class="check__text">Hacker News</span></label>
+                <label class="check" for="feed-youtube"><input type="checkbox" id="feed-youtube" /><span class="check__text">YouTube</span></label>
+                <label class="check" for="feed-generic"><input type="checkbox" id="feed-generic" /><span class="check__text">Other link-heavy pages</span></label>
+              </fieldset>
+            </div>
+          </section>
+
+          <section class="plate opt__plate">
+            <span class="reg" aria-hidden="true"></span>
+            <p class="eyebrow">03 · Boundaries</p>
+            <h2 class="h2">Excluded sites</h2>
+            <p class="desc">Hosts Winnow never looks at, whatever else is switched on.</p>
+            <div class="opt__body">
+              <label class="field__label" for="excludedHosts">Excluded Hosts</label>
+              <textarea id="excludedHosts" rows="5"></textarea>
+              <p class="help">One per line; matches the host exactly or any subdomain. Excluded by default: http: pages, localhost, and private networks.</p>
+            </div>
+          </section>
+
+          <section class="plate opt__plate">
+            <span class="reg" aria-hidden="true"></span>
+            <p class="eyebrow">04 · Accuracy</p>
+            <h2 class="h2">Prefetch link text</h2>
+            <p class="desc">Judge the body of a linked page instead of guessing from its title.</p>
+            <div class="opt__body">
+              <label class="check" for="prefetchLinkText">
+                <input type="checkbox" id="prefetchLinkText" />
+                <span class="check__text">Prefetch link text in feeds<small>Costs: Winnow asks for access to every site, and fetches each linked page before you open it. Buys: verdicts judged on the real text, not a headline.</small></span>
+              </label>
+            </div>
+          </section>
+
+          <section class="plate opt__plate">
+            <span class="reg" aria-hidden="true"></span>
+            <p class="eyebrow">05 · Judgment</p>
+            <h2 class="h2">Thresholds</h2>
+            <p class="desc">Where each verdict tips over. Defaults suit most readers; move them if Winnow is too generous or too harsh.</p>
+            <div class="opt__body">
+              <div id="thresholds"></div>
+              <div class="actions">
+                <button id="resetThresholds" class="btn--text" type="button">Reset to defaults</button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section class="plate opt__plate">
+          <span class="reg" aria-hidden="true"></span>
+          <p class="eyebrow">06 · Maintenance</p>
+          <h2 class="h2">Maintenance</h2>
+          <p class="desc">Clear what Winnow remembers, or swap the key it judges with.</p>
+          <div class="opt__body">
+            <div class="actions">
+              <button id="clearCache" class="btn btn--ghost" type="button">Clear cache</button>
+              <button id="resetReader" class="btn btn--ghost" type="button">Reset reader state</button>
+            </div>
+            <p id="dataMsg" class="note" role="status" aria-live="polite"></p>
+
+            <form id="keyForm" style="margin-top:28px">
+              <label class="field__label" for="key">Rotate Key</label>
+              <input id="key" name="key" type="password" autocomplete="off" spellcheck="false" placeholder="New Jev API key" required />
+              <div class="actions">
+                <button id="verify" class="btn btn--ghost" type="submit">Verify and replace</button>
+                <span id="keyMsg" class="note" role="status" aria-live="polite"></span>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <aside class="rail">
+        <div class="rail__panel">
+          <p class="eyebrow" style="margin:0">State</p>
+          <dl>
+            <dt>Key</dt><dd id="railKey">—</dd>
+            <dt>Cache</dt><dd id="railCache">—</dd>
+            <dt>Model</dt><dd id="railModel">—</dd>
+            <dt>Page mode</dt><dd id="railPage">—</dd>
+            <dt>Feed mode</dt><dd id="railFeed">—</dd>
+            <dt>Prefetch</dt><dd id="railPrefetch">—</dd>
+          </dl>
+        </div>
+        <p class="rail__links">
+          <a href="https://github.com/ThinkyMiner/Winnow/tree/main/docs" target="_blank" rel="noreferrer">Docs</a><span>·</span>
+          <a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/privacy.md" target="_blank" rel="noreferrer">Privacy</a><span>·</span>
+          <a href="https://github.com/ThinkyMiner/Winnow" target="_blank" rel="noreferrer">GitHub</a><span>·</span>
+          <a href="https://github.com/ThinkyMiner/Winnow/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer">Release notes</a>
+        </p>
+      </aside>
     </div>
-    <label><input type="checkbox" id="prefetchLinkText" /> Prefetch link text in feeds (judges body text instead of title; asks for access to all sites)</label>
-
-    <h2>Excluded hosts</h2>
-    <small>One per line. Matches the host exactly or any subdomain. Nothing runs on http:, localhost or private networks regardless.</small>
-    <textarea id="excludedHosts"></textarea>
-
-    <h2>Thresholds</h2>
-    <div id="thresholds"></div>
-    <button id="resetThresholds" type="button">Reset to defaults</button>
-  </section>
-
-  <section>
-    <h2>Data</h2>
-    <button id="clearCache" type="button">Clear cache</button>
-    <button id="resetReader" type="button">Reset reader state</button>
-    <span id="dataMsg"></span>
-  </section>
-
-  <section>
-    <h2>API key</h2>
-    <form id="keyForm">
-      <input id="key" type="password" autocomplete="off" placeholder="New Jev API key" required />
-      <button id="verify" type="submit">Verify and replace</button>
-      <span id="keyMsg"></span>
-    </form>
-  </section>
+  </div>
 
   <script type="module" src="./main.ts"></script>
 </body>

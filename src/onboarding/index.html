@@ -2,29 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Winnow — set up</title>
-  <style>
-    body { font: 16px/1.5 system-ui, sans-serif; max-width: 32rem; margin: 4rem auto; padding: 0 1rem; color: #1a1a1a; }
-    h1 { font-size: 1.5rem; }
-    input, button { font: inherit; padding: .5rem .75rem; }
-    input { width: 100%; box-sizing: border-box; margin: .5rem 0; }
-    button { cursor: pointer; }
-    .err { color: #b00020; }
-    [hidden] { display: none; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../ui/pages.css" />
+  <title>Winnow — Setup</title>
 </head>
 <body>
-  <h1>Winnow</h1>
-  <p>Paste your Jev API key from <a href="https://typesafe.ai" target="_blank" rel="noreferrer">typesafe.ai</a>. It is stored locally and only ever sent to api.typesafe.ai.</p>
-  <form id="form">
-    <input id="key" type="password" autocomplete="off" placeholder="Jev API key" required />
-    <button id="verify" type="submit">Verify</button>
-    <p id="status" role="status"></p>
-  </form>
-  <section id="done" hidden>
-    <p>Key verified. Model: <strong id="model"></strong>.</p>
-    <p><a href="../options/index.html">Set your reading goals in options</a>, or just start browsing.</p>
-  </section>
+  <main class="onb">
+    <div class="plate">
+      <span class="reg" aria-hidden="true"></span>
+
+      <header class="onb__head">
+        <span class="brand">
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="15" y1="25" x2="33" y2="76" stroke-width="20" />
+              <line x1="85" y1="25" x2="67" y2="76" stroke-width="20" />
+              <path d="M42 26 L58 26 L50 50 Z" fill="currentColor" stroke-width="14" />
+            </g>
+          </svg>
+          Winnow
+        </span>
+        <p class="eyebrow">Setup · Step 1 of 1</p>
+      </header>
+
+      <section id="setup">
+        <h1 class="poster">One key, then you&rsquo;re set.</h1>
+        <p class="sub">Winnow asks Jev a set of typed questions about every page you open. Jev is TypeSafe&rsquo;s decision model. You bring your own key, it stays on this machine, and nothing else leaves your browser.</p>
+
+        <form id="form" class="onb__form">
+          <div class="field">
+            <label class="field__label" for="key">Jev API Key</label>
+            <input id="key" name="key" type="password" autocomplete="off" spellcheck="false" placeholder="sk-…" required />
+          </div>
+          <p class="onb__meta">
+            <a class="link" href="https://console.typesafe.ai" target="_blank" rel="noreferrer">Get one at console.typesafe.ai</a>
+            <span>About a tenth of a cent per Hacker News page</span>
+          </p>
+          <div class="onb__submit">
+            <button id="verify" class="btn" type="submit">Verify key</button>
+          </div>
+        </form>
+
+        <div id="error" class="err" hidden>
+          <p class="err__label">Not verified</p>
+          <p class="err__msg" id="errorMsg"></p>
+        </div>
+        <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="done" hidden>
+        <p class="eyebrow">Verified</p>
+        <h1 class="poster">You&rsquo;re set.</h1>
+        <p class="help">Model · <span id="model"></span></p>
+
+        <ol class="steps">
+          <li><b>01</b><span>Open an article or a video — a card appears top-right.</span></li>
+          <li><b>02</b><span>Open Hacker News or YouTube — every link gets a pill.</span></li>
+          <li><b>03</b><span>Tell Winnow your goals in options so the verdicts are about you.</span></li>
+        </ol>
+
+        <div class="onb__actions">
+          <a class="btn" id="openOptions" href="../options/index.html">Open options</a>
+          <a class="link" href="https://github.com/ThinkyMiner/Winnow/tree/main/docs" target="_blank" rel="noreferrer">Read the docs</a>
+        </div>
+
+        <figure class="band">
+          <img src="/img/oasis.jpg" alt="" />
+          <figcaption>Less noise. More signal.</figcaption>
+        </figure>
+      </section>
+    </div>
+  </main>
   <script type="module" src="./main.ts"></script>
 </body>
 </html>

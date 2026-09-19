@@ -10,12 +10,20 @@ const KEYS = Object.keys(THRESHOLD_META) as ThresholdKey[];
 // ── thresholds: one slider per THRESHOLD_META key ──
 $("thresholds").innerHTML = KEYS.map((k) => {
   const m = THRESHOLD_META[k];
-  return `<label><span class="row"><span>${m.label}</span><output id="out-${k}"></output></span>
+  return `<div class="th">
+    <div class="row"><label class="th__label" for="th-${k}">${m.label}</label><output class="th__val" id="out-${k}" for="th-${k}"></output></div>
     <input type="range" id="th-${k}" min="${m.min}" max="${m.max}" step="${m.step}" />
-    <small>${m.help}</small></label>`;
+    <p class="th__help">${m.help}</p>
+  </div>`;
 }).join("");
 const slider = (k: ThresholdKey) => $<HTMLInputElement>(`th-${k}`);
-const showValue = (k: ThresholdKey) => ($<HTMLOutputElement>(`out-${k}`).value = slider(k).value);
+function showValue(k: ThresholdKey) {
+  const el = slider(k);
+  $<HTMLOutputElement>(`out-${k}`).value = el.value;
+  // Paints the filled portion of the track (WebKit has no ::-webkit-range-progress).
+  const pct = ((Number(el.value) - Number(el.min)) / (Number(el.max) - Number(el.min))) * 100;
+  el.style.setProperty("--fill", `${pct}%`);
+}
 for (const k of KEYS) slider(k).oninput = () => showValue(k);
 
 // ── settings <-> DOM ──
@@ -29,6 +37,7 @@ function render(s: Settings) {
     slider(k).value = String(s.thresholds[k]);
     showValue(k);
   }
+  renderRail();
 }
 
 function collect(): Settings {
@@ -45,7 +54,19 @@ function collect(): Settings {
   };
 }
 
-const save = () => sendMessage({ type: "SET_SETTINGS", settings: collect() });
+// ── summary rail ──
+const onOff = (b: boolean) => (b ? "on" : "off");
+function renderRail() {
+  $("railPage").textContent = onOff(check("pageMode").checked);
+  $("railFeed").textContent = onOff(check("feedMode").checked);
+  $("railPrefetch").textContent = onOff(check("prefetchLinkText").checked);
+}
+
+const save = async () => {
+  const r = await sendMessage({ type: "SET_SETTINGS", settings: collect() });
+  renderRail();
+  return r;
+};
 
 $("settings").addEventListener("change", async (e) => {
   const prefetch = check("prefetchLinkText");
@@ -72,7 +93,7 @@ async function saveGoals() {
   if (goals.value === lastGoals) return;
   const r = await sendMessage({ type: "SET_GOALS", goals: goals.value });
   lastGoals = goals.value;
-  $("goalsMsg").textContent = r.ok ? "Saved." : r.error.message;
+  $("goalsMsg").textContent = r.ok ? "Saved" : r.error.message;
   await refreshStatus();
 }
 goals.onblur = saveGoals;
@@ -81,9 +102,13 @@ $("saveGoals").onclick = saveGoals;
 // ── data ──
 async function refreshStatus() {
   const r = await sendMessage({ type: "GET_STATUS" });
-  if (!r.ok) return void ($("status").textContent = r.error.message);
+  if (!r.ok) return void ($("statusText").textContent = r.error.message);
   const { hasKey, cacheEntries, model } = r.value;
-  $("status").textContent = `${hasKey ? "Key set" : "No key"} · ${cacheEntries} cached · model ${model}`;
+  $("statusText").textContent = `${hasKey ? "Key set" : "No key"} · ${cacheEntries} cached · ${model}`;
+  $("statusDot").className = hasKey ? "dot dot--on" : "dot";
+  $("railKey").textContent = hasKey ? "present" : "none";
+  $("railCache").textContent = `${cacheEntries}`;
+  $("railModel").textContent = model;
   return cacheEntries;
 }
 
@@ -108,14 +133,19 @@ $<HTMLFormElement>("keyForm").onsubmit = async (e) => {
   e.preventDefault();
   const key = keyInput.value.trim();
   if (!key) return;
-  keyMsg.className = "";
+  const verify = $<HTMLButtonElement>("verify");
+  verify.disabled = true;
+  verify.textContent = "Checking…";
   keyMsg.textContent = "Verifying…";
   const r = await sendMessage({ type: "SET_KEY", key });
   keyInput.value = "";
-  keyMsg.className = r.ok ? "ok" : "err";
+  verify.disabled = false;
+  verify.textContent = "Verify and replace";
   keyMsg.textContent = r.ok
     ? `Key replaced. Model: ${r.value.model}.`
-    : r.error.jev?.kind === "auth" ? "That key was rejected." : r.error.message;
+    : r.error.jev?.kind === "auth"
+      ? "That key was rejected. Check you copied the whole thing."
+      : r.error.message;
   await refreshStatus();
 };
 
