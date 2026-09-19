@@ -123,4 +123,29 @@
       });
     });
   }
+
+  /* 8. Footer tagline alternates between the two lines. */
+  var ftag = document.getElementById('footer-tag');
+  if (ftag && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    var lines = ['Less noise. More signal.', "Your attention is expensive. The internet acts like it isn't."];
+    var at = 0, timer = null;
+    var swap = function () {
+      ftag.classList.add('is-out');
+      setTimeout(function () {
+        at = (at + 1) % lines.length;
+        ftag.textContent = lines[at];
+        ftag.classList.remove('is-out');
+      }, 320);
+    };
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !timer) timer = setInterval(swap, 4200);
+        else if (!e.isIntersecting && timer) { clearInterval(timer); timer = null; }
+      });
+    }, { threshold: 0.2 });
+    io.observe(ftag);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden && timer) { clearInterval(timer); timer = null; }
+    });
+  }
 })();
