@@ -1,0 +1,19 @@
+name: Wrong verdict
+description: The judgment was off. These become eval fixtures.
+labels: [verdict]
+body:
+  - type: input
+    id: url
+    attributes: { label: Page URL }
+    validations: { required: true }
+  - type: dropdown
+    id: got
+    attributes: { label: Verdict shown, options: [read_now, skim, save, skip, "? (low confidence)"] }
+    validations: { required: true }
+  - type: dropdown
+    id: expected
+    attributes: { label: Verdict you expected, options: [read_now, skim, save, skip] }
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes: { label: Why, description: One or two lines. Which card field was most wrong? }

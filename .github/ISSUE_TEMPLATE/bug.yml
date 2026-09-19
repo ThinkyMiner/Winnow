@@ -1,0 +1,18 @@
+name: Bug report
+description: Something rendered wrong, judged wrong, or did not run
+labels: [bug]
+body:
+  - type: input
+    id: url
+    attributes: { label: Page URL, description: The page where it happened (omit if private) }
+  - type: dropdown
+    id: mode
+    attributes: { label: Mode, options: [Page card, Feed badges, Onboarding or options, Build or tests] }
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes: { label: What happened, description: Include the card text or badge label you saw and what you expected }
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes: { label: Extension version and Chrome version }
