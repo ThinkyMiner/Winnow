@@ -320,11 +320,7 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
 
 .footer__mark { width: .8em; height: .8em; color: #fff; }
 
-.footer__tag { font-size: 20px; line-height: 1.45; margin-top: 24px; min-height: 2.9em; }
-@media (prefers-reduced-motion: no-preference) {
-  .footer__tag { transition: opacity 320ms cubic-bezier(.2,.8,.2,1); }
-  .footer__tag.is-out { opacity: 0; }
-}
+.footer__tag { font-size: 20px; line-height: 1.45; margin-top: 24px; }
 
 .footer__cta { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; font-weight: 500; }
 
