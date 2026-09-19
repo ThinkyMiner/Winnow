@@ -19,7 +19,29 @@
         if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
-    reveals.forEach(function (el) { io.observe(el); });
+    reveals.forEach(function (el) { if (el.id !== 'fig3') io.observe(el); });
+
+    /* The segment map is tall: start its sequence when the timeline itself is in
+       view, not when the top of the figure is, and replay it on the way back. */
+    var f3 = document.getElementById('fig3');
+    var f3track = f3 && f3.querySelector('.segmap__track');
+    if (f3track) {
+      var io3 = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            if (!f3.classList.contains('is-in')) {
+              void f3.offsetWidth;
+              f3.classList.add('is-in');
+            }
+          } else {
+            f3.classList.remove('is-in');
+          }
+        });
+      }, { threshold: 0.9, rootMargin: '0px 0px -8% 0px' });
+      io3.observe(f3track);
+    } else if (f3) {
+      f3.classList.add('is-in');
+    }
   } else {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
   }
