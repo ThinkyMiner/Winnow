@@ -6,7 +6,7 @@
 <title>Winnow — Know before you click.</title>
 <meta name="description" content="Less noise. More signal. Winnow is an open-source Chrome extension that tells you whether an article or video is worth your time — read, skim, save, or skip — before you click.">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#0F172A">
+<meta name="theme-color" content="#2563EB">
 <link rel="canonical" href="https://winnow-seven.vercel.app/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
@@ -24,7 +24,6 @@
 <meta name="twitter:image" content="https://winnow-seven.vercel.app/assets/og.jpg">
 <meta name="twitter:image:width" content="1200">
 <meta name="twitter:image:height" content="630">
-<link rel="preload" as="image" imagesrcset="assets/photos/hero-poster-1280.jpg 1280w, assets/photos/hero-poster.jpg 1672w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com">
@@ -46,8 +45,8 @@
   </symbol>
 </svg>
 
-<!-- Nav: transparent over the hero photo, paper once the hero has scrolled away (main.js toggles .is-solid) -->
-<header class="nav" id="nav">
+<!-- Nav -->
+<header class="nav">
   <a class="nav__brand" href="#top" aria-label="Winnow, home">
     <svg class="nav__mark" width="22" height="22" aria-hidden="true"><use href="#mark"/></svg>
     <span>Winnow</span>
@@ -63,18 +62,12 @@
 
 <main id="main">
 
-<!-- ======== Hero: full-bleed photograph ======== -->
-<section class="hero" id="top" aria-labelledby="hero-title">
-  <div class="hero__media">
-    <img src="assets/photos/hero-poster.jpg" srcset="assets/photos/hero-poster-1280.jpg 1280w, assets/photos/hero-poster.jpg 1672w" sizes="100vw" width="1672" height="941" fetchpriority="high" decoding="async" alt="Sunset over red dunes, sand blowing off a crest">
-    <!-- Future video: drop hero.mp4 next to the poster, uncomment, keep the <img> above as the no-motion fallback.
-    <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/photos/hero-poster.jpg" aria-hidden="true">
-      <source src="assets/hero.mp4" type="video/mp4">
-    </video>
-    -->
-  </div>
+<!-- ======== Field 1 · Paper: hero, problem, numbers ======== -->
+<div class="field field--paper field--first">
   <p class="strip strip--v" aria-hidden="true">insight_density · already_known_to_reader · content_type · claims_supported · undisclosed_sales_pitch · ai_written · payload_location · payload_segment · serves_reader_goals · topic · jev_verdict</p>
   <div class="wrap">
+
+    <section class="block hero" id="top" aria-labelledby="hero-title">
       <div class="plate plate--hero"><span class="reg" aria-hidden="true"></span>
         <p class="eyebrow"><span>Less noise</span><span class="leader" aria-hidden="true"></span><span>More signal</span></p>
         <h1 class="h1" id="hero-title">Know Before You&nbsp;Click.</h1>
@@ -103,13 +96,7 @@
           </figure>
         </div>
       </div>
-  </div>
-  <span class="credit mono">Generated for Winnow · 2026</span>
-</section>
-
-<!-- ======== Field 1 · Paper: problem, numbers ======== -->
-<div class="field field--paper">
-  <div class="wrap">
+    </section>
 
     <section class="block" aria-labelledby="problem-title">
       <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
