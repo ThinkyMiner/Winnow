@@ -164,8 +164,8 @@ function makeAdapter(id: FeedAdapterId, doc: Document, scan: Scanner, spa = fals
       );
       const rescan = () => {
         for (const { item, element } of scan(doc)) {
-          if (element.dataset.worthit) continue;
-          element.dataset.worthit = "1";
+          if (element.dataset.winnow) continue;
+          element.dataset.winnow = "1";
           byEl.set(element, item);
           near.observe(element);
           far.observe(element);

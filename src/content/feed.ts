@@ -50,7 +50,7 @@ async function main(): Promise<void> {
         else if (r.ok) badge.update({ status: "ready", model: r.value });
         else badge.update({ status: "error", error: r.error });
       }
-      console.debug("[worth-it] feed batch", items.length, "cache hits", res.value.cacheHits, "tokens", res.value.usage.input_tokens);
+      console.debug("[winnow] feed batch", items.length, "cache hits", res.value.cacheHits, "tokens", res.value.usage.input_tokens);
     },
     (urls) => {
       const cancel = urls.filter((u) => pending.has(u));

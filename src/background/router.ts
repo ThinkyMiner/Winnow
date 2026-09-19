@@ -15,7 +15,7 @@ import { clearKey, getKey, getSettings, setKey, setSettings } from "./storage";
 const DEBUG = false;
 /** Counts and codes only. Never content, never the key. */
 export const log = (...args: unknown[]) => {
-  if (DEBUG) console.log("[worth-it]", ...args);
+  if (DEBUG) console.log("[winnow]", ...args);
 };
 
 type Msg = ContentMessage | PageMessage;
@@ -73,9 +73,9 @@ async function route(msg: Msg, senderUrl?: string): Promise<Result<unknown>> {
     case "JUDGE_PAGE":
     case "JUDGE_FEED": {
       const settings = await getSettings();
-      if (isExcluded(senderUrl, settings.excludedHosts)) return err("excluded_host", "Worth It is off on this site.");
+      if (isExcluded(senderUrl, settings.excludedHosts)) return err("excluded_host", "Winnow is off on this site.");
       const apiKey = await getKey();
-      if (!apiKey) return err("no_key", "Add your Jev API key in Worth It options.");
+      if (!apiKey) return err("no_key", "Add your Jev API key in Winnow options.");
       const ctx = { apiKey, settings };
       if (msg.type === "JUDGE_PAGE") {
         if (!settings.pageMode) return err("disabled", "Page mode is off.");

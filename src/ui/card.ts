@@ -108,11 +108,11 @@ export function mountCard(opts: {
   onDismiss(): void;
   container?: HTMLElement;
 }): CardHandle {
-  const host = h("div", { id: "worth-it-card", class: "wi-card-host" });
+  const host = h("div", { id: "winnow-card", class: "wi-card-host" });
   const root = host.attachShadow({ mode: "open" });
   const content = h("div");
   const x = h("button", { type: "button", class: "wi-x", "aria-label": "Dismiss" }, "×");
-  const card = h("section", { class: "wi-card", role: "dialog", "aria-label": "Worth It verdict", tabindex: "-1" }, x, content);
+  const card = h("section", { class: "wi-card", role: "dialog", "aria-label": "Winnow verdict", tabindex: "-1" }, x, content);
   root.append(h("style", {}, STYLES), card);
 
   const hx: BodyHandlers = { onFeedback: opts.onFeedback, ...(opts.onSeek && { onSeek: opts.onSeek }) };

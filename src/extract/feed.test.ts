@@ -53,7 +53,7 @@ describe("hn adapter", () => {
     expect(FakeIO.instances).toHaveLength(2);
     const [near, far] = FakeIO.instances as [FakeIO, FakeIO];
     expect(near.observed).toHaveLength(3);
-    expect(doc.querySelectorAll('[data-worthit="1"]')).toHaveLength(3);
+    expect(doc.querySelectorAll('[data-winnow="1"]')).toHaveLength(3);
 
     near.fire(true);
     expect(onVisible).not.toHaveBeenCalled();

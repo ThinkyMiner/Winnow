@@ -1,4 +1,6 @@
-# Worth It
+# Winnow
+
+**Less noise. More signal.**
 
 A Chrome extension that tells you whether an article or video is worth your time before you open it, using [Jev](https://typesafe.ai) from TypeSafe. Jev answers typed questions with calibrated probabilities; it never writes prose. Every word you see on a card is a template filled from those typed answers.
 

@@ -8,13 +8,13 @@ const video = FIXTURES[4]!;
 const sr = (el: HTMLElement) => el.shadowRoot!;
 const text = (el: HTMLElement) => sr(el).textContent ?? "";
 
-afterEach(() => document.querySelectorAll("#worth-it-card").forEach((n) => n.remove()));
+afterEach(() => document.querySelectorAll("#winnow-card").forEach((n) => n.remove()));
 
 describe("mountCard", () => {
   it("mounts on documentElement with verdict label and 4 reasons", () => {
     const c = mountCard({ state: { status: "ready", model: article }, onFeedback() {}, onDismiss() {} });
     expect(c.el.parentElement).toBe(document.documentElement);
-    expect(c.el.id).toBe("worth-it-card");
+    expect(c.el.id).toBe("winnow-card");
     expect(text(c.el)).toContain("Read now");
     expect(text(c.el)).toContain(article.title);
     expect(sr(c.el).querySelectorAll(".wi-reasons li")).toHaveLength(4);
@@ -38,7 +38,7 @@ describe("mountCard", () => {
     const c = mountCard({ state: { status: "loading" }, onFeedback() {}, onDismiss });
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
     expect(onDismiss).toHaveBeenCalledTimes(1);
-    expect(document.getElementById("worth-it-card")).toBeNull();
+    expect(document.getElementById("winnow-card")).toBeNull();
   });
 
   it("update loading→ready swaps content", () => {

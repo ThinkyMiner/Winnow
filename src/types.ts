@@ -1,5 +1,5 @@
 /**
- * Frozen contracts for Worth It. Every module builds against this file.
+ * Frozen contracts for Winnow. Every module builds against this file.
  * Subagents: do not edit. Report needed changes to the orchestrator.
  *
  * Sections:

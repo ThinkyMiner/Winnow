@@ -27,12 +27,12 @@ export const PAYLOAD_LOCATION_TEXT: Record<PayloadLocation, string> = {
 };
 
 export const ERROR_TEXT: Record<JudgeErrorCode, string> = {
-  no_key: "Add your Jev key in Worth It options",
-  excluded_host: "Worth It is off on this site",
-  disabled: "Worth It is turned off",
+  no_key: "Add your Jev key in Winnow options",
+  excluded_host: "Winnow is off on this site",
+  disabled: "Winnow is turned off",
   content_too_short: "Not enough text to judge",
   jev_error: "Jev couldn't judge this",
-  internal: "Something went wrong in Worth It",
+  internal: "Something went wrong in Winnow",
 };
 
 export const pct = (p: number): string => `${Math.round(p * 100)}%`;
