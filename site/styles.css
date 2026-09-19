@@ -99,8 +99,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .hero__row .sub { margin-top: 0; }
 @media (min-width: 1024px) {
   .hero__row { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; align-items: end; }
-  .hero__row .fig--hero { margin: 0; max-width: none; }
-}
+  .hero__row .fig--hero { margin: 0; max-width: none; }}
 .strip { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--muted); white-space: nowrap; user-select: none; }
 .strip--v { position: absolute; left: 20px; top: 80px; writing-mode: vertical-rl; transform: rotate(180deg); margin: 0; }
 .strip--h { margin: 48px 0 0; overflow: hidden; text-overflow: ellipsis; padding: 0 32px 24px; }
@@ -247,25 +246,6 @@ button.pill::after { content: ""; position: absolute; inset: -10px; } /* 44px hi
 .chev::after { content: ""; position: absolute; left: 6px; top: 4px; width: 6px; height: 6px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg); }
 details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
 .faq p { padding: 4px 0 24px 20px; color: var(--fg2); max-width: 60ch; }
-
-/* ---------- photographs: desert → oasis ---------- */
-/* Full-bleed band inside a field: breaks out of .wrap, caption row stays in the wrap on the field colour. */
-.band-fig { margin-bottom: 56px; }
-.band-fig--flush { margin-top: -80px; }
-.band { position: relative; width: 100vw; margin-inline: calc(50% - 50vw); height: 62svh; min-height: 420px; overflow: hidden; background: var(--ink); }
-.band--56 { height: 56svh; min-height: 380px; }
-.band img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
-.band .credit { left: auto; right: 32px; }
-.band--fade::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 45%; background: linear-gradient(to bottom, rgba(15,23,42,0), var(--ink)); }
-.band__note { font-family: var(--body); font-size: 13px; letter-spacing: 0; }
-/* Squared figure beside text */
-.split--photo { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); }
-.fig--photo { max-width: 520px; }
-.fig--photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
-.fig--cairn { max-width: 300px; }
-.fig--cairn img { aspect-ratio: auto; }
-/* Ripples behind the numbers: paper plate, Ink type, photo multiplied in at 18% */
-.plate__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .18; mix-blend-mode: multiply; pointer-events: none; }
 .plate--photo > .numbers, .plate--photo > .foot { position: relative; }
 
 /* footer: the oasis, a full-bleed stage */
@@ -298,8 +278,7 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
   #fig3 .segmap__ph { left: 0; }
   #fig3.is-in .segmap__ph { animation: seg-ph 7780ms linear 920ms forwards; }
   #fig3 .segmap__ann { opacity: 0; }
-  #fig3.is-in .segmap__ann { animation: seg-ann 300ms var(--ease) 2520ms forwards; }
-}
+  #fig3.is-in .segmap__ann { animation: seg-ann 300ms var(--ease) 2520ms forwards; }}
 /* 0:00 → 2:30 over 1.2s (linear), hold 400ms, jump to 9:20 in 180ms, creep to 14:00 over 6s. Percentages of 7780ms. */
 @keyframes seg-ph {
   0% { left: 0; }
@@ -311,16 +290,14 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
 @keyframes seg-ann { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
-  #fig1 .feed__row--noise { opacity: .3; filter: grayscale(1); }
-}
+  #fig1 .feed__row--noise { opacity: .3; filter: grayscale(1); }}
 
 /* ---------- responsive ---------- */
-@media (min-width: 1101px) { .split--reader .fig--photo { grid-column: 2; } }
+
 @media (max-width: 1100px) {
   .split, .split--rev { grid-template-columns: 1fr; }
-  .split--rev .fig { order: 0; }
-}
-@media (max-width: 1023px) { .strip--v { display: none; } }
+  .split--rev .fig { order: 0; }}
+@media (max-width: 1023px) { .strip--v { display: none; }}
 @media (max-width: 820px) {
   .field { padding: 56px 0; }
   .wrap { padding: 0 16px; }
@@ -330,12 +307,6 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
   .hero__media::after { background: linear-gradient(to bottom, rgba(15,23,42,0) 45%, rgba(15,23,42,.7) 100%); }
   .hero .wrap { padding-top: 104px; padding-bottom: 48px; }
   .credit { left: 16px; bottom: 10px; }
-  .band .credit, .footer .credit { left: auto; right: 16px; }
-  .band-fig { margin-bottom: 40px; }
-  .band-fig--flush { margin-top: -56px; }
-  .band, .band--56 { height: 42svh; min-height: 260px; }
-  .fig--photo { max-width: none; }
-  .fig--cairn { max-width: 300px; }
   .footer { min-height: 80svh; }
   .footer__links { padding: 0 16px; }
   .plate { padding: 20px 16px; margin-bottom: 40px; }
@@ -367,11 +338,9 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
   .segmap__foot { flex-direction: column; align-items: flex-start; }
   .segmap__nums { flex-direction: column; gap: 24px; }
   .segmap__num { font-size: 56px; }
-  .segmap__text { margin-top: 48px; }
-}
-@media (max-width: 480px) { .seg__id { display: none; } }
+  .segmap__text { margin-top: 48px; }}
+@media (max-width: 480px) { .seg__id { display: none; }}
 @media (max-width: 420px) {
   .h1 { font-size: 3.6rem; }
   .feed__t { font-size: 14px; }
-  .feed__t em { display: block; margin: 2px 0 0; }
-}
+  .feed__t em { display: block; margin: 2px 0 0; }}
