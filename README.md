@@ -5,6 +5,10 @@
 <p align="center"><strong>Less noise. More signal.</strong><br><em>Know before you click.</em></p>
 
 <p align="center">
+  <a href="https://winnow-seven.vercel.app"><strong>winnow-seven.vercel.app</strong></a> · <a href="https://github.com/ThinkyMiner/Winnow/releases/latest">Download</a> · <a href="docs/">Docs</a>
+</p>
+
+<p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
   <a href="https://github.com/ThinkyMiner/Winnow/actions/workflows/ci.yml"><img src="https://github.com/ThinkyMiner/Winnow/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://github.com/ThinkyMiner/Winnow/releases/latest"><img src="https://img.shields.io/github/v/release/ThinkyMiner/Winnow" alt="Latest release"></a>
@@ -12,7 +16,6 @@
 
 Winnow is a Chrome extension that tells you whether an article or video is worth your time before you spend it. It reads the page (or the feed you are scrolling), asks [Jev](https://typesafe.ai) from TypeSafe a fixed set of typed questions, and turns the answers into one of four verdicts: **read now**, **skim**, **save**, or **skip**. Jev returns probabilities, never prose, so every word on the card is a template filled from typed answers. You bring your own Jev key; nothing goes through a server of ours.
 
-Website: https://winnow-seven.vercel.app
 
 <p align="center">
   <img src="assets/screenshots/card-article.png" width="720" alt="Winnow card on an article: verdict pill, insight density bar, content type, and reasons">
