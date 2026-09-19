@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Winnow — The internet is a desert. Winnow finds the water.</title>
+<meta name="description" content="Winnow is an open-source Chrome extension that reads ahead of you and says read, skim, save, or skip, with a confidence, before you click.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F4EDE0">
+<link rel="canonical" href="https://winnow-oasis.vercel.app/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Winnow">
+<meta property="og:title" content="Winnow — The internet is a desert. Winnow finds the water.">
+<meta property="og:description" content="Winnow is an open-source Chrome extension that reads ahead of you and says read, skim, save, or skip, with a confidence, before you click.">
+<meta property="og:url" content="https://winnow-oasis.vercel.app/">
+<meta property="og:image" content="https://winnow-oasis.vercel.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Winnow — The internet is a desert. Winnow finds the water.">
+<meta name="twitter:description" content="Winnow is an open-source Chrome extension that reads ahead of you and says read, skim, save, or skip, with a confidence, before you click.">
+<meta name="twitter:image" content="https://winnow-oasis.vercel.app/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="mark" viewBox="0 0 100 100">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="15" y1="25" x2="33" y2="76" stroke-width="20"/>
+      <line x1="85" y1="25" x2="67" y2="76" stroke-width="20"/>
+      <path d="M42 26 L58 26 L50 50 Z" fill="currentColor" stroke-width="14"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- Nav -->
+<header class="nav">
+  <a class="nav__brand" href="#top" aria-label="Winnow, home">
+    <svg class="nav__mark" width="22" height="22" aria-hidden="true"><use href="#mark"/></svg>
+    <span>Winnow</span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#how">How it works</a>
+    <a href="https://github.com/ThinkyMiner/Winnow/tree/main/docs">Docs</a>
+    <a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/privacy.md">Privacy</a>
+    <a href="https://github.com/ThinkyMiner/Winnow">GitHub</a>
+  </nav>
+  <a class="btn" href="#install">Add to Chrome</a>
+</header>
+
+<main id="main">
+
+<!-- ======== Field 1 · Sand: hero, mirages, terrain ======== -->
+<div class="field field--sand field--first">
+  <p class="strip strip--v" aria-hidden="true">insight_density · already_known_to_reader · content_type · claims_supported · undisclosed_sales_pitch · ai_written · payload_location · payload_segment · serves_reader_goals · topic · jev_verdict</p>
+  <div class="wrap">
+
+    <section class="block hero" id="top" aria-labelledby="hero-title">
+      <div class="plate plate--hero"><span class="reg" aria-hidden="true"></span>
+        <div class="grain" id="grain-hero" aria-hidden="true"></div>
+        <div class="hero__body">
+          <p class="eyebrow"><span>Less noise</span><span class="leader" aria-hidden="true"></span><span>More signal</span></p>
+          <h1 class="h1" id="hero-title"><span>The internet</span><br><span>is a desert.</span><br><span>Winnow finds the water.</span></h1>
+          <div class="hero__row">
+            <div class="hero__copy">
+              <p class="sub">Ten thousand links a day, and almost none of them will change what you know. Winnow reads ahead of you and points at the few that will: read, skim, save, or skip, with a confidence, tuned to what you actually care about.</p>
+              <p class="cta-row">
+                <a class="cta" href="#install">Add to Chrome</a>
+                <a class="cta" href="https://github.com/ThinkyMiner/Winnow">View on GitHub</a>
+              </p>
+            </div>
+            <figure class="fig fig--hero pool reveal" id="fig0">
+              <span class="fig__tag">Fig. 00</span>
+              <div class="fig__panel card" id="hero-card" aria-live="polite" aria-atomic="true">
+                <p class="card__src mono"><span data-hero="source">youtube.com</span><span class="sim">Simulated</span></p>
+                <p class="card__title" data-hero="title">Deep dive into KV caching for LLMs</p>
+                <p class="card__decision">
+                  <span class="pill pill--read" data-hero="pill">READ<span class="pill__conf">· 92%</span></span>
+                  <span class="evaluating mono" data-hero="eval" aria-hidden="true">Evaluating…</span>
+                </p>
+                <ul class="reasons" data-hero="reasons">
+                  <li>High insight density</li><li>Mostly new to you</li><li>Not clickbait</li><li>Best part: 04:32 → 08:10</li>
+                </ul>
+              </div>
+              <figcaption class="fig__cap mono"><span>Fig. 00 — The oasis. One of four typed verdicts, before you click.</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="mirage-title">
+      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2" id="mirage-title">Mirages.</h2>
+        <p class="sub sub--plate">Some things look like water from a distance.</p>
+      </div>
+      <div class="cols cols--3 reveal">
+        <div class="col">
+          <p class="tag mono">Rage Bait</p>
+          <p class="col__pill"><span class="pill pill--skip">SKIP<span class="pill__conf">· 96%</span></span></p>
+          <p>Possible engagement bait.<br>Low new-information density.</p>
+        </div>
+        <div class="col">
+          <p class="tag mono">Undisclosed Ads</p>
+          <p class="col__pill"><span class="pill pill--skip">SKIP<span class="pill__conf">· 89%</span></span></p>
+          <p>Steers you to a product without saying so.<br>Reads as an advertorial.</p>
+        </div>
+        <div class="col">
+          <p class="tag mono">AI Filler</p>
+          <p class="col__pill"><span class="pill pill--skip">SKIP<span class="pill__conf">· 85%</span></span></p>
+          <p>Uniform rhythm, no specifics.<br>Insight density 0 of 2.</p>
+        </div>
+        <p class="col col--wide mono sim">Simulated. Winnow asks typed questions about each of these. The answer is a quiet skip, not an alarm.</p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="terrain-title">
+      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2" id="terrain-title">Reading the terrain.</h2>
+        <dl class="numbers">
+          <div><dt class="num">$0.0015</dt><dd class="mono">Per Hacker News front page, 30 links*</dd></div>
+          <div><dt class="num">0 tokens</dt><dd class="mono">On reload. Verdicts are cached for seven days.</dd></div>
+          <div><dt class="num">1.2 s</dt><dd class="mono">Per judgment, measured*</dd></div>
+        </dl>
+        <p class="foot mono">*Measured 2026-09-18 against jev-1.13.0. Proof: <a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/eval.md">docs/eval.md</a> and <a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/jev-contract.md">docs/jev-contract.md</a></p>
+      </div>
+
+      <figure class="fig reveal" id="fig1">
+        <span class="fig__tag">Fig. 01</span>
+        <ol class="fig__panel feed" aria-label="Eight simulated feed items, five faded as low value">
+          <li class="feed__row"><span class="feed__t">Deep dive into KV caching for LLMs <em class="mono">youtube.com</em></span><span class="pill pill--read">READ<span class="pill__conf">· 92%</span></span></li>
+          <li class="feed__row feed__row--noise"><span class="feed__t">10 productivity hacks that changed my life <em class="mono">medium.com</em></span><span class="pill pill--skip">SKIP<span class="pill__conf">· 91%</span></span></li>
+          <li class="feed__row feed__row--noise"><span class="feed__t">Why AI changes EVERYTHING <em class="mono">youtube.com</em></span><span class="pill pill--skip">SKIP<span class="pill__conf">· 95%</span></span></li>
+          <li class="feed__row"><span class="feed__t">Notes on Raft, twelve years later <em class="mono">usenix.org</em></span><span class="pill pill--skim">SKIM<span class="pill__conf">· 84%</span></span></li>
+          <li class="feed__row feed__row--noise"><span class="feed__t">The one tool every developer needs in 2026 <em class="mono">sponsored</em></span><span class="pill pill--skip">SKIP<span class="pill__conf">· 89%</span></span></li>
+          <li class="feed__row feed__row--noise"><span class="feed__t">Is this the end of programming? <em class="mono">substack.com</em></span><span class="pill pill--skip">SKIP<span class="pill__conf">· 87%</span></span></li>
+          <li class="feed__row"><span class="feed__t">A field guide to distributed consensus <em class="mono">arxiv.org · 48 min</em></span><span class="pill pill--save">SAVE<span class="pill__conf">· 81%</span></span></li>
+          <li class="feed__row feed__row--noise"><span class="feed__t">You won't believe what this model can do <em class="mono">youtube.com</em></span><span class="pill pill--skip">SKIP<span class="pill__conf">· 93%</span></span></li>
+        </ol>
+        <figcaption class="fig__cap mono"><span>Fig. 01 — Eight links. Three worth the walk. <span class="sim">Simulated</span></span><span>Judged in one call · cached 7 days</span></figcaption>
+      </figure>
+    </section>
+
+  </div>
+</div>
+
+<!-- ======== Field 2 · Soft Blue: the oasis, four chapters ======== -->
+<div class="field field--soft" id="how">
+  <div class="wrap">
+
+    <section class="block" aria-labelledby="oasis-title">
+      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2" id="oasis-title">The oasis.</h2>
+        <p class="sub sub--plate">Where Winnow works, and what it hands you.</p>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <section class="block" aria-labelledby="feed-title">
+      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2 h2--sm" id="feed-title">It works where you already browse.</h2>
+      </div>
+      <div class="split reveal">
+        <figure class="fig fig--paper" id="fig2">
+          <span class="fig__tag">Fig. 02</span>
+          <div class="fig__panel tabs">
+            <div class="tabs__list" role="tablist" aria-label="Feed mode examples">
+              <button class="tabs__tab mono" role="tab" id="tab-yt" aria-selected="true" aria-controls="panel-yt">YouTube</button>
+              <button class="tabs__tab mono" role="tab" id="tab-hn" aria-selected="false" aria-controls="panel-hn" tabindex="-1">Hacker News</button>
+              <button class="tabs__tab mono" role="tab" id="tab-ar" aria-selected="false" aria-controls="panel-ar" tabindex="-1">Articles</button>
+            </div>
+            <ul class="tabs__panel feed" role="tabpanel" id="panel-yt" aria-labelledby="tab-yt">
+              <li class="feed__row"><span class="feed__t">Deep dive into KV caching for LLMs <em class="mono">41:05</em></span>
+                <span class="pop-wrap"><button class="pill pill--read" aria-describedby="p-yt1">READ<span class="pill__conf">· 92%</span></button><span class="pop" role="tooltip" id="p-yt1">High insight density · Mostly new to you · Best part: 04:32 → 08:10</span></span></li>
+              <li class="feed__row"><span class="feed__t">Building RAG from scratch <em class="mono">24:18</em></span>
+                <span class="pop-wrap"><button class="pill pill--skim" aria-describedby="p-yt2">SKIM<span class="pill__conf">· 88%</span></button><span class="pop" role="tooltip" id="p-yt2">Good explanation, partly familiar · Best part: 09:20 → 14:00</span></span></li>
+              <li class="feed__row"><span class="feed__t">Why AI changes EVERYTHING <em class="mono">18:42</em></span>
+                <span class="pop-wrap"><button class="pill pill--skip" aria-describedby="p-yt3">SKIP<span class="pill__conf">· 95%</span></button><span class="pop" role="tooltip" id="p-yt3">Low new-information density · Likely engagement bait</span></span></li>
+              <li class="feed__row"><span class="feed__t">Transformers explained from scratch <em class="mono">32:10</em></span>
+                <span class="pop-wrap"><button class="pill pill--skip" aria-describedby="p-yt4">SKIP<span class="pill__conf">· 94%</span></button><span class="pop" role="tooltip" id="p-yt4">You already know most of this · Overlaps with what you read this month</span></span></li>
+            </ul>
+            <ul class="tabs__panel feed" role="tabpanel" id="panel-hn" aria-labelledby="tab-hn" hidden>
+              <li class="feed__row"><span class="feed__t">Notes on Raft, twelve years later <em class="mono">usenix.org</em></span>
+                <span class="pop-wrap"><button class="pill pill--read" aria-describedby="p-hn1">READ<span class="pill__conf">· 90%</span></button><span class="pop" role="tooltip" id="p-hn1">High technical density · New to you · Matches your systems interest</span></span></li>
+              <li class="feed__row"><span class="feed__t">The one tool every developer needs in 2026 <em class="mono">blog.example.com</em></span>
+                <span class="pop-wrap"><button class="pill pill--skip" aria-describedby="p-hn2">SKIP<span class="pill__conf">· 89%</span></button><span class="pop" role="tooltip" id="p-hn2">Likely an undisclosed sales pitch · Reads as an advertorial</span></span></li>
+              <li class="feed__row"><span class="feed__t">A field guide to distributed consensus <em class="mono">arxiv.org</em></span>
+                <span class="pop-wrap"><button class="pill pill--save" aria-describedby="p-hn3">SAVE<span class="pill__conf">· 81%</span></button><span class="pop" role="tooltip" id="p-hn3">Original research · Long read: ~35 min · Serves your goals</span></span></li>
+              <li class="feed__row"><span class="feed__t">Show HN: I rewrote my blog in Rust <em class="mono">github.com</em></span>
+                <span class="pop-wrap"><button class="pill pill--skim" aria-describedby="p-hn4">SKIM<span class="pill__conf">· 76%</span></button><span class="pop" role="tooltip" id="p-hn4">One useful idea · Mostly familiar ground</span></span></li>
+            </ul>
+            <ul class="tabs__panel feed" role="tabpanel" id="panel-ar" aria-labelledby="tab-ar" hidden>
+              <li class="feed__row"><span class="feed__t">What we learned running Postgres at scale <em class="mono">engineering blog</em></span>
+                <span class="pop-wrap"><button class="pill pill--read" aria-describedby="p-ar1">READ<span class="pill__conf">· 91%</span></button><span class="pop" role="tooltip" id="p-ar1">Dense, specific, non-obvious · Serves your goals</span></span></li>
+              <li class="feed__row"><span class="feed__t">10 productivity hacks that changed my life <em class="mono">medium.com</em></span>
+                <span class="pop-wrap"><button class="pill pill--skip" aria-describedby="p-ar2">SKIP<span class="pill__conf">· 91%</span></button><span class="pop" role="tooltip" id="p-ar2">Listicle · Low new-information density</span></span></li>
+              <li class="feed__row"><span class="feed__t">Is this the end of programming? <em class="mono">substack.com</em></span>
+                <span class="pop-wrap"><button class="pill pill--skip" aria-describedby="p-ar3">SKIP<span class="pill__conf">· 87%</span></button><span class="pop" role="tooltip" id="p-ar3">Opinion · Claims not supported · You have read this take before</span></span></li>
+              <li class="feed__row"><span class="feed__t">A practical guide to Raft leases <em class="mono">personal blog</em></span>
+                <span class="pop-wrap"><button class="pill pill--skim" aria-describedby="p-ar4">SKIM<span class="pill__conf">· 83%</span></button><span class="pop" role="tooltip" id="p-ar4">Tutorial · Payload sits in the second half</span></span></li>
+            </ul>
+          </div>
+          <figcaption class="fig__cap mono"><span>Fig. 02 — Feed mode <span class="sim">Simulated</span></span><span>12 links per call · hover or focus a pill</span></figcaption>
+        </figure>
+        <div class="cols cols--2 cols--stack">
+          <div class="col">
+            <p class="tag mono">Hacker News, YouTube, Any Link-Heavy Page</p>
+            <p>In feed mode Winnow reads the titles and snippets already on the page, judges up to twelve links in a single call, and drops a pill next to each one. Reload and nothing is sent: verdicts are cached for seven days.</p>
+          </div>
+          <div class="col">
+            <p class="tag mono">Hover For The Card. Nothing On The Page Moves.</p>
+            <p>Pills are rendered in a shadow DOM, sized to the line they sit on. Hover or focus one for the reasons. The page you are reading keeps its layout, its scroll position and its scripts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <section class="block" aria-labelledby="video-title">
+      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2 h2--sm" id="video-title">Wells, marked.</h2>
+        <p class="sub segmap__sub">For a video with captions, Winnow marks where the water is: one typed question over eight segments, a probability for each, and a link that takes you there.</p>
+      </div>
+      <figure class="fig reveal" id="fig3">
+        <span class="fig__tag">Fig. 03</span>
+        <div class="fig__panel segmap">
+          <div class="segmap__head">
+            <span class="mono">youtube.com · 18:42 · captions: en</span>
+            <span class="segmap__title">Building RAG from scratch</span>
+            <span class="segmap__verdict"><span class="pill pill--skim">SKIM<span class="pill__conf">· 88%</span></span><span class="sim">Simulated</span></span>
+          </div>
+          <div class="segmap__cols" role="group" aria-label="Probability that each of eight caption segments holds the core idea. Hover or focus a column for its caption snippet.">
+          <button class="seg" type="button" style="--h:4.9%;--i:0" aria-label="s0, 0:00 to 2:20, probability 0.02">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.02</span><span class="seg__tip" aria-hidden="true"><span class="mono">s0 · 0:00 → 2:20</span><span class="seg__snip">Today we build retrieval-augmented generation from nothing: no frameworks, just Python and an API key.</span><span class="mono">P(core idea) = 0.02</span></span></span></span>
+            <span class="seg__t mono">0:00</span><span class="seg__id mono">s0</span>
+          </button>
+          <button class="seg" type="button" style="--h:7.3%;--i:1" aria-label="s1, 2:20 to 4:40, probability 0.03">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.03</span><span class="seg__tip" aria-hidden="true"><span class="mono">s1 · 2:20 → 4:40</span><span class="seg__snip">RAG in one sentence: fetch the passages that matter, put them in the prompt, let the model answer from them.</span><span class="mono">P(core idea) = 0.03</span></span></span></span>
+            <span class="seg__t mono">2:20</span><span class="seg__id mono">s1</span>
+          </button>
+          <button class="seg" type="button" style="--h:12.2%;--i:2" aria-label="s2, 4:40 to 7:00, probability 0.05">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.05</span><span class="seg__tip" aria-hidden="true"><span class="mono">s2 · 4:40 → 7:00</span><span class="seg__snip">Pick an embedding model, embed every chunk once, and store the vectors next to the text they came from.</span><span class="mono">P(core idea) = 0.05</span></span></span></span>
+            <span class="seg__t mono">4:40</span><span class="seg__id mono">s2</span>
+          </button>
+          <button class="seg" type="button" style="--h:19.5%;--i:3" aria-label="s3, 7:00 to 9:20, probability 0.08">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.08</span><span class="seg__tip" aria-hidden="true"><span class="mono">s3 · 7:00 → 9:20</span><span class="seg__snip">Chunk size is a trade-off. Too small and you lose context, too big and the retriever drowns in noise.</span><span class="mono">P(core idea) = 0.08</span></span></span></span>
+            <span class="seg__t mono">7:00</span><span class="seg__id mono">s3</span>
+          </button>
+          <button class="seg seg--top" type="button" style="--h:100.0%;--i:4" aria-label="s4, 9:20 to 11:40, probability 0.41, top segment">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.41</span><span class="seg__tip" aria-hidden="true"><span class="mono">s4 · 9:20 → 11:40</span><span class="seg__snip">Here is why naive RAG fails: top-k by cosine similarity returns near-duplicates and misses the one passage that actually answers the question.</span><span class="mono">P(core idea) = 0.41</span></span></span></span>
+            <span class="seg__t mono">9:20</span><span class="seg__id mono">s4</span>
+          </button>
+          <button class="seg seg--run" type="button" style="--h:70.7%;--i:5" aria-label="s5, 11:40 to 14:00, probability 0.29, runner-up">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.29</span><span class="seg__tip" aria-hidden="true"><span class="mono">s5 · 11:40 → 14:00</span><span class="seg__snip">The fix is two stages: retrieve wide, rerank narrow, then dedupe before anything reaches the prompt.</span><span class="mono">P(core idea) = 0.29</span></span></span></span>
+            <span class="seg__t mono">11:40</span><span class="seg__id mono">s5</span>
+          </button>
+          <button class="seg" type="button" style="--h:22.0%;--i:6" aria-label="s6, 14:00 to 16:20, probability 0.09">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.09</span><span class="seg__tip" aria-hidden="true"><span class="mono">s6 · 14:00 → 16:20</span><span class="seg__snip">To evaluate, hold out fifty questions with known answers and score recall at k, not vibes.</span><span class="mono">P(core idea) = 0.09</span></span></span></span>
+            <span class="seg__t mono">14:00</span><span class="seg__id mono">s6</span>
+          </button>
+          <button class="seg" type="button" style="--h:7.3%;--i:7" aria-label="s7, 16:20 to 18:42, probability 0.03">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.03</span><span class="seg__tip" aria-hidden="true"><span class="mono">s7 · 16:20 → 18:42</span><span class="seg__snip">That is the whole pipeline. Code is in the description; next video we add citations.</span><span class="mono">P(core idea) = 0.03</span></span></span></span>
+            <span class="seg__t mono">16:20</span><span class="seg__id mono">s7</span>
+          </button>
+          </div>
+          <div class="segmap__track" role="img" aria-label="Playhead scrubs the 2:30 intro, jumps to 9:20, then plays through 14:00.">
+            <span class="segmap__ann mono">skipped 6:50 of intro</span>
+            <span class="segmap__range"></span>
+            <span class="segmap__ph" id="playhead"></span>
+            <span class="segmap__end mono">18:42</span>
+          </div>
+          <p class="segmap__tipline mono" id="seg-tipline" aria-live="polite">Tap a column for its caption.</p>
+          <div class="segmap__foot">
+            <p class="segmap__jump"><a class="segmap__link" href="#fig3" id="jump">Jump to payoff</a><span class="mono">09:20 → 14:00 · 4 min 40 s of 18:42</span></p>
+            <dl class="segmap__nums">
+              <div><dt class="segmap__num">4:40</dt><dd class="mono">worth watching, out of 18:42</dd></div>
+              <div><dt class="segmap__num">25%</dt><dd class="mono">of the runtime</dd></div>
+            </dl>
+          </div>
+        </div>
+        <figcaption class="fig__cap mono"><span>Fig. 03 — Payload probability per caption segment</span><span>One Choice question · eight options</span></figcaption>
+      </figure>
+      <div class="cols cols--2 segmap__text reveal">
+        <div class="col">
+          <p class="tag mono">Payload Location</p>
+          <p>For a video with captions, Winnow splits the transcript into eight segments and asks Jev which one holds the core idea. It answers with a probability for every segment. The tallest becomes the Skip to range, and a runner-up joins it when Jev gives it at least a one-in-four chance.</p>
+        </div>
+        <div class="col">
+          <p class="tag mono">Honest Limit</p>
+          <p>No captions, no skip-to. Winnow still judges the title and description, but it will not guess a timestamp it cannot see.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <section class="block" aria-labelledby="reader-title">
+      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2 h2--sm" id="reader-title">Your map.</h2>
+        <p class="sub segmap__sub">The same page is not worth the same to everyone. Your goals, your recent topics and your read/skip feedback ride along with every judgment.</p>
+      </div>
+      <div class="split reveal">
+        <figure class="fig" id="fig4">
+          <span class="fig__tag">Fig. 04</span>
+          <div class="fig__panel">
+            <div class="toggle" role="group" aria-label="Reader state">
+              <button class="toggle__btn mono" aria-pressed="true" data-reader="new">New user</button>
+              <button class="toggle__btn mono" aria-pressed="false" data-reader="later">After 30 days</button>
+            </div>
+            <div class="card card--flat" id="reader-card" aria-live="polite" aria-atomic="true">
+              <p class="card__src mono"><span>youtube.com · 32:10</span><span class="sim">Simulated</span></p>
+              <p class="card__title">Transformers explained from scratch</p>
+              <p class="card__decision"><span class="pill pill--skim" data-reader-pill>SKIM<span class="pill__conf">· 67%</span></span></p>
+              <ul class="reasons" data-reader-reasons>
+                <li>General signal quality</li><li>No goals set yet</li><li>Nothing in your history on this topic</li>
+              </ul>
+            </div>
+          </div>
+          <figcaption class="fig__cap mono"><span>Fig. 04 — Same video, two readers</span><span>Reader state lives in your browser</span></figcaption>
+        </figure>
+        <div class="cols cols--2 cols--stack">
+          <div class="col">
+            <p class="tag mono">What Reader State Is</p>
+            <p>Three things: the goals you type into the options page, a rolling window of topics you have recently read, and the read/skip feedback you give on cards. All of it stays in the extension's local storage.</p>
+          </div>
+          <div class="col">
+            <p class="tag mono">Change Your Goals, Change The Verdicts</p>
+            <p>Reader state is part of every question, so editing your goals invalidates the cache. The next page you open is judged fresh against the new you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <section class="block" aria-labelledby="jev-title">
+      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2" id="jev-title">Decisions, not essays.</h2>
+      </div>
+      <div class="split reveal">
+        <figure class="fig" id="fig5">
+          <span class="fig__tag">Fig. 05</span>
+          <pre class="fig__panel code mono" tabindex="0"><code>{
+  "model": "jev-1.13.0",
+  "answers": {
+    "content_type": {
+      "type": "choice", "choice": "opinion", "confidence": 1,
+      "probabilities": { "opinion": 1, "news": 0,
+        "original_research": 0, "listicle": 0, "tutorial": 0 }
+    },
+    "already_known": { "type": "noul", "noul": 0.58 },
+    "insight_density": {
+      "type": "score", "score": 1.83, "confidence": 0.75,
+      "legend": { "0": "Almost none; generic",
+                  "1": "Some; one useful idea",
+                  "2": "Dense; several specific, non-obvious ideas" },
+      "probabilities": { "0": 0, "1": 0.17, "2": 0.83 }
+    }
+  },
+  "usage": { "input_tokens": 644, "output_tokens": 92 }
+}</code></pre>
+          <figcaption class="fig__cap mono"><span>Fig. 05 — A real response, 2026-09-18</span><span>644 tokens in · 92 out</span></figcaption>
+        </figure>
+        <div class="cols cols--3 cols--stack">
+          <div class="col"><p class="tag mono">Choice</p><p>One option from a fixed set, with a probability for each. Content type, payload location, the verdict itself.</p></div>
+          <div class="col"><p class="tag mono">Noul</p><p>A yes/no as a probability between 0 and 1. Already known to you? Undisclosed sales pitch? AI-written?</p></div>
+          <div class="col"><p class="tag mono">Score</p><p>A position on an ordered scale we define, like insight density from 0 to 2, with a confidence.</p></div>
+          <p class="col col--wide">Winnow is powered by Jev, a decision model from <a class="link" href="https://typesafe.ai">TypeSafe</a> that returns typed answers, never free text. Every sentence on a card is a template we wrote.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ======== Field 3 · Ink: set out (footer continues the field) ======== -->
+<div class="field field--ink">
+  <div class="wrap">
+
+    <section class="block" aria-labelledby="oss-title">
+      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2" id="oss-title">Set out.</h2>
+      </div>
+      <div class="cols cols--2 reveal">
+        <div class="col">
+          <p class="tag mono">Open Source From Day One</p>
+          <p>A Chrome MV3 extension, MIT licensed, at <a class="link" href="https://github.com/ThinkyMiner/Winnow">github.com/ThinkyMiner/Winnow</a>. No backend. No analytics, no telemetry. Your key stays in local storage.</p>
+        </div>
+        <div class="col">
+          <p class="tag mono">Where Your Text Goes</p>
+          <p>Page text goes to api.typesafe.ai and nowhere else. This is early access: expect rough edges, and read <a class="link" href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/privacy.md">the privacy note</a> before you install.</p>
+        </div>
+        <p class="col col--wide links"><a class="link" href="https://github.com/ThinkyMiner/Winnow">View GitHub</a><a class="link" href="https://github.com/ThinkyMiner/Winnow/tree/main/docs">Read how it works</a></p>
+      </div>
+
+      <div class="plate reveal" id="install"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2 h2--sm">Install</h2>
+      </div>
+      <ol class="cols cols--3 steps reveal">
+        <li class="col">
+          <p class="tag mono">01 Download</p>
+          <p>Get the <a class="link" href="https://github.com/ThinkyMiner/Winnow/releases/latest">latest release zip</a> and unzip it anywhere you will not delete.</p>
+        </li>
+        <li class="col">
+          <p class="tag mono">02 Load Unpacked</p>
+          <p>Open <span class="mono">chrome://extensions</span>, turn on Developer mode, click Load unpacked and pick the folder.</p>
+        </li>
+        <li class="col">
+          <p class="tag mono">03 Paste Your Jev Key</p>
+          <p>Create one at <a class="link" href="https://console.typesafe.ai">console.typesafe.ai</a>. About a tenth of a cent per Hacker News page.</p>
+        </li>
+        <li class="col col--wide mono sim">Chrome Web Store: coming soon.</li>
+      </ol>
+
+      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+        <h2 class="h2 h2--sm">Questions</h2>
+      </div>
+      <div class="faq reveal">
+        <details><summary><span class="mono">How much does it cost?</span><span class="chev" aria-hidden="true"></span></summary><p>About $0.0015 for a 30-link Hacker News front page, measured against jev-1.13.0. A single article or video is a fraction of that. Verdicts are cached for seven days, so reloads cost nothing.</p></details>
+        <details><summary><span class="mono">How accurate is it?</span><span class="chev" aria-hidden="true"></span></summary><p>80% verdict agreement on our 40-fixture held-out split. The goldens are under review, so treat that as a floor we are still checking, not a benchmark.</p></details>
+        <details><summary><span class="mono">What about paywalls?</span><span class="chev" aria-hidden="true"></span></summary><p>Winnow judges what it can see. On a paywalled page that is the teaser, so the verdict is about the teaser and says so.</p></details>
+        <details><summary><span class="mono">Videos without captions?</span><span class="chev" aria-hidden="true"></span></summary><p>You still get a verdict from the title and description, but there is no skip-to. Winnow does not guess timestamps it cannot read.</p></details>
+        <details><summary><span class="mono">Other Chromium browsers?</span><span class="chev" aria-hidden="true"></span></summary><p>Anything that loads MV3 unpacked extensions should work: Edge, Brave, Arc. We test on Chrome.</p></details>
+        <details><summary><span class="mono">Firefox?</span><span class="chev" aria-hidden="true"></span></summary><p>No, not yet.</p></details>
+        <details><summary><span class="mono">Does it slow pages down?</span><span class="chev" aria-hidden="true"></span></summary><p>No. Pills render in a shadow DOM and every call is asynchronous. The page finishes loading exactly as it would without Winnow.</p></details>
+        <details><summary><span class="mono">Can I change the questions?</span><span class="chev" aria-hidden="true"></span></summary><p>Yes. They live in <span class="mono">src/jev/questions.ts</span>. Edit, rebuild, reload the extension.</p></details>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+</main>
+
+<!-- Footer: same Ink field, no seam. The grain returns once, static and faint, under the wordmark. -->
+<footer class="field field--ink footer">
+  <div class="footer__head">
+    <div class="grain grain--echo" id="grain-foot" aria-hidden="true"></div>
+    <p class="footer__lockup">
+      <svg class="footer__mark" aria-hidden="true"><use href="#mark"/></svg>
+      <span>Winnow</span>
+    </p>
+  </div>
+  <div class="wrap">
+      <nav class="footer__links mono" aria-label="Footer">
+        <a href="https://github.com/ThinkyMiner/Winnow">GitHub</a>
+        <a href="https://github.com/ThinkyMiner/Winnow/tree/main/docs">Docs</a>
+        <a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/privacy.md">Privacy</a>
+        <a href="https://github.com/ThinkyMiner/Winnow/releases">Releases</a>
+        <a href="https://typesafe.ai">TypeSafe</a>
+        <span>MIT © 2026 ThinkyMiner</span>
+      </nav>
+  </div>
+  <p class="strip strip--h mono" aria-hidden="true">insight_density · already_known_to_reader · content_type · claims_supported · undisclosed_sales_pitch · ai_written · payload_location · payload_segment · serves_reader_goals · topic · jev_verdict</p>
+</footer>
+
+<script src="main.js" defer></script>
+</body>
+</html>

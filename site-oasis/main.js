@@ -1,0 +1,173 @@
+/* Winnow site, oasis draft — seven small interactions, no dependencies. */
+(function () {
+  'use strict';
+  var motion = matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  var setPill = function (pill, d, c) {
+    pill.className = 'pill pill--' + d;
+    pill.innerHTML = d.toUpperCase() + '<span class="pill__conf">· ' + c + '%</span>';
+  };
+  var setList = function (ul, items) {
+    ul.innerHTML = '';
+    items.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+  };
+
+  /* 1. Section reveal: whole blocks, once. */
+  var reveals = document.querySelectorAll('.reveal');
+  if (motion && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  /* 2. Hero card: cycles four verdict shapes every 3.5s with an Evaluating… beat. */
+  var card = document.getElementById('hero-card');
+  if (card) {
+    var ex = [
+      { title: 'Deep dive into KV caching for LLMs', source: 'youtube.com · 41:05', d: 'read', c: 92,
+        r: ['High insight density', 'Mostly new to you', 'Not clickbait', 'Best part: 04:32 → 08:10'] },
+      { title: 'Building RAG from scratch', source: 'youtube.com · 24:18', d: 'skim', c: 88,
+        r: ['Good explanation, but only 7 minutes are useful', 'Partly familiar to you', 'Best part: 09:20 → 14:00'] },
+      { title: 'Why AI changes EVERYTHING', source: 'youtube.com · 18:42', d: 'skip', c: 95,
+        r: ['Low new-information density', 'Likely engagement bait', 'Mostly repeats topics you already know'] },
+      { title: 'A field guide to distributed consensus', source: 'arxiv.org · 48 min read', d: 'save', c: 81,
+        r: ['High insight density', 'Long: 48 minutes', 'Serves your goals', 'Good, just not for right now'] }
+    ];
+    var h = {}, i = 0;
+    ['title', 'source', 'pill', 'reasons'].forEach(function (k) { h[k] = card.querySelector('[data-hero="' + k + '"]'); });
+    var show = function (e) {
+      h.title.textContent = e.title; h.source.textContent = e.source;
+      setPill(h.pill, e.d, e.c); setList(h.reasons, e.r);
+    };
+    if (motion) {
+      setInterval(function () {
+        card.classList.add('is-eval');
+        setTimeout(function () { i = (i + 1) % ex.length; show(ex[i]); card.classList.remove('is-eval'); }, 700);
+      }, 3500);
+    }
+  }
+
+  /* 3. Noise → signal (Fig. 01) and 4. segment map (Fig. 03) are CSS on .is-in; JS only replays, and drives the tooltips. */
+  var jump = document.getElementById('jump'), fig3 = document.getElementById('fig3');
+  if (jump && fig3) {
+    jump.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      if (!motion) return;
+      fig3.classList.remove('is-in');
+      void fig3.offsetWidth; // restart the transitions and keyframes
+      fig3.classList.add('is-in');
+    });
+    var map = fig3.querySelector('.segmap'), tipline = document.getElementById('seg-tipline');
+    var showLine = function (seg) { tipline.textContent = Array.prototype.map.call(seg.querySelectorAll('.seg__tip > span'), function (s) { return s.textContent; }).join(' · '); };
+    map.querySelectorAll('.seg').forEach(function (seg) {
+      seg.addEventListener('click', function () { showLine(seg); });
+      seg.addEventListener('focus', function () { map.classList.remove('is-hush'); showLine(seg); });
+    });
+    map.addEventListener('mouseleave', function () { map.classList.remove('is-hush'); });
+    map.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      map.classList.add('is-hush');
+      if (document.activeElement && document.activeElement.classList.contains('seg')) document.activeElement.blur();
+    });
+  }
+
+  /* 5. Reader toggle (Fig. 04): same video, two readers. */
+  var rc = document.getElementById('reader-card');
+  if (rc) {
+    var states = {
+      new: { d: 'skim', c: 67, r: ['General signal quality', 'No goals set yet', 'Nothing in your history on this topic'] },
+      later: { d: 'skip', c: 94, r: ['You already know most of this', 'Overlaps with what you read this month', 'Nothing new for your goals'] }
+    };
+    var btns = document.querySelectorAll('[data-reader]');
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (b.getAttribute('aria-pressed') === 'true') return;
+        btns.forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+        var s = states[b.dataset.reader], apply = function () {
+          setPill(rc.querySelector('[data-reader-pill]'), s.d, s.c);
+          setList(rc.querySelector('[data-reader-reasons]'), s.r);
+          rc.classList.remove('is-swap');
+        };
+        if (motion) { rc.classList.add('is-swap'); setTimeout(apply, 220); } else apply();
+      });
+    });
+  }
+
+  /* 6. Tabs (Fig. 02): click, arrow keys, Home/End. */
+  var list = document.querySelector('[role="tablist"]');
+  if (list) {
+    var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+    var select = function (t) {
+      tabs.forEach(function (o) {
+        var on = o === t;
+        o.setAttribute('aria-selected', on ? 'true' : 'false');
+        o.tabIndex = on ? 0 : -1;
+        document.getElementById(o.getAttribute('aria-controls')).hidden = !on;
+      });
+      t.focus();
+    };
+    tabs.forEach(function (t, n) {
+      t.addEventListener('click', function () { select(t); });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key, m = n;
+        if (k === 'ArrowRight') m = (n + 1) % tabs.length;
+        else if (k === 'ArrowLeft') m = (n - 1 + tabs.length) % tabs.length;
+        else if (k === 'Home') m = 0;
+        else if (k === 'End') m = tabs.length - 1;
+        else return;
+        e.preventDefault(); select(tabs[m]);
+      });
+    });
+  }
+
+  /* 7. Grain: the desert is made of junk headlines. Grid with jitter so it reads as sand, not as a list. */
+  var openers = ['10 habits of {}', "You won't believe {}", 'This changes everything for {}', 'Sponsored: the only tool for {}',
+    'Why everyone is wrong about {}', 'The truth about {}', "7 signs you're bad at {}", 'Stop doing this with {}', 'I quit {}. Here is why',
+    'What nobody tells you about {}', 'The end of {}?', 'Is this the future of {}?', 'How I 10x’d {}', 'One weird trick for {}', 'BREAKING: {}',
+    'Opinion: we need to talk about {}', 'Ranked: every take on {}', 'The ultimate guide to {}', "Here's why {} is over", 'Top 5 mistakes in {}',
+    'Everyone is switching to {}', 'You’re using {} wrong', 'The dark side of {}', 'Experts hate this {} trick', 'Finally, {} explained',
+    'A thread on {}', 'Hot take: {} is a scam', 'LIVE: reactions to {}', 'Unpopular opinion: {}', 'Why I stopped using {}',
+    'The real reason behind {}', 'Rethinking {} in 2026', 'New study says {} is bad for you', 'LEAKED: {}', 'Just announced: {}',
+    'The rise and fall of {}', 'AMA about {}', 'Day 1 of learning {}', 'My honest review of {}', 'Nobody is ready for {}', '{}: a definitive ranking',
+    'We tried {} for 30 days', 'What {} means for you', '{} is dead. Long live {}'];
+  var subjects = ['AI agents', 'your morning routine', 'productivity', 'remote work', 'Rust', 'the housing market', 'your résumé', 'Kubernetes',
+    'side hustles', 'prompt engineering', 'vector databases', 'the creator economy', 'your sleep', 'microservices', 'Web3', 'meal prep',
+    'your inbox', 'cold plunges', 'TypeScript', 'the attention economy', 'LLMs', 'note-taking', 'passive income', 'the four-day week'];
+  var tails = ['', '', '', '', ' (2026)', ' | sponsored', ' [thread]', ' — read this first', ' · 4 min read'];
+  var pick = function (a) { return a[Math.floor(Math.random() * a.length)]; };
+  var headline = function () { return pick(openers).split('{}').join(pick(subjects)) + pick(tails); };
+  var grains = function (el, cap, drift) {
+    var W = el.clientWidth, H = el.clientHeight, cw = 165, ch = 26;
+    var cols = Math.max(1, Math.floor(W / cw)), rows = Math.max(1, Math.floor(H / ch)), cells = [];
+    for (var c = 0; c < cols; c++) for (var r = 0; r < rows; r++) cells.push([c, r]);
+    for (var k = cells.length - 1; k > 0; k--) { var j = Math.floor(Math.random() * (k + 1)), t = cells[k]; cells[k] = cells[j]; cells[j] = t; }
+    var frag = document.createDocumentFragment(), n = Math.min(cap, cells.length);
+    for (var q = 0; q < n; q++) {
+      var s = document.createElement('span'), x = cells[q][0] * cw + Math.random() * cw * .45, y = cells[q][1] * ch + (Math.random() - .5) * 10;
+      s.className = 'grain__i' + (Math.random() < .35 ? ' grain__i--lg' : '');
+      s.textContent = headline();
+      s.style.left = x.toFixed(0) + 'px'; s.style.top = y.toFixed(0) + 'px';
+      if (drift) {
+        var a = Math.random() * Math.PI * 2, m = 6 + Math.random() * 4;
+        s.style.setProperty('--dx', (Math.cos(a) * m).toFixed(1) + 'px'); s.style.setProperty('--dy', (Math.sin(a) * m).toFixed(1) + 'px');
+        s.style.setProperty('--t', (20 + Math.random() * 20).toFixed(1) + 's'); s.style.setProperty('--d', (-Math.random() * 40).toFixed(1) + 's');
+      }
+      frag.appendChild(s);
+    }
+    el.textContent = ''; el.appendChild(frag);
+    return n;
+  };
+  var gh = document.getElementById('grain-hero'), gf = document.getElementById('grain-foot');
+  var seed = function () {
+    if (gh) gh.dataset.count = grains(gh, matchMedia('(max-width: 820px)').matches ? 90 : 220, motion);
+    if (gf) gf.dataset.count = grains(gf, 120, false);
+  };
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(seed, seed);
+  if (gh && motion && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { gh.classList.toggle('is-off', !e[0].isIntersecting); }).observe(gh);
+  }
+})();
