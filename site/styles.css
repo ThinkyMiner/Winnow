@@ -64,10 +64,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .nav { position: sticky; top: 0; z-index: 50; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; background: var(--paper); border-bottom: 1px solid var(--border); }
 .nav__brand { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; text-decoration: none; letter-spacing: -.01em; }
 .nav__mark { color: var(--blue); }
-.nav__links { display: flex; gap: 4px; }
-.nav__links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; background: #fff; border: 1px solid var(--border); font-size: 15px; font-weight: 500; text-decoration: none; color: var(--slate); }
-.nav__links a:hover { color: var(--ink); border-color: var(--ink); }
-.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: var(--ink); color: var(--paper); font-size: 15px; font-weight: 500; text-decoration: none; }
+.nav__links { display: flex; align-items: center; gap: 28px; }
+.nav__links a { position: relative; display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 500; text-decoration: none; color: var(--slate); }
+.nav__links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 12px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 180ms cubic-bezier(.2,.8,.2,1); }
+.nav__links a:hover { color: var(--ink); }
+.nav__links a:hover::after, .nav__links a:focus-visible::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) { .nav__links a::after { transition: none; } }
+.btn { display: inline-flex; align-items: center; min-height: 40px; padding: 0 20px; background: var(--ink); color: var(--paper); font-size: 15px; font-weight: 500; letter-spacing: -.005em; text-decoration: none; transition: background 180ms cubic-bezier(.2,.8,.2,1); }
+.btn:hover { background: var(--blue); }
 .btn:hover { background: var(--blue); }
 
 /* ---------- hero ---------- */
