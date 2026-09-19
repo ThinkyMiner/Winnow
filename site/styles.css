@@ -212,18 +212,17 @@ button.pill::after { content: ""; position: absolute; inset: -10px; } /* 44px hi
 /* code */
 .code { background: var(--ink); color: var(--paper); font-size: 12.5px; line-height: 1.55; overflow-x: auto; border-color: var(--ink); }
 .code code { font: inherit; }
-#fig5 .fig__tag { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); }
 
 /* faq */
 .faq { max-width: 720px; }
-.faq details { border-top: 1px solid color-mix(in srgb, currentColor 25%, transparent); }
+.faq details { border-top: 1px solid color-mix(in srgb, currentColor 25%, transparent); border-left: 1px dotted color-mix(in srgb, currentColor 50%, transparent); }
 .faq details:last-child { border-bottom: 1px solid color-mix(in srgb, currentColor 25%, transparent); }
-.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 8px 0 8px 20px; border-left: 1px dotted color-mix(in srgb, currentColor 50%, transparent); list-style: none; cursor: pointer; font-size: 13px; }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 8px 0 8px 20px; list-style: none; cursor: pointer; font-size: 13px; }
 .faq summary::-webkit-details-marker { display: none; }
 .chev { position: relative; flex: none; width: 20px; height: 20px; border: 1px solid currentColor; }
 .chev::after { content: ""; position: absolute; left: 6px; top: 4px; width: 6px; height: 6px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg); }
 details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
-.faq p { padding: 4px 0 24px 20px; color: var(--fg2); max-width: 60ch; }
+.faq p { padding: 0 0 20px 20px; color: var(--fg2); max-width: 60ch; }
 
 /* ---------- motion ---------- */
 @media (prefers-reduced-motion: no-preference) {
