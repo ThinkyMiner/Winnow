@@ -4,6 +4,10 @@ All notable changes to Winnow are documented here. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+### Changed
+
+- New brand identity: three-piece W mark, blue palette, redesigned website.
+
 ## [0.1.0] - 2026-09-19
 
 First public release.

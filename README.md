@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/brand/logo.svg" width="360" alt="Winnow">
+  <img src="assets/brand/logo.svg" width="280" alt="Winnow">
 </p>
 
-<p align="center"><strong>Less noise. More signal.</strong></p>
+<p align="center"><strong>Less noise. More signal.</strong><br><em>Know before you click.</em></p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
@@ -170,6 +170,17 @@ Small PRs, `pnpm typecheck && pnpm test` green, one module per PR. See [CONTRIBU
 1. Split the insight-density question so "polished" and "original" stop scoring the same.
 2. Human-reviewed goldens (`reviewed: true` in `fixtures/golden.json`).
 3. A caption-path fixture for the YouTube extractor, and a visible failure state on the card when captions could not be fetched.
+
+## Brand
+
+Brand assets live in [`assets/brand/`](assets/brand/):
+
+- **Mark**: `mark.svg` (Winnow Blue), `mark-white.svg`, `mark-ink.svg`; `favicon.svg` is the blue mark.
+- **Lockups**: `logo.svg` (mark + wordmark, Ink) and `logo-white.svg`.
+- **App icons**: `app-icon-primary.png` (white mark on blue), `app-icon-light.png`, `app-icon-dark.png` at 512 px; the extension icons in `public/icons/` (16, 32, 48, 128) are the primary icon.
+- **Social pack** in `social/`: 1080×1080, 1080×1350, 1080×1920, 1920×1080, 1200×630 (`og.png` is a copy), 1500×500, 1584×396, 1640×624, 2560×1440.
+
+Usage: the mark is the rounded three-piece W, as drawn, with no outlines, shadows, strokes, or 3D effects. Keep clear space of half the centre wedge's height around it, and do not go below 16 px (toolbar), 20 px (UI), or 24 px (navigation). Palette, type, badge tokens, and copy rules are in [docs/brand/DESIGN.md](docs/brand/DESIGN.md); a one-page summary is [assets/brand/README.md](assets/brand/README.md).
 
 ## License
 

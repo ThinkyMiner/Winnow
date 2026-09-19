@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 322 71" width="322" height="71" fill="none" role="img" aria-label="Winnow">
   <g transform="translate(-5 -15)">
-  <g stroke="#2563EB" stroke-linecap="round" stroke-linejoin="round">
+  <g stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
     <line x1="15" y1="25" x2="33" y2="76" stroke-width="20"/>
     <line x1="85" y1="25" x2="67" y2="76" stroke-width="20"/>
-    <path d="M42 26 L58 26 L50 50 Z" fill="#2563EB" stroke-width="14"/>
+    <path d="M42 26 L58 26 L50 50 Z" fill="#FFFFFF" stroke-width="14"/>
   </g>
   </g>
-  <text x="112" y="55" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="54" letter-spacing="-0.02em" fill="#0F172A">Winnow</text>
+  <text x="112" y="55" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="54" letter-spacing="-0.02em" fill="#FFFFFF">Winnow</text>
 </svg>

@@ -57,7 +57,8 @@ fixtures/
   reader.json           fixed ReaderState for the eval
 dev/
   preview.html/.ts      renders every card and badge state from dev/fixtures.ts
-public/icons/           16/48/128 px icons copied into dist/
+public/icons/           16/32/48/128 px extension icons copied into dist/ (see Brand assets)
+assets/brand/           mark, lockups, app icons, social pack; see assets/brand/README.md
 docs/                   this directory
 .github/                CI, release, issue and PR templates
 ```
@@ -99,6 +100,32 @@ Content scripts are injected on the next page load, not into already-open tabs. 
 ### Automating the load (Chrome 137+)
 
 Branded Chrome 137 and later ignores the `--load-extension` command-line flag. If you script extension loading (screenshots, end-to-end checks), launch Chrome with `--remote-debugging-pipe --enable-unsafe-extension-debugging` and call the DevTools Protocol method `Extensions.loadUnpacked` with the absolute path to `dist/`. Chrome for Testing and Chromium builds still honour `--load-extension`.
+
+## Brand assets
+
+`assets/brand/` holds the identity described in [brand/DESIGN.md](brand/DESIGN.md); the quick reference is [`assets/brand/README.md`](../assets/brand/README.md).
+
+| File | What it is |
+|---|---|
+| `mark.svg`, `mark-white.svg`, `mark-ink.svg` | The three-piece W mark in Winnow Blue, white, and Ink. `mark.svg` is the canonical geometry; the others are colour swaps of it, never redrawn |
+| `favicon.svg` | The blue mark, for the website |
+| `logo.svg`, `logo-white.svg` | Lockup: mark + "Winnow" as an Inter 700 `<text>` element (falls back to the system sans) |
+| `app-icon-primary.png`, `app-icon-light.png`, `app-icon-dark.png` | 512 px app icons: white mark on blue, blue mark on white with a 1 px Border stroke, white mark on Ink |
+| `og.png` | Copy of `social/winnow-og-link-preview-1200x630.png` |
+| `social/` | Nine social sizes, named by use and dimensions |
+| `brand-board.png` | The reference board the assets were derived from |
+
+`public/icons/{16,32,48,128}.png` are the primary app icon (Winnow Blue rounded square, corner radius 22% of the side, white mark 62% of the width; 70% at 16 px for legibility). `manifest.json` references 16, 48, and 128, so those sizes must stay exact.
+
+Icons are rendered from an HTML file holding one inline SVG sized N×N over a transparent body, with headless Chrome:
+
+```sh
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+  --screenshot=out.png --window-size=N,N --default-background-color=00000000 icon.html
+sips -g pixelWidth -g pixelHeight out.png
+```
+
+Edit the colours or the scale in the SVG, re-render each size, and check the 16 px one zoomed (`image-rendering: pixelated`) before committing.
 
 ## Probing Jev
 

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" role="img" aria-label="Winnow">
+  <!-- Winnow mark: two rounded diagonal strokes + a centred rounded inverted wedge -->
+  <g stroke="#0F172A" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="15" y1="25" x2="33" y2="76" stroke-width="20"/>
+    <line x1="85" y1="25" x2="67" y2="76" stroke-width="20"/>
+    <path d="M42 26 L58 26 L50 50 Z" fill="#0F172A" stroke-width="14"/>
+  </g>
+</svg>
