@@ -1,6 +1,7 @@
 // Page mode: judge the article or video the user is looking at and show one card.
 import { extractArticle } from "../extract/article";
 import { extractYouTube, isYouTubeWatch } from "../extract/youtube";
+import { detectFeed } from "../extract/feed";
 import { sendMessage } from "../background/messaging";
 import { mountCard, type CardHandle } from "../ui/card";
 import type { ExtractedContent, JudgeErrorCode } from "../types";
@@ -13,7 +14,10 @@ let runId = 0;
 
 async function extract(): Promise<ExtractedContent | null> {
   const url = location.href;
-  return isYouTubeWatch(url) ? extractYouTube(document, url) : extractArticle(document, url);
+  if (isYouTubeWatch(url)) return extractYouTube(document, url);
+  // A feed page (HN front page, YouTube home) is not an article; badges handle it.
+  if (detectFeed(document, url, { hn: true, youtube: true, generic: false })) return null;
+  return extractArticle(document, url);
 }
 
 async function run(): Promise<void> {
