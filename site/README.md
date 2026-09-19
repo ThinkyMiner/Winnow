@@ -6,4 +6,4 @@ Deploy on Vercel with Root Directory = `site` and Framework Preset = Other. `ver
 
 Preview locally by opening `index.html` directly (asset paths are relative) or serve the folder with `python3 -m http.server`.
 
-Replace the literal `SITE_URL_TBD` in `index.html` with the production origin once it exists. `assets/og.png` is the social image; `assets/screenshots/` holds product captures used by the docs.
+Replace the literal `https://winnow-seven.vercel.app` in `index.html` with the production origin once it exists. `assets/og.png` is the social image; `assets/screenshots/` holds product captures used by the docs.

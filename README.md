@@ -12,7 +12,7 @@
 
 Winnow is a Chrome extension that tells you whether an article or video is worth your time before you spend it. It reads the page (or the feed you are scrolling), asks [Jev](https://typesafe.ai) from TypeSafe a fixed set of typed questions, and turns the answers into one of four verdicts: **read now**, **skim**, **save**, or **skip**. Jev returns probabilities, never prose, so every word on the card is a template filled from typed answers. You bring your own Jev key; nothing goes through a server of ours.
 
-Website: SITE_URL_TBD
+Website: https://winnow-seven.vercel.app
 
 <p align="center">
   <img src="assets/screenshots/card-article.png" width="720" alt="Winnow card on an article: verdict pill, insight density bar, content type, and reasons">

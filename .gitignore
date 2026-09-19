@@ -1,5 +1,6 @@
 .env
 .eval-cache
 .gstack/
+.vercel/
 dist
 node_modules
