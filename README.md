@@ -14,6 +14,8 @@
   <a href="https://github.com/ThinkyMiner/Winnow/releases/latest"><img src="https://img.shields.io/github/v/release/ThinkyMiner/Winnow" alt="Latest release"></a>
 </p>
 
+# Winnow — know before you click
+
 Winnow is a Chrome extension that tells you whether an article or video is worth your time before you spend it. It reads the page (or the feed you are scrolling), asks [Jev](https://typesafe.ai) from TypeSafe a fixed set of typed questions, and turns the answers into one of four verdicts: **read now**, **skim**, **save**, or **skip**. Jev returns probabilities, never prose, so every word on the card is a template filled from typed answers. You bring your own Jev key; nothing goes through a server of ours.
 
 
@@ -173,6 +175,22 @@ Small PRs, `pnpm typecheck && pnpm test` green, one module per PR. See [CONTRIBU
 1. Split the insight-density question so "polished" and "original" stop scoring the same.
 2. Human-reviewed goldens (`reviewed: true` in `fixtures/golden.json`).
 3. A caption-path fixture for the YouTube extractor, and a visible failure state on the card when captions could not be fetched.
+
+## Questions people ask
+
+**What does Winnow actually do?** Before you open a link, it tells you whether the page is worth your time: read now, skim, save for later, or skip, with a confidence. On feeds it puts a small badge next to every link in view.
+
+**Is it free?** The extension is free and MIT licensed. It calls the Jev API with your own key, which costs about a tenth of a cent per Hacker News front page and nothing on a reload, because verdicts are cached for seven days.
+
+**Does it send my browsing anywhere?** Page text goes to `api.typesafe.ai` and nowhere else. There is no Winnow server, no analytics, and no telemetry. Your key and your reader profile stay in `chrome.storage.local`. See [the privacy note](docs/privacy.md).
+
+**How is this different from an AI summariser?** A summary still costs you the read. Winnow answers a decision instead, and it never shows you text a model wrote: every line on the card is a template filled with typed answers. See [how judgments work](docs/how-judgments-work.md).
+
+**Does it work on Firefox, Edge, Brave or Arc?** Any Chromium browser with Manifest V3 support should run it; only Chrome is tested. Firefox is not supported.
+
+**Can I change what it asks, or how strict it is?** Yes. Questions live in [`src/jev/questions.ts`](src/jev/questions.ts), the verdict rules in [`src/jev/verdict.ts`](src/jev/verdict.ts), and every threshold is a slider in the options page, defined in [`src/config.ts`](src/config.ts).
+
+**How accurate is it?** On a 40-item fixture set with a held-out split, verdicts agree with the goldens 80% of the time and content type 90%. Jev 1.13 is early access. The goldens are still unreviewed. See [the eval harness](docs/eval.md).
 
 ## Brand
 

@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://winnow-seven.vercel.app/sitemap.xml
