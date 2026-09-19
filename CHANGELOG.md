@@ -4,9 +4,21 @@ All notable changes to Winnow are documented here. The format follows [Keep a Ch
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-19
+
 ### Changed
 
-- New brand identity: three-piece W mark, blue palette, redesigned website.
+- New brand identity: the three-piece W mark, the blue palette, and a redesigned website. Extension icons are now the Winnow mark in white on Winnow Blue at 16, 32, 48 and 128 px.
+
+### Fixed
+
+- No page card on feed pages. Opening the Hacker News front page or the YouTube home page used to put a judgment card on top of the badges.
+- Prefetched link text can now reach full depth. The per-item cap was below the word count needed to enable the body-dependent rules, so prefetching never changed a verdict.
+- The feed batch debounce constant is now used by the adapter instead of a hard-coded value.
+
+### Removed
+
+- The `yes_probability` threshold. It was rendered as a slider and swept by the eval grid search, but no verdict rule ever read it.
 
 ## [0.1.0] - 2026-09-19
 
