@@ -1,173 +1,114 @@
-/* Winnow landing — vanilla, no libraries. Motion gated on prefers-reduced-motion. */
+/* Winnow site — six small interactions, no dependencies. */
 (function () {
   'use strict';
-  var $ = function (s, r) { return (r || document).querySelector(s); };
-  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var motion = matchMedia('(prefers-reduced-motion: no-preference)').matches;
-  var CLASS = { READ: 'badge-read', SKIM: 'badge-skim', SAVE: 'badge-save', SKIP: 'badge-skip' };
+  var setPill = function (pill, d, c) {
+    pill.className = 'pill pill--' + d;
+    pill.innerHTML = d.toUpperCase() + '<span class="pill__conf">· ' + c + '%</span>';
+  };
+  var setList = function (ul, items) {
+    ul.innerHTML = '';
+    items.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+  };
 
-  /* Header scroll state + scroll cue */
-  var header = $('#header'), cue = $('#scroll-cue');
-  function onScroll() {
-    header.classList.toggle('is-scrolled', scrollY > 8);
-    if (cue && scrollY > 40) cue.classList.add('is-hidden');
-  }
-  addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  /* Section reveals */
+  /* 1. Section reveal: whole blocks, once. */
+  var reveals = document.querySelectorAll('.reveal');
   if (motion && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
-    $$('.reveal').forEach(function (el) { io.observe(el); });
+    reveals.forEach(function (el) { io.observe(el); });
   } else {
-    $$('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+    reveals.forEach(function (el) { el.classList.add('is-in'); });
   }
 
-  /* Hero card cycle — §7. Illustrative content; confidences are examples, not measurements. */
-  var examples = [
-    { title: 'Deep dive into KV caching for LLMs', source: 'youtube.com', decision: 'READ', confidence: 92,
-      reasons: ['High insight density', 'Mostly new to you', 'Not clickbait', 'Best part: 04:32 → 08:10'] },
-    { title: 'Building RAG from scratch', source: 'youtube.com · 24:18', decision: 'SKIM', confidence: 88,
-      reasons: ['Good explanation, but only 7 minutes are useful', 'Partly familiar to you', 'Best part: 09:20 → 16:14'] },
-    { title: 'Why AI changes EVERYTHING', source: 'youtube.com · 18:42', decision: 'SKIP', confidence: 95,
-      reasons: ['Low new-information density', 'Likely engagement bait', 'Mostly repeats topics you already know'] },
-    { title: 'A field guide to distributed consensus', source: 'arxiv.org · 48 min read', decision: 'SAVE', confidence: 84,
-      reasons: ['High insight density', 'Long: 48 minutes', 'Serves your goals', 'Good, just not for right now'] }
-  ];
-  var hero = $('#hero-card');
-  if (hero && motion) {
-    var h = {};
-    $$('[data-hero]', hero).forEach(function (el) { h[el.dataset.hero] = el; });
-    var i = 0;
-    function show(ex) {
-      h.title.textContent = ex.title;
-      h.source.textContent = ex.source;
-      h.badge.className = 'badge ' + CLASS[ex.decision];
-      h.badge.innerHTML = '';
-      h.badge.appendChild(document.createTextNode(ex.decision));
-      var conf = document.createElement('span');
-      conf.className = 'badge__conf';
-      conf.textContent = ' · ' + ex.confidence + '%';
-      h.badge.appendChild(conf);
-      h.reasons.innerHTML = '';
-      ex.reasons.forEach(function (r) { var li = document.createElement('li'); li.textContent = r; h.reasons.appendChild(li); });
-    }
-    function step() {
-      if (document.hidden) return;
-      i = (i + 1) % examples.length;
-      hero.classList.add('is-evaluating');
-      setTimeout(function () {
-        show(examples[i]);
-        hero.classList.remove('is-evaluating');
-      }, 800);
-    }
-    setInterval(step, 3500);
-  }
-
-  /* Noise → signal — §10 */
-  var noise = $('#noise');
-  if (noise) {
-    if (motion && 'IntersectionObserver' in window) {
-      var nio = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) { setTimeout(function () { noise.classList.add('is-filtered'); }, 500); nio.disconnect(); }
-      }, { threshold: 0.4 });
-      nio.observe(noise);
-    } else {
-      noise.classList.add('is-filtered');
+  /* 2. Hero card: cycles four verdict shapes every 3.5s with an Evaluating… beat. */
+  var card = document.getElementById('hero-card');
+  if (card) {
+    var ex = [
+      { title: 'Deep dive into KV caching for LLMs', source: 'youtube.com · 41:05', d: 'read', c: 92,
+        r: ['High insight density', 'Mostly new to you', 'Not clickbait', 'Best part: 04:32 → 08:10'] },
+      { title: 'Building RAG from scratch', source: 'youtube.com · 24:18', d: 'skim', c: 88,
+        r: ['Good explanation, but only 7 minutes are useful', 'Partly familiar to you', 'Best part: 09:20 → 16:14'] },
+      { title: 'Why AI changes EVERYTHING', source: 'youtube.com · 18:42', d: 'skip', c: 95,
+        r: ['Low new-information density', 'Likely engagement bait', 'Mostly repeats topics you already know'] },
+      { title: 'A field guide to distributed consensus', source: 'arxiv.org · 48 min read', d: 'save', c: 81,
+        r: ['High insight density', 'Long: 48 minutes', 'Serves your goals', 'Good, just not for right now'] }
+    ];
+    var h = {}, i = 0;
+    ['title', 'source', 'pill', 'reasons'].forEach(function (k) { h[k] = card.querySelector('[data-hero="' + k + '"]'); });
+    var show = function (e) {
+      h.title.textContent = e.title; h.source.textContent = e.source;
+      setPill(h.pill, e.d, e.c); setList(h.reasons, e.r);
+    };
+    if (motion) {
+      setInterval(function () {
+        card.classList.add('is-eval');
+        setTimeout(function () { i = (i + 1) % ex.length; show(ex[i]); card.classList.remove('is-eval'); }, 700);
+      }, 3500);
     }
   }
 
-  /* Tabs helper (feed demo + personalization) — keyboard per WAI-ARIA */
-  function tabs(list, onSelect) {
-    var items = $$('[role="tab"]', list);
-    function select(idx, focus) {
-      items.forEach(function (t, k) {
-        var on = k === idx;
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-        var p = document.getElementById(t.getAttribute('aria-controls'));
-        if (p) p.hidden = !on;
-      });
-      if (focus) items[idx].focus();
-      if (onSelect) onSelect(idx);
-    }
-    items.forEach(function (t, k) {
-      t.addEventListener('click', function () { select(k, false); });
-      t.addEventListener('keydown', function (e) {
-        var n = { ArrowRight: k + 1, ArrowDown: k + 1, ArrowLeft: k - 1, ArrowUp: k - 1, Home: 0, End: items.length - 1 }[e.key];
-        if (n === undefined) return;
-        e.preventDefault();
-        select((n + items.length) % items.length, true);
-      });
-    });
-    return { select: select, length: items.length };
-  }
-
-  /* Feed demo — sticky, scroll-driven on desktop (§30), plain tabs otherwise */
-  var track = $('#feed-track'), feedList = $('#feed-tabs');
-  if (feedList) {
-    var sticky = matchMedia('(min-width: 900px) and (prefers-reduced-motion: no-preference)');
-    var current = 0, fromScroll = false;
-    var feedTabs = tabs(feedList, function (idx) {
-      current = idx;
-      if (sticky.matches && !fromScroll) {
-        var range = track.offsetHeight - innerHeight;
-        scrollTo({ top: track.offsetTop + range * ((idx + 0.5) / feedTabs.length), behavior: 'smooth' });
-      }
-    });
-    function onFeedScroll() {
-      if (!sticky.matches) return;
-      var range = track.offsetHeight - innerHeight;
-      var p = (scrollY - track.offsetTop) / range;
-      var idx = Math.min(feedTabs.length - 1, Math.max(0, Math.floor(p * feedTabs.length)));
-      if (idx !== current) { fromScroll = true; feedTabs.select(idx, false); fromScroll = false; }
-    }
-    addEventListener('scroll', onFeedScroll, { passive: true });
-  }
-
-  /* Article demo — click the pill (§16) */
-  var artBadge = $('#art-badge');
-  if (artBadge) artBadge.addEventListener('click', function () {
-    var open = artBadge.getAttribute('aria-expanded') === 'true';
-    artBadge.setAttribute('aria-expanded', String(!open));
-    $('#art-detail').hidden = open;
-  });
-
-  /* Video payoff — §18 */
-  var timeline = $('#timeline');
-  if (timeline) {
-    if (motion && 'IntersectionObserver' in window) {
-      var vio = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) { timeline.classList.add('is-live'); vio.disconnect(); }
-      }, { threshold: 0.5 });
-      vio.observe(timeline);
-    } else {
-      timeline.classList.add('is-live');
-    }
-    $('#jump').addEventListener('click', function () {
+  /* 3. Noise → signal (Fig. 01) and 4. video playhead (Fig. 03) are CSS on .is-in; only the replay needs JS. */
+  var jump = document.getElementById('jump'), fig3 = document.getElementById('fig3');
+  if (jump && fig3) {
+    jump.addEventListener('click', function (ev) {
+      ev.preventDefault();
       if (!motion) return;
-      timeline.classList.remove('is-live');
-      timeline.classList.add('is-reset');   // snap back without transitions
-      void timeline.offsetWidth;
-      timeline.classList.remove('is-reset');
-      timeline.classList.add('is-live');
+      fig3.classList.remove('is-in');
+      void fig3.offsetWidth; // restart the transition
+      fig3.classList.add('is-in');
     });
   }
 
-  /* Personalization toggle — §20 */
-  var who = $('#who-tabs');
-  if (who) tabs(who);
+  /* 5. Reader toggle (Fig. 04): same video, two readers. */
+  var rc = document.getElementById('reader-card');
+  if (rc) {
+    var states = {
+      new: { d: 'skim', c: 67, r: ['General signal quality', 'No goals set yet', 'Nothing in your history on this topic'] },
+      later: { d: 'skip', c: 94, r: ['You already know most of this', 'Overlaps with what you read this month', 'Nothing new for your goals'] }
+    };
+    var btns = document.querySelectorAll('[data-reader]');
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (b.getAttribute('aria-pressed') === 'true') return;
+        btns.forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+        var s = states[b.dataset.reader], apply = function () {
+          setPill(rc.querySelector('[data-reader-pill]'), s.d, s.c);
+          setList(rc.querySelector('[data-reader-reasons]'), s.r);
+          rc.classList.remove('is-swap');
+        };
+        if (motion) { rc.classList.add('is-swap'); setTimeout(apply, 220); } else apply();
+      });
+    });
+  }
 
-  /* Explainability — §22 */
-  var why = $('#why');
-  if (why) why.addEventListener('click', function () {
-    var open = why.getAttribute('aria-expanded') === 'true';
-    why.setAttribute('aria-expanded', String(!open));
-    $('#why-more').hidden = open;
-    why.textContent = open ? 'Why?' : 'Less';
-  });
+  /* 6. Tabs (Fig. 02): click, arrow keys, Home/End. */
+  var list = document.querySelector('[role="tablist"]');
+  if (list) {
+    var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+    var select = function (t) {
+      tabs.forEach(function (o) {
+        var on = o === t;
+        o.setAttribute('aria-selected', on ? 'true' : 'false');
+        o.tabIndex = on ? 0 : -1;
+        document.getElementById(o.getAttribute('aria-controls')).hidden = !on;
+      });
+      t.focus();
+    };
+    tabs.forEach(function (t, n) {
+      t.addEventListener('click', function () { select(t); });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key, m = n;
+        if (k === 'ArrowRight') m = (n + 1) % tabs.length;
+        else if (k === 'ArrowLeft') m = (n - 1 + tabs.length) % tabs.length;
+        else if (k === 'Home') m = 0;
+        else if (k === 'End') m = tabs.length - 1;
+        else return;
+        e.preventDefault(); select(tabs[m]);
+      });
+    });
+  }
 })();
