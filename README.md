@@ -30,7 +30,7 @@ Winnow is a Chrome extension that tells you whether an article or video is worth
 **Feed mode.** On Hacker News, YouTube home/subscriptions/search, and any page with many external links, each link that scrolls into view gets a small badge (`GO`, `~`, `SAVE`, `SKIP`, or `?`). Hover or focus it to see the full card. Items are judged in batches of up to 12 per Jev call and cached for seven days, so a second visit to the same front page costs nothing.
 
 <p align="center">
-  <img src="assets/screenshots/feed-hn.png" width="720" alt="Hacker News front page with Winnow badges next to each title">
+  <img src="assets/screenshots/feed-hn.png" width="720" alt="Hacker News front page with a Winnow verdict pill beside each story title">
   <br>
   <img src="assets/screenshots/badge-popover.png" width="520" alt="Badge popover showing the full card for one feed item">
 </p>
@@ -55,6 +55,10 @@ Winnow is not on the Chrome Web Store yet. Install from a release zip:
 2. Open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked**, and pick the unzipped folder.
 3. The onboarding page opens. Paste a Jev API key from [console.typesafe.ai](https://console.typesafe.ai) and click **Verify**. Winnow makes one call to `GET /v1/models` and stores the key only if that succeeds.
 4. Optional: click the toolbar icon to open options and type your reading goals.
+
+<p align="center">
+  <img src="assets/screenshots/onboarding-success.png" width="560" alt="Winnow onboarding after the key is verified: the model name, three next steps, and an image band">
+</p>
 
 **Cost.** Jev bills $0.042 per million input tokens; output is free. One Hacker News front page (30 links) is about 34,000 tokens, roughly $0.0015. A long article is 2,000–8,000 tokens.
 
@@ -95,7 +99,11 @@ Click the toolbar icon (or right-click → Options). The options page has:
 | API key | Verify and replace the stored key. |
 
 <p align="center">
-  <img src="assets/screenshots/options.png" width="640" alt="Winnow options page">
+  <img src="assets/screenshots/options.png" width="720" alt="Winnow options page: reading goals, where Winnow runs, and a live state rail">
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/options-thresholds.png" width="720" alt="The thresholds section of the options page: one labelled slider per verdict rule, each showing its current value">
 </p>
 
 Every slider, constant, and default is listed in [docs/configuration.md](docs/configuration.md).
