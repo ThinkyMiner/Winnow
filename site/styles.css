@@ -200,7 +200,6 @@ button.pill::after { content: ""; position: absolute; inset: -10px; } /* 44px hi
 .segmap__nums { display: flex; gap: 56px; margin: 0; }
 .segmap__num { font: 700 72px/.95 var(--display); letter-spacing: -.035em; }
 .segmap__nums dd { margin: 8px 0 0; font-size: 11px; color: var(--fg2); }
-.segmap__text { margin-top: 64px; }
 
 /* reader toggle */
 .toggle { display: inline-flex; border: 1px solid var(--ink); margin-bottom: 20px; }
@@ -289,7 +288,6 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
   .segmap__foot { flex-direction: column; align-items: flex-start; }
   .segmap__nums { flex-direction: column; gap: 24px; }
   .segmap__num { font-size: 56px; }
-  .segmap__text { margin-top: 48px; }
 }
 @media (max-width: 480px) { .seg__id { display: none; } }
 @media (max-width: 420px) {
