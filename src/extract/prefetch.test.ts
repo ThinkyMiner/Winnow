@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { MAX_FEED_ITEM_CHARS } from "../config";
 import { createPrefetcher, extractSnippetFromHtml } from "./prefetch";
 
 describe("extractSnippetFromHtml", () => {
@@ -17,7 +18,7 @@ describe("extractSnippetFromHtml", () => {
     const html = `<title>x</title><meta property="og:title" content="OG"><body>${"<p>" + "word ".repeat(100) + "</p>"}`.repeat(5);
     const r = extractSnippetFromHtml(html, "u");
     expect(r.title).toBe("OG");
-    expect(r.text.length).toBeLessThanOrEqual(1200);
+    expect(r.text.length).toBeLessThanOrEqual(MAX_FEED_ITEM_CHARS);
   });
 });
 

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" width="300" height="64" role="img" aria-label="Winnow">
+  <g transform="translate(0 4) scale(.4375)">
+    <rect width="128" height="128" rx="30" fill="#15130F"/>
+    <g fill="#D9A441">
+      <ellipse cx="46" cy="101" rx="14" ry="9.5" transform="rotate(-8 46 101)"/>
+      <ellipse cx="46" cy="80" rx="13" ry="9" transform="rotate(-8 46 80)"/>
+      <ellipse cx="46" cy="60" rx="12" ry="8.5" transform="rotate(-8 46 60)"/>
+    </g>
+    <g fill="#F1DDB0">
+      <circle cx="73" cy="54" r="5.5" opacity=".95"/>
+      <circle cx="87" cy="42" r="4.6" opacity=".7"/>
+      <circle cx="98" cy="31" r="3.8" opacity=".5"/>
+      <circle cx="107" cy="22" r="3" opacity=".32"/>
+    </g>
+  </g>
+  <text x="72" y="46" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-weight="600" font-size="38" letter-spacing="-1" fill="#15130F">Winnow</text>
+</svg>

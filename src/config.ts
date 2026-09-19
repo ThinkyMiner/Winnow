@@ -21,8 +21,8 @@ export const JEV_RETRY = {
 export const MAX_ARTICLE_CHARS = 24_000;
 /** Chars of transcript text sent in page mode. */
 export const MAX_TRANSCRIPT_CHARS = 24_000;
-/** Chars of prefetched body per feed item. */
-export const MAX_FEED_ITEM_CHARS = 1_200;
+/** Chars of prefetched body per feed item (~500 words, enough to reach "full" depth at 400 words). */
+export const MAX_FEED_ITEM_CHARS = 3_000;
 /** Number of segments a transcript is split into for payload_segment. */
 export const VIDEO_SEGMENTS = 8;
 /** Items per Jev call in feed mode. */
@@ -75,11 +75,6 @@ export interface ThresholdMeta {
 
 /** Flat so sliders and the eval harness can address every knob by key. */
 export const THRESHOLD_META = {
-  yes_probability: {
-    label: "Yes threshold",
-    help: "A noul at or above this counts as yes.",
-    min: 0.3, max: 0.9, step: 0.05, default: 0.5,
-  },
   read_now_min_density: {
     label: "Read now: min insight density",
     help: "1–10 display scale.",

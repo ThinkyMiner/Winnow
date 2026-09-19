@@ -1,5 +1,6 @@
 // @vitest-environment happy-dom
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { FEED_BATCH_DEBOUNCE_MS } from "../config";
 import { detectFeed, normalizeUrl } from "./feed";
 
 const ALL = { hn: true, youtube: true, generic: true };
@@ -57,7 +58,7 @@ describe("hn adapter", () => {
 
     near.fire(true);
     expect(onVisible).not.toHaveBeenCalled();
-    vi.advanceTimersByTime(250);
+    vi.advanceTimersByTime(FEED_BATCH_DEBOUNCE_MS);
     expect(onVisible).toHaveBeenCalledTimes(1);
     const items = onVisible.mock.calls[0]![0].map((x: { item: unknown }) => x.item);
     expect(items).toEqual([
@@ -91,7 +92,7 @@ describe("youtube adapter", () => {
     const onVisible = vi.fn();
     ad!.observe(onVisible, vi.fn());
     FakeIO.instances[0]!.fire(true);
-    vi.advanceTimersByTime(250);
+    vi.advanceTimersByTime(FEED_BATCH_DEBOUNCE_MS);
     const items = onVisible.mock.calls[0]![0].map((x: { item: unknown }) => x.item);
     expect(items).toEqual([
       { url: "https://www.youtube.com/watch?v=aaa11111111", title: "First video", snippet: "Chan A · 1.2M views · 2 days ago · 12:34", videoId: "aaa11111111" },
@@ -125,7 +126,7 @@ describe("generic adapter", () => {
     const onVisible = vi.fn();
     ad.observe(onVisible, vi.fn());
     FakeIO.instances[0]!.fire(true);
-    vi.advanceTimersByTime(250);
+    vi.advanceTimersByTime(FEED_BATCH_DEBOUNCE_MS);
     const items = onVisible.mock.calls[0]![0].map((x: { item: { url: string; snippet?: string } }) => x.item);
     expect(items).toHaveLength(15);
     expect(items[0]).toEqual({ url: "https://ext0.com/a", title: "External link number 0", snippet: "some context text" });

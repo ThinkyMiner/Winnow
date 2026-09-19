@@ -1,3 +1,4 @@
+import { FEED_BATCH_DEBOUNCE_MS } from "../config";
 import type { FeedAdapterId, FeedItem } from "../types";
 import { getVideoId } from "./youtube";
 
@@ -145,7 +146,7 @@ function makeAdapter(id: FeedAdapterId, doc: Document, scan: Scanner, spa = fals
               pending.push({ item, element: e.target as HTMLElement });
             }
           }
-          if (pending.length && !timer) timer = setTimeout(flush, 250);
+          if (pending.length && !timer) timer = setTimeout(flush, FEED_BATCH_DEBOUNCE_MS);
         },
         { rootMargin: "200px 0px", threshold: 0 },
       );

@@ -27,11 +27,11 @@ describe("settings", () => {
     expect(await getSettings()).toEqual(DEFAULT_SETTINGS);
   });
   it("merges partial stored settings over defaults, including nested maps", async () => {
-    store.set(STORAGE_KEYS.settings, { pageMode: false, feedSites: { hn: false }, thresholds: { yes_probability: 0.7 } });
+    store.set(STORAGE_KEYS.settings, { pageMode: false, feedSites: { hn: false }, thresholds: { min_confidence: 0.7 } });
     const s = await getSettings();
     expect(s.pageMode).toBe(false);
     expect(s.feedSites).toEqual({ hn: false, youtube: true, generic: true });
-    expect(s.thresholds).toEqual({ ...DEFAULT_THRESHOLDS, yes_probability: 0.7 });
+    expect(s.thresholds).toEqual({ ...DEFAULT_THRESHOLDS, min_confidence: 0.7 });
     expect(s.excludedHosts).toEqual(DEFAULT_SETTINGS.excludedHosts);
   });
 });
