@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Winnow — Less noise. More signal.</title>
+<meta name="description" content="Winnow is an open-source Chrome extension that tells you whether an article or video is worth your time before you open it: read now, skim, save, or skip, with a confidence score, tuned to what you actually care about.">
+<link rel="canonical" href="SITE_URL_TBD/">
+<meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F0E0C" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Winnow — Less noise. More signal.">
+<meta property="og:description" content="A Chrome extension that tells you whether an article or video is worth your time before you open it. Free, open source, bring your own Jev key, no tracking.">
+<meta property="og:url" content="SITE_URL_TBD/">
+<meta property="og:image" content="SITE_URL_TBD/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Winnow — Less noise. More signal.">
+<meta name="twitter:description" content="A Chrome extension that tells you whether an article or video is worth your time before you open it.">
+<meta name="twitter:image" content="SITE_URL_TBD/assets/og.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.className='js';try{var t=localStorage.getItem('winnow-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Winnow home">
+      <svg viewBox="0 0 128 128" aria-hidden="true"><rect width="128" height="128" rx="30" fill="#15130F"/><g fill="#D9A441"><ellipse cx="46" cy="101" rx="14" ry="9.5" transform="rotate(-8 46 101)"/><ellipse cx="46" cy="80" rx="13" ry="9" transform="rotate(-8 46 80)"/><ellipse cx="46" cy="60" rx="12" ry="8.5" transform="rotate(-8 46 60)"/></g><g fill="#F1DDB0"><circle cx="73" cy="54" r="5.5" opacity=".95"/><circle cx="87" cy="42" r="4.6" opacity=".7"/><circle cx="98" cy="31" r="3.8" opacity=".5"/><circle cx="107" cy="22" r="3" opacity=".32"/></g></svg>
+      Winnow
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+      <li><a href="https://github.com/ThinkyMiner/Winnow/tree/main/docs">Docs</a></li>
+      <li><a href="https://github.com/ThinkyMiner/Winnow">GitHub</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="btn btn-primary btn-sm" href="#install">Get Winnow</a>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- 2. Hero -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <h1>Less noise.<br>More signal.</h1>
+      <p class="lede">Winnow is a Chrome extension that tells you whether an article or video is worth your time — before you open it. Read now, skim, save, or skip, with a confidence score, tuned to what you actually care about.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#install">Download for Chrome</a>
+        <a class="btn" href="https://github.com/ThinkyMiner/Winnow">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>
+          Star on GitHub
+        </a>
+      </div>
+      <p class="fineprint"><span>Free</span><span>Open source</span><span>Bring your own Jev key</span><span>No tracking</span></p>
+    </div>
+    <div class="hero-visual" id="hero-visual">
+      <canvas id="chaff" aria-hidden="true"></canvas>
+      <div class="hero-card wi wi-card-host">
+        <section class="wi-card" aria-label="Example Winnow verdict">
+          <button type="button" class="wi-x" aria-label="Dismiss" tabindex="-1">×</button>
+          <div class="wi-body">
+            <div class="wi-head"><span class="wi-pill" style="--wi-verdict:var(--wi-go)">Read now<small>high</small></span></div>
+            <div class="wi-title">What a GPU actually does while your kernel waits on memory</div>
+            <dl class="wi-grid">
+              <dt>Insight density</dt><dd>8/10 <span class="wi-bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></dd>
+              <dt>Content type</dt><dd>Original research</dd>
+              <dt>Already known</dt><dd>22%</dd>
+            </dl>
+            <div class="wi-foot"><button type="button" tabindex="-1">Read</button><button type="button" tabindex="-1">Skip</button></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Problem -->
+<section id="problem">
+  <div class="wrap">
+    <div class="cols3">
+      <div class="reveal" style="--i:0"><h3>Thirty tabs, three worth reading.</h3><p>Every feed hands you more than you can read. Deciding what to open is work, and you do it dozens of times a day with nothing to go on but a title.</p></div>
+      <div class="reveal" style="--i:1"><h3>Headlines lie. Thumbnails lie harder.</h3><p>The title is written to be clicked, not to be accurate. The payload, if there is one, is usually buried past three paragraphs of throat-clearing.</p></div>
+      <div class="reveal" style="--i:2"><h3>You already know most of what you're about to read.</h3><p>Most of what crosses your feed is a restatement of something you already understand. A tool that knows what you know can tell you when to move on.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. How it works -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">How it works</p>
+      <h2>Toss it in the air. Keep what falls.</h2>
+      <p class="lede">One model call per page or per batch of links. Typed questions in, probabilities out, plain rules decide. Nothing on screen is written by a model.</p>
+    </div>
+    <ol class="steps">
+      <li class="step reveal" style="--i:0">
+        <div class="ill ill-extract" aria-hidden="true">
+          <i class="ln" style="--w:95%;--w2:0%;--o:0;--i:0"></i>
+          <i class="ln keep" style="--w:70%;--w2:88%;--i:1"></i>
+          <i class="ln" style="--w:88%;--w2:0%;--o:0;--i:2"></i>
+          <i class="ln keep" style="--w:60%;--w2:82%;--i:3"></i>
+          <i class="ln keep" style="--w:92%;--w2:76%;--i:4"></i>
+          <i class="ln" style="--w:40%;--w2:0%;--o:0;--i:5"></i>
+          <i class="ln keep" style="--w:78%;--w2:60%;--i:6"></i>
+          <i class="ln" style="--w:84%;--w2:0%;--o:0;--i:7"></i>
+        </div>
+        <h3>Extract</h3>
+        <p>Readability pulls the article out of the page. For YouTube, the captions are fetched and split into 8 time segments. Nothing shorter than 120 words gets judged.</p>
+      </li>
+      <li class="step reveal" style="--i:1">
+        <div class="ill ill-ask" aria-hidden="true">
+          <span>insight density</span><span>already known</span><span>content type</span><span>claims supported</span><span>sales pitch</span><span>AI-written</span><span>payload</span><span>serves your goals</span><span>topic</span><span>verdict</span>
+        </div>
+        <h3>Ask, all at once</h3>
+        <p>One call. Every question in parallel. Jev returns typed answers, never text.</p>
+      </li>
+      <li class="step reveal" style="--i:2">
+        <div class="ill ill-decide" aria-hidden="true">
+          <span>insight_density</span><span class="num" data-count="8" data-suffix="/10">0/10</span>
+          <span>already_known</span><span class="num" data-count="0.22" data-dec="2">0.00</span>
+          <span>serves_goals</span><span class="num" data-count="0.84" data-dec="2">0.00</span>
+          <span class="rule">density ≥ 7 · known ≤ .5 · goals ≥ .6 <span class="ok">✓ read_now</span></span>
+          <span class="pill read_now">Read now <small>high</small></span>
+        </div>
+        <h3>Decide in code</h3>
+        <p>Plain rules you can read and tune turn probabilities into read now / skim / save / skip.</p>
+      </li>
+      <li class="step reveal" style="--i:3">
+        <div class="ill ill-show" aria-hidden="true">
+          <div class="mini"><span class="pill read_now" style="font-size:10px;padding:2px 7px">Read now</span> <span>GPU memory stalls</span><button type="button" tabindex="-1">Read</button><button type="button" tabindex="-1">Skip</button></div>
+          <div class="prof">reader profile · goals · 30-day topics · read/skip log</div>
+          <div class="bar"><i></i></div>
+        </div>
+        <h3>Show, then learn</h3>
+        <p>Your goals and feedback ride along with every judgment. Mark Read or Skip and the next verdict knows a little more about you.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5. Anatomy -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Anatomy of a card</p>
+      <h2>Eight typed answers. Zero sentences from a model.</h2>
+      <p class="lede">The card lives in a shadow DOM in the top-right corner of the page. Every row is a number or a choice Jev returned, poured into a template we wrote.</p>
+    </div>
+    <div class="anatomy">
+      <div class="anatomy-card wi reveal">
+        <section class="wi-card" aria-label="Annotated Winnow card">
+          <button type="button" class="wi-x" aria-label="Dismiss" tabindex="-1">×</button>
+          <div class="wi-body">
+            <div class="wi-head"><span class="mark" aria-hidden="true">1</span><span class="wi-pill" style="--wi-verdict:var(--wi-go)">Read now<small>high</small></span></div>
+            <div class="wi-title">How Postgres MVCC really works, and why VACUUM has to exist</div>
+            <dl class="wi-grid">
+              <dt><span class="mark" aria-hidden="true">2</span>Insight density</dt><dd>9/10 <span class="wi-bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></dd>
+              <dt><span class="mark" aria-hidden="true">3</span>Content type</dt><dd>Tutorial</dd>
+              <dt><span class="mark" aria-hidden="true">4</span>Already known</dt><dd>31%</dd>
+              <dt><span class="mark" aria-hidden="true">5</span>Claims supported</dt><dd>88%</dd>
+              <dt><span class="mark" aria-hidden="true">6</span>Sales pitch</dt><dd>2%</dd>
+              <dt><span class="mark" aria-hidden="true">7</span>AI-written</dt><dd>9%</dd>
+              <dt><span class="mark" aria-hidden="true">8</span>Payload</dt><dd>In the middle</dd>
+              <dt>Skip to</dt><dd><button type="button" class="wi-chip" tabindex="-1" aria-label="Skip to core idea at 8:37">8:37–9:51</button></dd>
+              <dt>Length</dt><dd>14:02</dd>
+            </dl>
+            <ul class="wi-reasons">
+              <li>Insight density 9/10</li>
+              <li>Reads as a tutorial (94%)</li>
+              <li>Serves your goals (81%)</li>
+              <li>Core idea at 8:37–9:51</li>
+            </ul>
+            <div class="wi-foot"><button type="button" tabindex="-1">Read</button><button type="button" tabindex="-1">Skip</button><span class="wi-cache" role="img" aria-label="from cache" title="from cache"></span></div>
+          </div>
+        </section>
+      </div>
+      <ol class="notes">
+        <li class="reveal" style="--i:0"><div><b>Verdict and confidence</b><span>Read now, skim, save, or skip. Confidence is the probability mass Jev put on that verdict; below 40% the pill shows “?” instead of a label.</span></div></li>
+        <li class="reveal" style="--i:1"><div><b>Insight density</b><span>A five-level rubric score mapped to 1–10. The display number is a convenience, not a measurement.</span></div></li>
+        <li class="reveal" style="--i:2"><div><b>Content type</b><span>One of eight: original research, opinion, news, tutorial, listicle, rage bait, advertorial, entertainment. Rage bait and advertorials skip outright.</span></div></li>
+        <li class="reveal" style="--i:3"><div><b>Already known</b><span>Probability you already know this, given your goals, your recent topics, and what you have read or skipped.</span></div></li>
+        <li class="reveal" style="--i:4"><div><b>Claims supported</b><span>Probability the piece backs its claims. Opinion and news with unsupported claims get downgraded a step.</span></div></li>
+        <li class="reveal" style="--i:5"><div><b>Sales pitch</b><span>Probability it is an undisclosed pitch. Above the threshold, it is a skip whatever else is true.</span></div></li>
+        <li class="reveal" style="--i:6"><div><b>AI-written</b><span>Probability it reads as machine-generated. Only counts against low-density pieces.</span></div></li>
+        <li class="reveal" style="--i:7"><div><b>Payload and skip-to</b><span>Where the substance sits: intro, middle, end, or spread evenly. On videos with captions, the chip seeks the player to the segment holding the core idea.</span></div></li>
+      </ol>
+    </div>
+    <figure class="shot-wrap reveal">
+      <div class="frame" style="max-width:720px;margin:0 auto">
+        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+        <div class="shot" style="--ar:16/10" data-label="card-article.png"><img src="assets/screenshots/card-article.png" alt="Screenshot of the Winnow card on a real article: a Read now verdict with confidence, insight density bar, content type, and probability rows" loading="lazy" width="2560" height="1600"></div>
+      </div>
+      <figcaption style="text-align:center">The real thing, on a real article. The recreation above is a video card, so it also shows the Skip to and Length rows.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Feed mode -->
+<section id="feed">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Feed mode</p>
+      <h2>Badges before you click.</h2>
+      <p class="lede">On Hacker News, YouTube home and search, and any page with many external links, every link that scrolls into view gets a badge. Up to 12 links per model call. Hover for the full card. Verdicts are cached for 7 days, so a reload costs nothing.</p>
+    </div>
+    <div class="split">
+      <div>
+        <div class="hn reveal" id="hn" aria-label="Simulated Hacker News front page with Winnow badges">
+          <div class="hn-top"><i>Y</i> Hacker News <em>simulated · titles are fictional</em></div>
+          <ol id="hn-list"></ol>
+        </div>
+        <div class="feed-ctl">
+          <button class="btn btn-sm" id="hn-reload" type="button">Reload page</button>
+          <span id="hn-caption" aria-live="polite">Scroll to judge</span>
+        </div>
+      </div>
+      <div class="shots2">
+        <figure class="reveal">
+          <div class="frame"><div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+            <div class="shot" style="--ar:2560/1800" data-label="feed-hn.png"><img src="assets/screenshots/feed-hn.png" alt="Screenshot of Hacker News with a small GO, SAVE, or SKIP badge after each story title" loading="lazy" width="2560" height="1800"></div></div>
+          <figcaption>Hacker News with badges. The dot after the label is confidence: solid, half, or faint.</figcaption>
+        </figure>
+        <figure class="reveal" style="--i:1">
+          <div class="frame"><div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+            <div class="shot" style="--ar:1280/1040" data-label="badge-popover.png"><img src="assets/screenshots/badge-popover.png" alt="Screenshot of a badge being hovered, showing the full Winnow card as a popover" loading="lazy" width="1280" height="1040"></div></div>
+          <figcaption>Hover or focus a badge and the full card opens.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Reader -->
+<section id="reader">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Reader state</p>
+      <h2>Made for one reader: you.</h2>
+      <p class="lede">“Worth it” means worth it for you. Your goals, the topics you have consumed in the last 30 days, and your read/skip feedback are summarised into every judgment. Change your goals and the cache is invalidated: everything gets judged again against the new you.</p>
+    </div>
+    <div class="reader-demo reveal">
+      <div>
+        <label for="goals">Your goals (from Winnow options)</label>
+        <div class="presets" role="group" aria-label="Preset readers">
+          <button type="button" data-preset="ml" aria-pressed="true">ML systems engineer</button>
+          <button type="button" data-preset="game" aria-pressed="false">Indie game designer</button>
+        </div>
+        <textarea id="goals" aria-describedby="reader-note" spellcheck="false"></textarea>
+        <p class="reader-note" id="reader-note">Illustrative. Real verdicts come from Jev; these are hand-written examples of how the same three links change with the reader.</p>
+      </div>
+      <ul class="arts" id="arts" aria-live="polite"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Videos -->
+<section id="videos">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="eyebrow">Videos</p>
+      <h2>Skipped to the point.</h2>
+      <p class="lede">Winnow fetches the captions, splits the transcript into 8 segments, and asks Jev which one holds the core idea. The chip on the card seeks the player straight there.</p>
+      <div class="tl" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i class="core"></i><i></i><i></i></div>
+      <div class="tl-labels" aria-hidden="true"><span>0:00</span><span>14:02</span></div>
+      <div class="core-tag"><span class="pill" style="background:var(--wheat);color:#15130F">Core idea 8:37–9:51</span> <span class="wi"><button type="button" class="wi-chip" tabindex="-1">Skip to 8:37–9:51</button></span></div>
+      <p class="limit">Honest limit: videos without captions are judged on title and description only, at snippet depth, with no skip-to chips. Caption fetching goes through YouTube's player endpoint and can break when YouTube changes it.</p>
+    </div>
+    <figure class="reveal" style="--i:1">
+      <div class="frame"><div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+        <div class="shot" style="--ar:16/10" data-label="card-video.png"><img src="assets/screenshots/card-video.png" alt="Screenshot of the Winnow card on a YouTube video, with a Skip to chip showing a timestamp range" loading="lazy" width="2560" height="1600"></div></div>
+      <figcaption>A video card with its Skip to chip.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 9. Typed answers -->
+<section id="typed">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="eyebrow">Typed answers, never prose</p>
+      <h2>Jev can't write. That's the point.</h2>
+      <p class="lede">Winnow never shows you anything a model wrote. Jev can't write. It can only pick — an option, a level, a probability. Every sentence on a card is a template we wrote, filled with numbers Jev returned.</p>
+      <p>Jev is TypeSafe's “System One” decision model. It answers three kinds of question: yes/no as a probability, a choice among options with probabilities, or a score on a rubric, each with calibrated confidence. Winnow is pinned to <code>jev-1.13.0</code>, because the thresholds were tuned against it. <a href="https://typesafe.ai">More about Jev at typesafe.ai</a>.</p>
+    </div>
+    <pre class="json reveal" style="--i:1" aria-label="Observed Jev response"><code>{
+  <span class="k">"model"</span>: <span class="s">"jev-1.13.0"</span>,
+  <span class="k">"answers"</span>: {
+    <span class="k">"content_type"</span>: {
+      <span class="k">"type"</span>: <span class="s">"choice"</span>, <span class="k">"choice"</span>: <span class="s">"opinion"</span>,
+      <span class="k">"confidence"</span>: <span class="n" data-count="1" data-dec="0">0</span>,
+      <span class="k">"probabilities"</span>: {
+        <span class="k">"opinion"</span>: <span class="n" data-count="1" data-dec="0">0</span>, <span class="k">"news"</span>: <span class="n">0</span>, <span class="k">"original_research"</span>: <span class="n">0</span>,
+        <span class="k">"listicle"</span>: <span class="n">0</span>, <span class="k">"tutorial"</span>: <span class="n">0</span>
+      }
+    },
+    <span class="k">"already_known"</span>: { <span class="k">"type"</span>: <span class="s">"noul"</span>, <span class="k">"noul"</span>: <span class="n" data-count="0.58" data-dec="2">0.00</span> },
+    <span class="k">"insight_density"</span>: {
+      <span class="k">"type"</span>: <span class="s">"score"</span>, <span class="k">"score"</span>: <span class="n" data-count="1.83" data-dec="2">0.00</span>,
+      <span class="k">"confidence"</span>: <span class="n" data-count="0.75" data-dec="2">0.00</span>,
+      <span class="k">"legend"</span>: {
+        <span class="k">"0"</span>: <span class="s">"Almost none; generic"</span>,
+        <span class="k">"1"</span>: <span class="s">"Some; one useful idea"</span>,
+        <span class="k">"2"</span>: <span class="s">"Dense; several specific, non-obvious ideas"</span>
+      },
+      <span class="k">"probabilities"</span>: { <span class="k">"0"</span>: <span class="n">0</span>, <span class="k">"1"</span>: <span class="n" data-count="0.17" data-dec="2">0.00</span>, <span class="k">"2"</span>: <span class="n" data-count="0.83" data-dec="2">0.00</span> }
+    }
+  },
+  <span class="k">"usage"</span>: { <span class="k">"input_tokens"</span>: <span class="n" data-count="644">0</span>, <span class="k">"output_tokens"</span>: <span class="n" data-count="92">0</span> }
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. Privacy -->
+<section id="privacy">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Privacy by construction</p>
+      <h2>No backend. No analytics. No telemetry.</h2>
+      <p class="lede">The code is right there. You bring your own Jev key from <a href="https://console.typesafe.ai">console.typesafe.ai</a>; it lives in <code>chrome.storage.local</code>, is read only by the service worker, is never logged, and never reaches a content script.</p>
+    </div>
+    <div class="priv">
+      <div class="reveal"><h3><i style="background:var(--skim)"></i>Leaves your browser</h3>
+        <ul>
+          <li>The extracted page text or video transcript, capped at 24,000 characters, sent to <code>api.typesafe.ai</code> and nowhere else.</li>
+          <li>Feed items: title and snippet (domain, points, channel), or the linked page's text if you turn on prefetch.</li>
+          <li>A short summary of your reader state: goals, frequent topics, recently read and skipped titles.</li>
+        </ul></div>
+      <div class="reveal" style="--i:1"><h3><i style="background:var(--go)"></i>Never leaves</h3>
+        <ul>
+          <li>Your Jev API key, except as the bearer token on requests to <code>api.typesafe.ai</code>.</li>
+          <li>Your browsing history. Winnow judges the page you are on and the links you can see, nothing else.</li>
+          <li>Anything to us. There is no Winnow server, no crash reporting, no usage pings.</li>
+          <li>Anything from excluded sites: webmail, Google Docs, Sheets, Slides and Drive, Notion, localhost, and any non-https page.</li>
+        </ul></div>
+    </div>
+    <h3>Permissions, and why</h3>
+    <ul class="perms">
+      <li><span class="k"><code>storage</code>, <code>unlimitedStorage</code></span><span>Your key, settings, reader state, and a 7-day verdict cache of up to 3,000 entries.</span></li>
+      <li><span class="k"><code>https://api.typesafe.ai/*</code></span><span>The only host the service worker talks to.</span></li>
+      <li><span class="k"><code>&lt;all_urls&gt;</code> (optional)</span><span>Requested only if you switch on “prefetch link text”, so feed badges can judge the linked page's body instead of its title.</span></li>
+    </ul>
+    <p><a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/privacy.md">Read the privacy doc →</a></p>
+  </div>
+</section>
+
+<!-- 11. Tunable -->
+<section id="tunable">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Tunable by design</p>
+      <h2>The rules are yours to move.</h2>
+      <p class="lede">Every threshold lives in one file, <code>src/config.ts</code>, and every one of them is a slider in options. The eval harness judges 40 fixtures with real Jev calls, tunes on 30, and reports on the other 10, so you can't fool yourself.</p>
+    </div>
+    <div class="tune reveal">
+      <div>
+        <label for="t-density">Read now: min insight density <output id="o-density">7</output></label>
+        <input type="range" id="t-density" min="1" max="10" step="1" value="7">
+        <label for="t-known">Skip: min already-known <output id="o-known">0.80</output></label>
+        <input type="range" id="t-known" min="0" max="1" step="0.05" value="0.8">
+        <label for="t-minutes">Save: min reading minutes <output id="o-minutes">15</output></label>
+        <input type="range" id="t-minutes" min="3" max="60" step="1" value="15">
+      </div>
+      <div class="sample" aria-live="polite">
+        <div><span class="pill" id="t-pill">Save <small>high</small></span></div>
+        <p style="margin:.75rem 0 0;font-weight:600">A field guide to write-ahead logs</p>
+        <dl>
+          <dt>Insight density</dt><dd>8/10</dd>
+          <dt>Already known</dt><dd>0.35</dd>
+          <dt>Serves your goals</dt><dd>0.84</dd>
+          <dt>Length</dt><dd>22 min</dd>
+        </dl>
+        <p class="rule-line">Fired rule: <code id="t-rule">read_now_long_save</code></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. Open source -->
+<section id="open">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Open source</p>
+      <h2>MIT licensed. Pull requests welcome.</h2>
+      <p class="lede">Winnow is a small TypeScript codebase with 124 unit tests and an eval harness. If it gets a verdict wrong, tell us: the wrong-verdict issue template turns your bad call into a fixture the next release is measured against.</p>
+      <div class="badges">
+        <a href="https://github.com/ThinkyMiner/Winnow/blob/main/LICENSE"><img src="https://img.shields.io/github/license/ThinkyMiner/Winnow" alt="MIT license badge" width="90" height="20" loading="lazy"></a>
+        <a href="https://github.com/ThinkyMiner/Winnow/actions/workflows/ci.yml"><img src="https://github.com/ThinkyMiner/Winnow/actions/workflows/ci.yml/badge.svg" alt="CI status badge" width="80" height="20" loading="lazy"></a>
+        <a href="https://github.com/ThinkyMiner/Winnow/releases/latest"><img src="https://img.shields.io/github/v/release/ThinkyMiner/Winnow" alt="Latest release badge" width="100" height="20" loading="lazy"></a>
+      </div>
+    </div>
+    <div class="cards3">
+      <a class="reveal" href="https://github.com/ThinkyMiner/Winnow" style="--i:0"><h3>Read the source</h3><p>Service worker, Readability extraction, feed adapters, shadow-DOM card. One config file for thresholds, one for questions.</p></a>
+      <a class="reveal" href="https://github.com/ThinkyMiner/Winnow/issues/new?template=wrong-verdict.yml" style="--i:1"><h3>Report a wrong verdict</h3><p>It becomes a test fixture. That is how the goldens get reviewed and how the thresholds get honest.</p></a>
+      <a class="reveal" href="https://github.com/ThinkyMiner/Winnow/blob/main/CONTRIBUTING.md" style="--i:2"><h3>Contribute</h3><p>Add a feed adapter, a question, or a fixture. The README explains where each one goes.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- 13. Install -->
+<section id="install">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Install</p>
+      <h2>Three steps, then paste a key.</h2>
+      <p class="lede">Winnow ships as a release zip you load unpacked. Chrome Web Store listing coming soon.</p>
+    </div>
+    <ol class="install-steps">
+      <li class="reveal" style="--i:0">
+        <h3>Download the zip</h3>
+        <p>Grab the latest release and unzip it anywhere you'll leave it.</p>
+        <a class="btn btn-primary btn-sm" href="https://github.com/ThinkyMiner/Winnow/releases/latest">Download latest release</a>
+      </li>
+      <li class="reveal" style="--i:1">
+        <h3>Load unpacked</h3>
+        <p>Open <kbd>chrome://extensions</kbd>, switch on <b>Developer mode</b>, click <b>Load unpacked</b>, and pick the unzipped folder.</p>
+      </li>
+      <li class="reveal" style="--i:2">
+        <h3>Paste your Jev key</h3>
+        <p>Onboarding opens on install. Get a key at <a href="https://console.typesafe.ai">console.typesafe.ai</a>, paste it, click Verify. Winnow makes one call to <code>GET /v1/models</code> and stores the key only if that succeeds.</p>
+      </li>
+    </ol>
+    <div class="split" style="margin-top:2.5rem">
+      <figure class="reveal">
+        <div class="frame"><div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+          <div class="shot" style="--ar:2400/666" data-label="onboarding.png"><img src="assets/screenshots/onboarding.png" alt="Screenshot of the Winnow onboarding page with a field to paste a Jev API key and a Verify button" loading="lazy" width="2400" height="666"></div></div>
+        <figcaption>Onboarding: paste the key, click Verify.</figcaption>
+      </figure>
+      <figure class="reveal" style="--i:1">
+        <div class="frame"><div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+          <div class="shot" style="--ar:2400/1800" data-label="options.png"><img src="assets/screenshots/options.png" alt="Screenshot of the Winnow options page with goals text, feed site toggles, and threshold sliders" loading="lazy" width="2400" height="1800"></div></div>
+        <figcaption>Options: your goals, feed toggles, threshold sliders, cache and key management.</figcaption>
+      </figure>
+    </div>
+    <div class="cost">
+      <div><b>About a tenth of a cent</b>per Hacker News front page: 30 links, roughly 34,000 tokens, at $0.042 per million input tokens. Output is free.</div>
+      <div><b>2,000–8,000 tokens</b>for a long article. About 1.2 s per call, observed.</div>
+      <div><b>0 tokens</b>on reload. Verdicts are cached for 7 days.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 14. FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow">FAQ</p><h2>Rough edges, disclosed.</h2></div>
+    <div class="faq">
+      <details><summary>What about paywalls?</summary><p>The card judges whatever Readability can see. On a paywalled page that is the teaser, so the teaser gets judged as the article. Treat those verdicts as a read of the teaser.</p></details>
+      <details><summary>What about videos without captions?</summary><p>They are judged on title and description only, at snippet depth. Density, AI-written and claims rules are off at that depth, and there are no skip-to chips.</p></details>
+      <details><summary>What does it cost?</summary><p>Jev charges $0.042 per million input tokens; output is free. One Hacker News front page of 30 links is about 34,000 tokens, roughly $0.0015. A long article is 2,000–8,000 tokens. Everything is cached for 7 days, so revisits are free. Winnow itself is free and has no server.</p></details>
+      <details><summary>How accurate is it?</summary><p>On our 40-fixture set, split 30 to tune and 10 to report, Winnow agrees with the golden verdicts 80% of the time on the held-out 10. The goldens are still under review, and Jev 1.13 is an early access model. Expect rough edges: insight density saturates on well-written opinion, and content that argues for its own classification can move the answer.</p></details>
+      <details><summary>Does it send my data anywhere else?</summary><p>No. Page text goes to <code>api.typesafe.ai</code> with your key and nowhere else. There is no Winnow backend, no analytics, and no telemetry. Webmail, Google Docs, Notion, localhost and non-https pages are excluded by default.</p></details>
+      <details><summary>Does it work on Brave, Edge, or Arc?</summary><p>Any Chromium browser that supports Manifest V3 should work. Only Chrome is tested.</p></details>
+      <details><summary>Firefox?</summary><p>No. Winnow uses MV3 Chrome APIs.</p></details>
+      <details><summary>Can I change the questions?</summary><p>Yes. They live in <code>src/jev/questions.ts</code>, one spec per question ID. Adding one means adding its ID, a field on the answers type, the spec, and a parse line. The README walks through it.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#top">
+        <svg viewBox="0 0 128 128" aria-hidden="true"><rect width="128" height="128" rx="30" fill="#15130F"/><g fill="#D9A441"><ellipse cx="46" cy="101" rx="14" ry="9.5" transform="rotate(-8 46 101)"/><ellipse cx="46" cy="80" rx="13" ry="9" transform="rotate(-8 46 80)"/><ellipse cx="46" cy="60" rx="12" ry="8.5" transform="rotate(-8 46 60)"/></g><g fill="#F1DDB0"><circle cx="73" cy="54" r="5.5" opacity=".95"/><circle cx="87" cy="42" r="4.6" opacity=".7"/><circle cx="98" cy="31" r="3.8" opacity=".5"/><circle cx="107" cy="22" r="3" opacity=".32"/></g></svg>
+        Winnow
+      </a>
+      <span class="tag">Less noise. More signal.</span>
+    </div>
+    <ul>
+      <li><a href="https://github.com/ThinkyMiner/Winnow">GitHub</a></li>
+      <li><a href="https://github.com/ThinkyMiner/Winnow/tree/main/docs">Docs</a></li>
+      <li><a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/privacy.md">Privacy</a></li>
+      <li><a href="https://github.com/ThinkyMiner/Winnow/releases">Releases</a></li>
+      <li><a href="https://typesafe.ai">TypeSafe</a></li>
+    </ul>
+    <p class="legal">Made by ThinkyMiner. MIT licensed. Winnow is not affiliated with TypeSafe, Hacker News, or YouTube. Feed titles on this page are fictional.</p>
+  </div>
+</footer>
+
+<script src="main.js" defer></script>
+</body>
+</html>
