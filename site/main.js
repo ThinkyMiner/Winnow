@@ -1,4 +1,4 @@
-/* Winnow site — six small interactions, no dependencies. */
+/* Winnow site — seven small interactions, no dependencies. */
 (function () {
   'use strict';
   var motion = matchMedia('(prefers-reduced-motion: no-preference)').matches;
@@ -122,5 +122,13 @@
         e.preventDefault(); select(tabs[m]);
       });
     });
+  }
+
+  /* 7. Nav: transparent over the hero photo, paper once the hero has scrolled away.
+     On phones the hero is taller than the viewport and the paper card sits below the copy, so watch the copy instead. */
+  var nav = document.getElementById('nav'), hero = document.getElementById('top');
+  if (nav && hero && 'IntersectionObserver' in window) {
+    var target = matchMedia('(max-width: 820px)').matches ? hero.querySelector('.hero__copy') : hero;
+    new IntersectionObserver(function (e) { nav.classList.toggle('is-solid', !e[0].isIntersecting); }, { rootMargin: '-64px 0px 0px 0px' }).observe(target);
   }
 })();

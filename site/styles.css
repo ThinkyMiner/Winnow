@@ -30,7 +30,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .field--soft { --bg: var(--soft); --fg: var(--ink); --fg2: var(--ink); }
 
 .field--ink { --bg: var(--ink); --fg: var(--paper); --fg2: #CBD5E1; }
-.field--first { position: relative; }
 /* Blocks inside a field: rhythm only, the background never changes. */
 .block + .block { margin-top: 72px; }
 .block > :last-child { margin-bottom: 0; }
@@ -61,17 +60,41 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .link:hover { text-decoration-thickness: 2px; }
 
 /* ---------- nav ---------- */
-.nav { position: sticky; top: 0; z-index: 50; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; background: var(--paper); border-bottom: 1px solid var(--border); }
+/* Transparent over the hero photo; .is-solid (set by main.js once the hero scrolls away) is the paper nav. */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; color: #fff; background: transparent; border-bottom: 1px solid transparent; transition: background 240ms var(--ease), color 240ms var(--ease), border-color 240ms var(--ease); }
+.nav.is-solid { color: var(--ink); background: var(--paper); border-bottom-color: var(--border); }
 .nav__brand { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; text-decoration: none; letter-spacing: -.01em; }
-.nav__mark { color: var(--blue); }
+.nav__mark { color: #fff; }
+.nav.is-solid .nav__mark { color: var(--blue); }
 .nav__links { display: flex; gap: 4px; }
-.nav__links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; background: #fff; border: 1px solid var(--border); font-size: 15px; font-weight: 500; text-decoration: none; color: var(--slate); }
-.nav__links a:hover { color: var(--ink); border-color: var(--ink); }
-.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: var(--ink); color: var(--paper); font-size: 15px; font-weight: 500; text-decoration: none; }
-.btn:hover { background: var(--blue); }
+.nav__links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; background: rgba(15,23,42,.55); border: 1px solid transparent; font-size: 15px; font-weight: 500; text-decoration: none; color: #fff; }
+.nav__links a:hover { background: rgba(15,23,42,.85); }
+.nav.is-solid .nav__links a { background: #fff; border-color: var(--border); color: var(--slate); }
+.nav.is-solid .nav__links a:hover { color: var(--ink); border-color: var(--ink); }
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: #fff; color: var(--ink); font-size: 15px; font-weight: 500; text-decoration: none; }
+.btn:hover { background: var(--soft); }
+.nav.is-solid .btn { background: var(--ink); color: var(--paper); }
+.nav.is-solid .btn:hover { background: var(--blue); }
 
-/* ---------- hero ---------- */
+/* ---------- hero: full-bleed photo, white type, paper card ---------- */
+.hero { --bg: var(--ink); --fg: #fff; --fg2: rgba(255,255,255,.85); position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; background: var(--ink); color: #fff; }
+.hero :focus-visible { outline-color: var(--paper); }
+.hero__media { position: absolute; inset: 0; overflow: hidden; }
+.hero__media img, .hero__video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+.hero__video { position: absolute; inset: 0; }
+/* Scrims: bottom Ink ramp for the copy, a light top ramp so the nav reads. */
+.hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,23,42,0) 45%, rgba(15,23,42,.62) 100%); }
+.hero__media::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 20%; z-index: 1; background: linear-gradient(to bottom, rgba(15,23,42,.18), rgba(15,23,42,0)); }
+.hero .wrap { position: relative; z-index: 1; width: 100%; padding-top: 112px; padding-bottom: 48px; }
+/* Local panel under the paragraph: the gold crest alone is ~2:1 against white. */
+.hero .sub { color: #fff; background: rgba(15,23,42,.42); box-shadow: 0 0 0 14px rgba(15,23,42,.42); }
 .plate--hero { margin-bottom: 0; padding-bottom: 16px; }
+.hero .strip--v { z-index: 1; top: 96px; bottom: 56px; overflow: hidden; color: rgba(255,255,255,.55); }
+.hero .cta:hover { color: var(--soft); }
+.fig--hero .fig__panel { background: var(--paper); border: 2px solid var(--blue); color: var(--ink); --fg2: var(--slate); }
+.fig--hero .fig__tag { background: var(--ink); color: #fff; }
+.fig--hero .fig__cap { color: rgba(255,255,255,.85); }
+.credit { position: absolute; left: 44px; bottom: 14px; z-index: 2; font-size: 11px; line-height: 1; color: rgba(255,255,255,.8); padding: 6px 8px; background: rgba(15,23,42,.45); }
 .hero__row { margin-top: 32px; }
 .hero__row .sub { margin-top: 0; }
 @media (min-width: 1024px) {
@@ -271,6 +294,10 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
   .wrap { padding: 0 16px; }
   .nav { padding: 0 16px; }
   .nav__links { display: none; }
+  .hero__media img, .hero__video { object-position: 60% 60%; }
+  .hero__media::after { background: linear-gradient(to bottom, rgba(15,23,42,0) 45%, rgba(15,23,42,.7) 100%); }
+  .hero .wrap { padding-top: 104px; padding-bottom: 48px; }
+  .credit { left: 16px; bottom: 10px; }
   .plate { padding: 20px 16px; margin-bottom: 40px; }
   .h1 { letter-spacing: -.03em; }
   .cta { font-size: 2rem; }
