@@ -10,6 +10,7 @@ colors:
   ice: "#EFF6FF"              # panels, subtle backgrounds, SAVE-adjacent surfaces
   on-primary: "#FFFFFF"
   surface: "#FFFFFF"
+  paper: "#FEFEFE"           # marketing site page colour
   surface-soft: "#F8FAFC"
   text: "#0F172A"             # Ink
   text-secondary: "#475569"   # Slate
@@ -37,6 +38,18 @@ typography:
     fontFamily: Inter
     fontWeight: 700
     fontSize: clamp(3.5rem, 6vw, 4.5rem)
+    lineHeight: 1.0
+    letterSpacing: -0.02em
+  poster:
+    fontFamily: Cabinet Grotesk
+    fontWeight: 700
+    fontSize: clamp(4rem, 10.4vw, 9.375rem)
+    lineHeight: 0.95
+    letterSpacing: -0.035em
+  poster-h2:
+    fontFamily: Cabinet Grotesk
+    fontWeight: 500
+    fontSize: clamp(2.5rem, 4.4vw, 4rem)
     lineHeight: 1.0
     letterSpacing: -0.02em
   h1:
@@ -162,6 +175,25 @@ components:
   bloom:
     background: radial-gradient(circle at 28% 45%, #2563EB 0%, #3B82F6 24%, #93C5FD 48%, #EFF6FF 70%, #FFFFFF 100%)
     grainOpacity: 0.03
+    surfaces: extension onboarding and social assets only; retired on the marketing site
+  plate:
+    rounded: 0
+    cornerMark: 12px L-shapes, 1px currentColor at 60%
+    inset: 24px
+  figure:
+    rounded: 0
+    borderColor: currentColor at 25%
+    tag: JetBrains Mono 11px, inverted box
+    caption: JetBrains Mono 12px, left title, right fact
+  field-soft:
+    backgroundColor: "{colors.soft}"
+    textColor: "{colors.text}"
+  field-blue:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+  field-ink:
+    backgroundColor: "{colors.text}"
+    textColor: "{colors.paper}"
 ---
 
 # Winnow
@@ -173,7 +205,7 @@ components:
 **Product context:** Winnow is an open-source Chrome extension that judges whether an article or video is worth a reader's time before they open it: READ, SKIM, SAVE, or SKIP, with a confidence. It runs as a small card on pages and as inline pills on feeds such as Hacker News and YouTube. Users are people who read a lot on the web and resent wasted clicks. Peers are reader tools and browser utilities, not AI assistants. Project type: browser extension UI plus a single marketing page.
 
 **Mode per surface:**
-- Persuade: the landing page at `site/`. One message, one visual, one action per viewport.
+- Persuade: the landing page at `site/`. Editorial register (see Marketing site below): poster headlines, drenched colour fields, squared plates and figures. One message, one visual, one action per viewport still holds.
 - Operate: the extension card, feed badges, onboarding, and options. Small judgment surfaces, never a dashboard.
 - Read: documentation in `docs/`. Plain Markdown, no styling system needed.
 - Experience: none. Winnow is a utility and must feel calmer than the page beneath it.
@@ -221,7 +253,7 @@ Depth comes from offset shadows with soft blur, thin borders, and surface tints,
 
 ## Shapes
 
-Buttons 10 to 12px. Badges are full pills. Small cards 14px, the product card 18px, large marketing panels 24px. Inputs 8px. Nested inner radius equals outer radius minus the gap. Not every container gets a large radius; the rhythm comes from mixing pills with restrained rectangles. Winnow uses rounded capsules, soft pills, rounded rectangles, soft gradient fields, and the three-piece W mark. It never uses hexagons, circuit lines, neural-network imagery, robots, floating blobs, or sparkles.
+Product UI: buttons 10 to 12px. Badges are full pills. Small cards 14px, the product card 18px, large marketing panels 24px. Inputs 8px. Nested inner radius equals outer radius minus the gap. Not every container gets a large radius; the rhythm comes from mixing pills with restrained rectangles. Winnow uses rounded capsules, soft pills, rounded rectangles, soft gradient fields, and the three-piece W mark. It never uses hexagons, circuit lines, neural-network imagery, robots, floating blobs, or sparkles.
 
 The mark: two rounded diagonal outer strokes and one centered rounded inverted wedge. White on Winnow Blue is primary; blue on white, white on Ink, and Ink on white are the approved variants. No outlines, shadows, strokes, or 3D on the logo. Minimum 16px in the toolbar, 20px in UI, 24px in navigation. Clear space is half the wedge height.
 
@@ -241,6 +273,19 @@ The mark: two rounded diagonal outer strokes and one centered rounded inverted w
 
 **Bloom.** The signature radial gradient with a 3% inline SVG grain overlay. Hero and final CTA only. Text over the bloom sits on the white or ice side, or is white over the blue core, and keeps WCAG AA.
 
+## Marketing site: the editorial layer
+
+The product is calm and rounded so it can sit quietly over someone else's page. The marketing site does not sit over anything; it is the one place Winnow speaks in its own voice, and it does so in an editorial register borrowed from print, not from SaaS templates.
+
+- **Type.** Cabinet Grotesk (Fontshare, weights 500 to 800) is the poster face for H1, H2, and big numbers on the site only. H1 runs at 150px on a 1440 viewport, line-height 0.95, tracking -0.035em, spanning the full content width. Body stays Inter; labels, figure tags, footnotes, and the margin strip are JetBrains Mono. The extension never uses Cabinet Grotesk.
+- **Colour fields.** Whole sections are drenched in one flat colour from the existing palette: paper, Soft Blue with Ink text, Winnow Blue with white text, Ink with paper text. No gradients on the site; the bloom is retired there and kept for onboarding and social assets. Rhythm: paper, soft, paper, blue, paper, soft, paper, ink.
+- **Plates and figures.** Section content sits on a squared plate with four corner registration marks. Product demos are squared figures with a hairline border, a mono tag in an inverted box, and a mono caption row. Border radius is zero on the site; the only rounded elements are the extension's real decision badges inside figures, because those are the product.
+- **Columns and rules.** Text runs in two or three ruled columns with a mono label above each, collapsing to one column with top rules below 820px.
+- **Calls to action.** In the hero, large underlined text links in the poster face. In the nav, one squared Ink button. No pill buttons on the site.
+- **Numbers.** Measured figures only, set in the poster face with a mono footnote naming the date, the model version, and the proof document.
+- **Motion.** The same minimal-functional rules as the product; the one authored moment remains the card resolving from Evaluating to a decision.
+- **Not borrowed.** No retro operating-system windows, bitmap fonts, dithered textures, live clocks, or gibberish margins. Those belong to other brands; the margin strip carries Winnow's own question ids instead.
+
 ## Do's and Don'ts
 
 - Do: put the decision word and confidence before any explanation on every surface.
@@ -250,7 +295,7 @@ The mark: two rounded diagonal outer strokes and one centered rounded inverted w
 - Do: show "Evaluating…" while judging, and make the transition to the decision the one moment of motion.
 - Don't: use red, or any alarm treatment, for SKIP, rage bait, ads, or AI filler.
 - Don't: build a three-card feature grid, a dashboard, a testimonial row, fake metrics, or a logo marquee.
-- Don't: put gradients anywhere except the two bloom fields; no gradient text, no gradient buttons.
+- Don't: put gradients anywhere except the bloom on onboarding and social assets; no gradient text, no gradient buttons, no gradients on the marketing site.
 - Don't: use "AI-powered", "supercharge", "revolutionize", or "unlock" in any copy.
 - Don't: show a number as a score out of ten; show a decision and a confidence.
 
@@ -269,4 +314,5 @@ The mark: two rounded diagonal outer strokes and one centered rounded inverted w
 | 2026-09-19 | Initial design system formalized | Created by /design-consultation from the approved brand document `docs/brand/DESIGN.md` and landing page spec `docs/brand/LANDING_PAGE.md`; no research or outside voices, since the system was already approved and shipped on the website. |
 | 2026-09-19 | Inter as the display face despite gstack's overused-face flag | The product must feel native to the browser; a distinctive display face would make the card louder than the page it sits on. Tradeoff stated once and accepted. |
 | 2026-09-19 | No red anywhere; SKIP and junk warnings are neutral gray | Winnow makes a recommendation, not a threat. Red is held in reserve for a genuine safety issue. |
+| 2026-09-19 | Marketing site adopts an editorial layer: Cabinet Grotesk poster headlines, corner-marked plates, drenched colour fields, squared figures, mono labels; product UI unchanged | User judged the calm site low budget against typesafe.ai. Editorial structure in Winnow's own palette gives the site a point of view while product, icons, and README stay one brand. Retro-computing chrome deliberately not borrowed. |
 | 2026-09-19 | Creative North Star chosen as the user outcome, not the mood | "It told me whether to open it before I wasted time" is what a visitor can repeat; calm and minimal are enforced by the rules rather than by the anchor. |

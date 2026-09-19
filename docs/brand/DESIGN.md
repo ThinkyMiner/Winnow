@@ -733,3 +733,9 @@ choose **more useful**.
 Winnow exists to reduce the amount of attention users have to spend.
 
 The design should do the same.
+
+---
+
+## 24. Addendum (2026-09-19): the marketing site speaks in an editorial register
+
+Section 17 above described a soft, bloom-based landing page. After building it, the site read as templated. The marketing site now uses an editorial layer, defined in the root `DESIGN.md` under "Marketing site: the editorial layer": Cabinet Grotesk poster headlines, corner-marked plates, whole sections drenched in one palette colour, squared figures with mono tags, ruled text columns, underlined text calls to action. Palette, mark, and Inter body are unchanged. The product UI in sections 7 to 11 is unchanged and remains rounded and calm. The bloom stays for onboarding and social assets. Retro-computing chrome from reference sites is deliberately not borrowed.
