@@ -6,7 +6,7 @@
 <title>Winnow — The internet is a desert. Winnow finds the water.</title>
 <meta name="description" content="Winnow is an open-source Chrome extension that reads ahead of you and says read, skim, save, or skip, with a confidence, before you click.">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#F4EDE0">
+<meta name="theme-color" content="#0F172A">
 <link rel="canonical" href="https://winnow-oasis.vercel.app/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
@@ -22,6 +22,7 @@
 <meta name="twitter:title" content="Winnow — The internet is a desert. Winnow finds the water.">
 <meta name="twitter:description" content="Winnow is an open-source Chrome extension that reads ahead of you and says read, skim, save, or skip, with a confidence, before you click.">
 <meta name="twitter:image" content="https://winnow-oasis.vercel.app/assets/og.png">
+<link rel="preload" as="image" imagesrcset="assets/photos/web-dune-sunset-1280.jpg 1280w, assets/photos/web-dune-sunset-2560.jpg 2560w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com">
@@ -43,8 +44,8 @@
   </symbol>
 </svg>
 
-<!-- Nav -->
-<header class="nav">
+<!-- Nav: transparent over the hero photo, Ink once the hero has scrolled away (main.js toggles .is-solid) -->
+<header class="nav" id="nav">
   <a class="nav__brand" href="#top" aria-label="Winnow, home">
     <svg class="nav__mark" width="22" height="22" aria-hidden="true"><use href="#mark"/></svg>
     <span>Winnow</span>
@@ -60,51 +61,53 @@
 
 <main id="main">
 
-<!-- ======== Field 1 · Sand: hero, mirages, terrain ======== -->
-<div class="field field--sand field--first">
-  <p class="strip strip--v" aria-hidden="true">insight_density · already_known_to_reader · content_type · claims_supported · undisclosed_sales_pitch · ai_written · payload_location · payload_segment · serves_reader_goals · topic · jev_verdict</p>
-  <div class="wrap">
-
-    <section class="block hero" id="top" aria-labelledby="hero-title">
-      <div class="plate plate--hero"><span class="reg" aria-hidden="true"></span>
-        <div class="grain" id="grain-hero" aria-hidden="true"></div>
-        <div class="hero__body">
-          <p class="eyebrow"><span>Less noise</span><span class="leader" aria-hidden="true"></span><span>More signal</span></p>
-          <h1 class="h1" id="hero-title"><span>The internet</span><br><span>is a desert.</span><br><span>Winnow finds the water.</span></h1>
-          <div class="hero__row">
-            <div class="hero__copy">
-              <p class="sub">Ten thousand links a day, and almost none of them will change what you know. Winnow reads ahead of you and points at the few that will: read, skim, save, or skip, with a confidence, tuned to what you actually care about.</p>
-              <p class="cta-row">
-                <a class="cta" href="#install">Add to Chrome</a>
-                <a class="cta" href="https://github.com/ThinkyMiner/Winnow">View on GitHub</a>
-              </p>
-            </div>
-            <figure class="fig fig--hero pool reveal" id="fig0">
-              <span class="fig__tag">Fig. 00</span>
-              <div class="fig__panel card" id="hero-card" aria-live="polite" aria-atomic="true">
-                <p class="card__src mono"><span data-hero="source">youtube.com</span><span class="sim">Simulated</span></p>
-                <p class="card__title" data-hero="title">Deep dive into KV caching for LLMs</p>
-                <p class="card__decision">
-                  <span class="pill pill--read" data-hero="pill">READ<span class="pill__conf">· 92%</span></span>
-                  <span class="evaluating mono" data-hero="eval" aria-hidden="true">Evaluating…</span>
-                </p>
-                <ul class="reasons" data-hero="reasons">
-                  <li>High insight density</li><li>Mostly new to you</li><li>Not clickbait</li><li>Best part: 04:32 → 08:10</li>
-                </ul>
-              </div>
-              <figcaption class="fig__cap mono"><span>Fig. 00 — The oasis. One of four typed verdicts, before you click.</span></figcaption>
-            </figure>
-          </div>
+<!-- ======== Act I · Hero: sunset ridge ======== -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="photo hero__photo">
+    <img src="assets/photos/web-dune-sunset-1280.jpg" srcset="assets/photos/web-dune-sunset-1280.jpg 1280w, assets/photos/web-dune-sunset-2560.jpg 2560w" sizes="100vw" width="2560" height="1164" fetchpriority="high" decoding="async" alt="Layered red and purple sand dunes at sunset in the Namib-Naukluft, one bright orange band lit across the middle, a few dark trees on the plain below.">
+  </div>
+  <div class="hero__inner reg-box"><span class="reg" aria-hidden="true"></span>
+    <p class="eyebrow"><span>Less noise</span><span class="leader" aria-hidden="true"></span><span>More signal</span></p>
+    <h1 class="h1" id="hero-title">The internet is a desert.<br>Winnow finds the water.</h1>
+    <div class="hero__row">
+      <div class="hero__copy">
+        <p class="sub">Ten thousand links a day, and almost none of them will change what you know. Winnow reads ahead of you and points at the few that will: read, skim, save, or skip, with a confidence, tuned to what you actually care about.</p>
+        <p class="cta-row">
+          <a class="cta" href="#install">Add to Chrome</a>
+          <a class="cta" href="https://github.com/ThinkyMiner/Winnow">View on GitHub</a>
+        </p>
+      </div>
+      <figure class="fig fig--hero reveal" id="fig0">
+        <span class="fig__tag">Fig. 00</span>
+        <div class="fig__panel card" id="hero-card" aria-live="polite" aria-atomic="true">
+          <p class="card__src mono"><span data-hero="source">youtube.com</span><span class="sim">Simulated</span></p>
+          <p class="card__title" data-hero="title">Deep dive into KV caching for LLMs</p>
+          <p class="card__decision">
+            <span class="pill pill--read" data-hero="pill">READ<span class="pill__conf">· 92%</span></span>
+            <span class="evaluating mono" data-hero="eval" aria-hidden="true">Evaluating…</span>
+          </p>
+          <ul class="reasons" data-hero="reasons">
+            <li>High insight density</li><li>Mostly new to you</li><li>Not clickbait</li><li>Best part: 04:32 → 08:10</li>
+          </ul>
         </div>
-      </div>
-    </section>
+        <figcaption class="fig__cap mono"><span>Fig. 00 — One of four typed verdicts, before you click.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+  <a class="credit credit--l mono" href="https://commons.wikimedia.org/wiki/File:Namib-Naukluft_Sand_Dunes_(2011).jpg">Namib-Naukluft · Yathin S Krishnappa · CC BY-SA 3.0</a>
+</section>
 
-    <section class="block" aria-labelledby="mirage-title">
-      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
-        <h2 class="h2" id="mirage-title">Mirages.</h2>
-        <p class="sub sub--plate">Some things look like water from a distance.</p>
-      </div>
-      <div class="cols cols--3 reveal">
+<!-- ======== Act II · Mirages: Dune 45 pinned, two panels travel over it ======== -->
+<section class="act act--ii" aria-labelledby="mirage-title">
+  <div class="act__photo photo">
+    <img src="assets/photos/web-dune-red-1280.jpg" srcset="assets/photos/web-dune-red-1280.jpg 1280w, assets/photos/web-dune-red-2560.jpg 2560w" sizes="100vw" width="2560" height="1706" loading="lazy" decoding="async" alt="Dune 45 in Sossusvlei: one huge red dune with a sharp ridge dividing its sunlit and shadowed faces under a pale sky.">
+    <a class="credit credit--r mono" href="https://commons.wikimedia.org/wiki/File:006_Dune_45_in_Sossusvlei_at_sunrise_Photo_by_Giles_Laurent.jpg">Dune 45, Sossusvlei · Giles Laurent · CC BY-SA 4.0</a>
+  </div>
+  <div class="act__body wrap">
+    <div class="panel reveal">
+      <h2 class="h2" id="mirage-title">Mirages.</h2>
+      <p class="sub sub--panel">Some things look like water from a distance.</p>
+      <div class="cols cols--3 cols--stack panel__cols">
         <div class="col">
           <p class="tag mono">Rage Bait</p>
           <p class="col__pill"><span class="pill pill--skip">SKIP<span class="pill__conf">· 96%</span></span></p>
@@ -122,20 +125,26 @@
         </div>
         <p class="col col--wide mono sim">Simulated. Winnow asks typed questions about each of these. The answer is a quiet skip, not an alarm.</p>
       </div>
-    </section>
+    </div>
+    <div class="panel panel--end reveal" aria-labelledby="terrain-title">
+      <h2 class="h2" id="terrain-title">Reading the terrain.</h2>
+      <dl class="numbers">
+        <div><dt class="num">$0.0015</dt><dd class="mono">Per Hacker News front page, 30 links*</dd></div>
+        <div><dt class="num">0 tokens</dt><dd class="mono">On reload. Verdicts are cached for seven days.</dd></div>
+        <div><dt class="num">1.2 s</dt><dd class="mono">Per judgment, measured*</dd></div>
+      </dl>
+      <p class="foot mono">*Measured 2026-09-18 against jev-1.13.0. Proof: <a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/eval.md">docs/eval.md</a> and <a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/jev-contract.md">docs/jev-contract.md</a></p>
+    </div>
+  </div>
+</section>
 
-    <section class="block" aria-labelledby="terrain-title">
-      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
-        <h2 class="h2" id="terrain-title">Reading the terrain.</h2>
-        <dl class="numbers">
-          <div><dt class="num">$0.0015</dt><dd class="mono">Per Hacker News front page, 30 links*</dd></div>
-          <div><dt class="num">0 tokens</dt><dd class="mono">On reload. Verdicts are cached for seven days.</dd></div>
-          <div><dt class="num">1.2 s</dt><dd class="mono">Per judgment, measured*</dd></div>
-        </dl>
-        <p class="foot mono">*Measured 2026-09-18 against jev-1.13.0. Proof: <a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/eval.md">docs/eval.md</a> and <a href="https://github.com/ThinkyMiner/Winnow/blob/main/docs/jev-contract.md">docs/jev-contract.md</a></p>
-      </div>
+<!-- ======== Act III · Ink: the product, photo-free so the demos read ======== -->
+<div class="field field--ink" id="how">
+  <div class="wrap">
 
-      <figure class="fig reveal" id="fig1">
+    <section class="block" aria-labelledby="feed-title">
+      <h2 class="h2 reveal" id="feed-title">It works where you already browse.</h2>
+      <figure class="fig fig--paper reveal" id="fig1">
         <span class="fig__tag">Fig. 01</span>
         <ol class="fig__panel feed" aria-label="Eight simulated feed items, five faded as low value">
           <li class="feed__row"><span class="feed__t">Deep dive into KV caching for LLMs <em class="mono">youtube.com</em></span><span class="pill pill--read">READ<span class="pill__conf">· 92%</span></span></li>
@@ -151,26 +160,10 @@
       </figure>
     </section>
 
-  </div>
-</div>
-
-<!-- ======== Field 2 · Soft Blue: the oasis, four chapters ======== -->
-<div class="field field--soft" id="how">
-  <div class="wrap">
-
-    <section class="block" aria-labelledby="oasis-title">
-      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
-        <h2 class="h2" id="oasis-title">The oasis.</h2>
-        <p class="sub sub--plate">Where Winnow works, and what it hands you.</p>
-      </div>
-    </section>
-
     <hr class="rule">
 
-    <section class="block" aria-labelledby="feed-title">
-      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
-        <h2 class="h2 h2--sm" id="feed-title">It works where you already browse.</h2>
-      </div>
+    <section class="block" aria-labelledby="feedmode-title">
+      <h2 class="h2 h2--sm reveal" id="feedmode-title">Feed mode.</h2>
       <div class="split reveal">
         <figure class="fig fig--paper" id="fig2">
           <span class="fig__tag">Fig. 02</span>
@@ -229,11 +222,11 @@
     <hr class="rule">
 
     <section class="block" aria-labelledby="video-title">
-      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+      <div class="reveal">
         <h2 class="h2 h2--sm" id="video-title">Wells, marked.</h2>
         <p class="sub segmap__sub">For a video with captions, Winnow marks where the water is: one typed question over eight segments, a probability for each, and a link that takes you there.</p>
       </div>
-      <figure class="fig reveal" id="fig3">
+      <figure class="fig fig--paper reveal" id="fig3">
         <span class="fig__tag">Fig. 03</span>
         <div class="fig__panel segmap">
           <div class="segmap__head">
@@ -307,12 +300,12 @@
     <hr class="rule">
 
     <section class="block" aria-labelledby="reader-title">
-      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
+      <div class="reveal">
         <h2 class="h2 h2--sm" id="reader-title">Your map.</h2>
         <p class="sub segmap__sub">The same page is not worth the same to everyone. Your goals, your recent topics and your read/skip feedback ride along with every judgment.</p>
       </div>
       <div class="split reveal">
-        <figure class="fig" id="fig4">
+        <figure class="fig fig--paper" id="fig4">
           <span class="fig__tag">Fig. 04</span>
           <div class="fig__panel">
             <div class="toggle" role="group" aria-label="Reader state">
@@ -346,9 +339,7 @@
     <hr class="rule">
 
     <section class="block" aria-labelledby="jev-title">
-      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
-        <h2 class="h2" id="jev-title">Decisions, not essays.</h2>
-      </div>
+      <h2 class="h2 reveal" id="jev-title">Decisions, not essays.</h2>
       <div class="split reveal">
         <figure class="fig" id="fig5">
           <span class="fig__tag">Fig. 05</span>
@@ -385,15 +376,16 @@
   </div>
 </div>
 
-<!-- ======== Field 3 · Ink: set out (footer continues the field) ======== -->
-<div class="field field--ink">
-  <div class="wrap">
-
-    <section class="block" aria-labelledby="oss-title">
-      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
-        <h2 class="h2" id="oss-title">Set out.</h2>
-      </div>
-      <div class="cols cols--2 reveal">
+<!-- ======== Act IV · Travel light: golden ridge pinned, one panel travels ======== -->
+<section class="act act--iv" aria-labelledby="oss-title">
+  <div class="act__photo photo">
+    <img src="assets/photos/web-dune-ridge-1280.jpg" srcset="assets/photos/web-dune-ridge-1280.jpg 1280w, assets/photos/web-dune-ridge-2560.jpg 2560w" sizes="100vw" width="2560" height="1706" loading="lazy" decoding="async" alt="A golden dune ridge in the Namib-Naukluft under a blue sky with thin clouds.">
+    <a class="credit credit--r mono" href="https://commons.wikimedia.org/wiki/File:Parco_Nazionale_Namib-Naukluft_nel_deserto_del_Namib.tif">Namib-Naukluft · Buiobuione · CC BY-SA 4.0</a>
+  </div>
+  <div class="act__body wrap">
+    <div class="panel panel--wide reveal">
+      <h2 class="h2" id="oss-title">Travel light.</h2>
+      <div class="cols cols--2 panel__cols">
         <div class="col">
           <p class="tag mono">Open Source From Day One</p>
           <p>A Chrome MV3 extension, MIT licensed, at <a class="link" href="https://github.com/ThinkyMiner/Winnow">github.com/ThinkyMiner/Winnow</a>. No backend. No analytics, no telemetry. Your key stays in local storage.</p>
@@ -404,11 +396,8 @@
         </div>
         <p class="col col--wide links"><a class="link" href="https://github.com/ThinkyMiner/Winnow">View GitHub</a><a class="link" href="https://github.com/ThinkyMiner/Winnow/tree/main/docs">Read how it works</a></p>
       </div>
-
-      <div class="plate reveal" id="install"><span class="reg" aria-hidden="true"></span>
-        <h2 class="h2 h2--sm">Install</h2>
-      </div>
-      <ol class="cols cols--3 steps reveal">
+      <h2 class="h2 h2--sm panel__h2" id="install">Install</h2>
+      <ol class="cols cols--3 panel__cols">
         <li class="col">
           <p class="tag mono">01 Download</p>
           <p>Get the <a class="link" href="https://github.com/ThinkyMiner/Winnow/releases/latest">latest release zip</a> and unzip it anywhere you will not delete.</p>
@@ -423,11 +412,29 @@
         </li>
         <li class="col col--wide mono sim">Chrome Web Store: coming soon.</li>
       </ol>
+    </div>
+  </div>
+</section>
 
-      <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
-        <h2 class="h2 h2--sm">Questions</h2>
-      </div>
-      <div class="faq reveal">
+</main>
+
+<!-- ======== Act V · Footer: the oasis from above ======== -->
+<footer class="oasis" aria-label="Footer">
+  <div class="photo oasis__photo">
+    <img src="assets/photos/web-oasis-aerial-1280.jpg" srcset="assets/photos/web-oasis-aerial-1280.jpg 1280w, assets/photos/web-oasis-aerial-2560.jpg 2560w" sizes="100vw" width="2560" height="1654" loading="lazy" decoding="async" alt="Huacachina from above at dusk: a small lagoon ringed by palms and low buildings, enclosed by tall pale dunes, city lights on the horizon.">
+  </div>
+  <div class="oasis__stage">
+    <p class="oasis__lockup">
+      <svg class="oasis__mark" aria-hidden="true"><use href="#mark"/></svg>
+      <span>Winnow</span>
+    </p>
+    <p class="oasis__line">Less noise. More signal.</p>
+    <a class="cta cta--sm" href="#install">Add to Chrome</a>
+    <a class="credit credit--r mono" href="https://commons.wikimedia.org/wiki/File:Laguna_de_Huacachina-2.jpg">Huacachina, Perú · Jonathan M. Corredor O. · CC BY-SA 4.0</a>
+  </div>
+  <div class="oasis__bar">
+    <div class="wrap">
+      <div class="faq">
         <details><summary><span class="mono">How much does it cost?</span><span class="chev" aria-hidden="true"></span></summary><p>About $0.0015 for a 30-link Hacker News front page, measured against jev-1.13.0. A single article or video is a fraction of that. Verdicts are cached for seven days, so reloads cost nothing.</p></details>
         <details><summary><span class="mono">How accurate is it?</span><span class="chev" aria-hidden="true"></span></summary><p>80% verdict agreement on our 40-fixture held-out split. The goldens are under review, so treat that as a floor we are still checking, not a benchmark.</p></details>
         <details><summary><span class="mono">What about paywalls?</span><span class="chev" aria-hidden="true"></span></summary><p>Winnow judges what it can see. On a paywalled page that is the teaser, so the verdict is about the teaser and says so.</p></details>
@@ -437,23 +444,16 @@
         <details><summary><span class="mono">Does it slow pages down?</span><span class="chev" aria-hidden="true"></span></summary><p>No. Pills render in a shadow DOM and every call is asynchronous. The page finishes loading exactly as it would without Winnow.</p></details>
         <details><summary><span class="mono">Can I change the questions?</span><span class="chev" aria-hidden="true"></span></summary><p>Yes. They live in <span class="mono">src/jev/questions.ts</span>. Edit, rebuild, reload the extension.</p></details>
       </div>
-    </section>
-
-  </div>
-</div>
-
-</main>
-
-<!-- Footer: same Ink field, no seam. The grain returns once, static and faint, under the wordmark. -->
-<footer class="field field--ink footer">
-  <div class="footer__head">
-    <div class="grain grain--echo" id="grain-foot" aria-hidden="true"></div>
-    <p class="footer__lockup">
-      <svg class="footer__mark" aria-hidden="true"><use href="#mark"/></svg>
-      <span>Winnow</span>
-    </p>
-  </div>
-  <div class="wrap">
+      <details class="credits">
+        <summary><span class="mono">Photography credits</span><span class="chev" aria-hidden="true"></span></summary>
+        <ul class="credits__list mono">
+          <li><a href="https://commons.wikimedia.org/wiki/File:Namib-Naukluft_Sand_Dunes_(2011).jpg">Namib-Naukluft Sand Dunes (2011)</a> · Yathin S Krishnappa · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/File:006_Dune_45_in_Sossusvlei_at_sunrise_Photo_by_Giles_Laurent.jpg">Dune 45 in Sossusvlei at sunrise</a> · Giles Laurent · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/File:Parco_Nazionale_Namib-Naukluft_nel_deserto_del_Namib.tif">Parco Nazionale Namib-Naukluft nel deserto del Namib</a> · Buiobuione · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/File:Laguna_de_Huacachina-2.jpg">Laguna de Huacachina</a> · Jonathan M. Corredor O. · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+          <li>Web versions are resized and recompressed from the originals; the licence terms carry over. Full list: <a href="assets/photos/CREDITS.md">assets/photos/CREDITS.md</a></li>
+        </ul>
+      </details>
       <nav class="footer__links mono" aria-label="Footer">
         <a href="https://github.com/ThinkyMiner/Winnow">GitHub</a>
         <a href="https://github.com/ThinkyMiner/Winnow/tree/main/docs">Docs</a>
@@ -461,9 +461,10 @@
         <a href="https://github.com/ThinkyMiner/Winnow/releases">Releases</a>
         <a href="https://typesafe.ai">TypeSafe</a>
         <span>MIT © 2026 ThinkyMiner</span>
+        <span>Photography: Wikimedia Commons contributors, CC BY-SA (<a href="assets/photos/CREDITS.md">credits</a>)</span>
       </nav>
+    </div>
   </div>
-  <p class="strip strip--h mono" aria-hidden="true">insight_density · already_known_to_reader · content_type · claims_supported · undisclosed_sales_pitch · ai_written · payload_location · payload_segment · serves_reader_goals · topic · jev_verdict</p>
 </footer>
 
 <script src="main.js" defer></script>

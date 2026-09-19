@@ -124,50 +124,9 @@
     });
   }
 
-  /* 7. Grain: the desert is made of junk headlines. Grid with jitter so it reads as sand, not as a list. */
-  var openers = ['10 habits of {}', "You won't believe {}", 'This changes everything for {}', 'Sponsored: the only tool for {}',
-    'Why everyone is wrong about {}', 'The truth about {}', "7 signs you're bad at {}", 'Stop doing this with {}', 'I quit {}. Here is why',
-    'What nobody tells you about {}', 'The end of {}?', 'Is this the future of {}?', 'How I 10x’d {}', 'One weird trick for {}', 'BREAKING: {}',
-    'Opinion: we need to talk about {}', 'Ranked: every take on {}', 'The ultimate guide to {}', "Here's why {} is over", 'Top 5 mistakes in {}',
-    'Everyone is switching to {}', 'You’re using {} wrong', 'The dark side of {}', 'Experts hate this {} trick', 'Finally, {} explained',
-    'A thread on {}', 'Hot take: {} is a scam', 'LIVE: reactions to {}', 'Unpopular opinion: {}', 'Why I stopped using {}',
-    'The real reason behind {}', 'Rethinking {} in 2026', 'New study says {} is bad for you', 'LEAKED: {}', 'Just announced: {}',
-    'The rise and fall of {}', 'AMA about {}', 'Day 1 of learning {}', 'My honest review of {}', 'Nobody is ready for {}', '{}: a definitive ranking',
-    'We tried {} for 30 days', 'What {} means for you', '{} is dead. Long live {}'];
-  var subjects = ['AI agents', 'your morning routine', 'productivity', 'remote work', 'Rust', 'the housing market', 'your résumé', 'Kubernetes',
-    'side hustles', 'prompt engineering', 'vector databases', 'the creator economy', 'your sleep', 'microservices', 'Web3', 'meal prep',
-    'your inbox', 'cold plunges', 'TypeScript', 'the attention economy', 'LLMs', 'note-taking', 'passive income', 'the four-day week'];
-  var tails = ['', '', '', '', ' (2026)', ' | sponsored', ' [thread]', ' — read this first', ' · 4 min read'];
-  var pick = function (a) { return a[Math.floor(Math.random() * a.length)]; };
-  var headline = function () { return pick(openers).split('{}').join(pick(subjects)) + pick(tails); };
-  var grains = function (el, cap, drift) {
-    var W = el.clientWidth, H = el.clientHeight, cw = 165, ch = 26;
-    var cols = Math.max(1, Math.floor(W / cw)), rows = Math.max(1, Math.floor(H / ch)), cells = [];
-    for (var c = 0; c < cols; c++) for (var r = 0; r < rows; r++) cells.push([c, r]);
-    for (var k = cells.length - 1; k > 0; k--) { var j = Math.floor(Math.random() * (k + 1)), t = cells[k]; cells[k] = cells[j]; cells[j] = t; }
-    var frag = document.createDocumentFragment(), n = Math.min(cap, cells.length);
-    for (var q = 0; q < n; q++) {
-      var s = document.createElement('span'), x = cells[q][0] * cw + Math.random() * cw * .45, y = cells[q][1] * ch + (Math.random() - .5) * 10;
-      s.className = 'grain__i' + (Math.random() < .35 ? ' grain__i--lg' : '');
-      s.textContent = headline();
-      s.style.left = x.toFixed(0) + 'px'; s.style.top = y.toFixed(0) + 'px';
-      if (drift) {
-        var a = Math.random() * Math.PI * 2, m = 6 + Math.random() * 4;
-        s.style.setProperty('--dx', (Math.cos(a) * m).toFixed(1) + 'px'); s.style.setProperty('--dy', (Math.sin(a) * m).toFixed(1) + 'px');
-        s.style.setProperty('--t', (20 + Math.random() * 20).toFixed(1) + 's'); s.style.setProperty('--d', (-Math.random() * 40).toFixed(1) + 's');
-      }
-      frag.appendChild(s);
-    }
-    el.textContent = ''; el.appendChild(frag);
-    return n;
-  };
-  var gh = document.getElementById('grain-hero'), gf = document.getElementById('grain-foot');
-  var seed = function () {
-    if (gh) gh.dataset.count = grains(gh, matchMedia('(max-width: 820px)').matches ? 90 : 220, motion);
-    if (gf) gf.dataset.count = grains(gf, 120, false);
-  };
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(seed, seed);
-  if (gh && motion && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function (e) { gh.classList.toggle('is-off', !e[0].isIntersecting); }).observe(gh);
+  /* 7. Nav: transparent over the hero photo, Ink once the hero has scrolled away. */
+  var nav = document.getElementById('nav'), hero = document.getElementById('top');
+  if (nav && hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { nav.classList.toggle('is-solid', !e[0].isIntersecting); }, { rootMargin: '-64px 0px 0px 0px' }).observe(hero);
   }
 })();

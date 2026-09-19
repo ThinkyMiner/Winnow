@@ -1,0 +1,50 @@
+{
+ "dune-sunset": {
+  "title": "File:Namib-Naukluft Sand Dunes (2011).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Namib-Naukluft_Sand_Dunes_(2011).jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Yathin S Krishnappa",
+  "w": 4000,
+  "h": 1819
+ },
+ "dune-red": {
+  "title": "File:006 Dune 45 in Sossusvlei at sunrise Photo by Giles Laurent.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:006_Dune_45_in_Sossusvlei_at_sunrise_Photo_by_Giles_Laurent.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Giles Laurent",
+  "w": 5385,
+  "h": 3590
+ },
+ "dune-ridge": {
+  "title": "File:Parco Nazionale Namib-Naukluft nel deserto del Namib.tif",
+  "page": "https://commons.wikimedia.org/wiki/File:Parco_Nazionale_Namib-Naukluft_nel_deserto_del_Namib.tif",
+  "license": "CC BY-SA 4.0",
+  "artist": "Buiobuione",
+  "w": 5099,
+  "h": 3399
+ },
+ "dune-ripples": {
+  "title": "File:Namib Diamond Area Dunes (37731002772).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Namib_Diamond_Area_Dunes_(37731002772).jpg",
+  "license": "CC BY 2.0",
+  "artist": "Sonse",
+  "w": 5472,
+  "h": 3648
+ },
+ "oasis-aerial": {
+  "title": "File:Laguna de Huacachina-2.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Laguna_de_Huacachina-2.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Jonathan M. Corredor O.",
+  "w": 4320,
+  "h": 2791
+ },
+ "oasis-wide": {
+  "title": "File:Oasis de Huacachina, Ica, Per\u00fa, 2015-07-29, DD 18.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Oasis_de_Huacachina,_Ica,_Per%C3%BA,_2015-07-29,_DD_18.JPG",
+  "license": "CC BY-SA 4.0",
+  "artist": "Diego Delso",
+  "w": 8688,
+  "h": 4614
+ }
+}
