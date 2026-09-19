@@ -31,7 +31,7 @@
       { title: 'Deep dive into KV caching for LLMs', source: 'youtube.com · 41:05', d: 'read', c: 92,
         r: ['High insight density', 'Mostly new to you', 'Not clickbait', 'Best part: 04:32 → 08:10'] },
       { title: 'Building RAG from scratch', source: 'youtube.com · 24:18', d: 'skim', c: 88,
-        r: ['Good explanation, but only 7 minutes are useful', 'Partly familiar to you', 'Best part: 09:20 → 16:14'] },
+        r: ['Good explanation, but only 7 minutes are useful', 'Partly familiar to you', 'Best part: 09:20 → 14:00'] },
       { title: 'Why AI changes EVERYTHING', source: 'youtube.com · 18:42', d: 'skip', c: 95,
         r: ['Low new-information density', 'Likely engagement bait', 'Mostly repeats topics you already know'] },
       { title: 'A field guide to distributed consensus', source: 'arxiv.org · 48 min read', d: 'save', c: 81,
@@ -51,15 +51,27 @@
     }
   }
 
-  /* 3. Noise → signal (Fig. 01) and 4. video playhead (Fig. 03) are CSS on .is-in; only the replay needs JS. */
+  /* 3. Noise → signal (Fig. 01) and 4. segment map (Fig. 03) are CSS on .is-in; JS only replays, and drives the tooltips. */
   var jump = document.getElementById('jump'), fig3 = document.getElementById('fig3');
   if (jump && fig3) {
     jump.addEventListener('click', function (ev) {
       ev.preventDefault();
       if (!motion) return;
       fig3.classList.remove('is-in');
-      void fig3.offsetWidth; // restart the transition
+      void fig3.offsetWidth; // restart the transitions and keyframes
       fig3.classList.add('is-in');
+    });
+    var map = fig3.querySelector('.segmap'), tipline = document.getElementById('seg-tipline');
+    var showLine = function (seg) { tipline.textContent = Array.prototype.map.call(seg.querySelectorAll('.seg__tip > span'), function (s) { return s.textContent; }).join(' · '); };
+    map.querySelectorAll('.seg').forEach(function (seg) {
+      seg.addEventListener('click', function () { showLine(seg); });
+      seg.addEventListener('focus', function () { map.classList.remove('is-hush'); showLine(seg); });
+    });
+    map.addEventListener('mouseleave', function () { map.classList.remove('is-hush'); });
+    map.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      map.classList.add('is-hush');
+      if (document.activeElement && document.activeElement.classList.contains('seg')) document.activeElement.blur();
     });
   }
 

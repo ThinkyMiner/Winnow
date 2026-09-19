@@ -167,7 +167,7 @@
               <li class="feed__row"><span class="feed__t">Deep dive into KV caching for LLMs <em class="mono">41:05</em></span>
                 <span class="pop-wrap"><button class="pill pill--read" aria-describedby="p-yt1">READ<span class="pill__conf">· 92%</span></button><span class="pop" role="tooltip" id="p-yt1">High insight density · Mostly new to you · Best part: 04:32 → 08:10</span></span></li>
               <li class="feed__row"><span class="feed__t">Building RAG from scratch <em class="mono">24:18</em></span>
-                <span class="pop-wrap"><button class="pill pill--skim" aria-describedby="p-yt2">SKIM<span class="pill__conf">· 88%</span></button><span class="pop" role="tooltip" id="p-yt2">Good explanation, partly familiar · Best part: 09:20 → 16:14</span></span></li>
+                <span class="pop-wrap"><button class="pill pill--skim" aria-describedby="p-yt2">SKIM<span class="pill__conf">· 88%</span></button><span class="pop" role="tooltip" id="p-yt2">Good explanation, partly familiar · Best part: 09:20 → 14:00</span></span></li>
               <li class="feed__row"><span class="feed__t">Why AI changes EVERYTHING <em class="mono">18:42</em></span>
                 <span class="pop-wrap"><button class="pill pill--skip" aria-describedby="p-yt3">SKIP<span class="pill__conf">· 95%</span></button><span class="pop" role="tooltip" id="p-yt3">Low new-information density · Likely engagement bait</span></span></li>
               <li class="feed__row"><span class="feed__t">Transformers explained from scratch <em class="mono">32:10</em></span>
@@ -214,35 +214,75 @@
     <section class="block" aria-labelledby="video-title">
       <div class="plate reveal"><span class="reg" aria-hidden="true"></span>
         <h2 class="h2 h2--sm" id="video-title">Skip to the part that matters.</h2>
+        <p class="sub segmap__sub">Winnow asks one typed question about eight caption segments. The answer is a probability per segment. The tallest one is where you start.</p>
       </div>
-      <div class="split split--rev reveal">
-        <figure class="fig" id="fig3">
-          <span class="fig__tag">Fig. 03</span>
-          <div class="fig__panel video">
-            <p class="card__src mono"><span>youtube.com · 18:42</span><span class="sim">Simulated</span></p>
-            <p class="card__title">Building RAG from scratch</p>
-            <p class="card__decision"><span class="pill pill--skim">SKIM<span class="pill__conf">· 88%</span></span></p>
-            <div class="timeline" role="img" aria-label="Timeline of an 18 minute 42 second video. The introduction from 0:00 to 2:30 is faded. The useful segment from 9:20 to 16:14 is highlighted. The playhead jumps to 9:20.">
-              <div class="timeline__bar">
-                <span class="timeline__seg timeline__seg--intro" style="left:0;width:13.4%"></span>
-                <span class="timeline__seg timeline__seg--payoff" style="left:49.9%;width:36.9%"></span>
-                <span class="timeline__head" id="playhead"></span>
-              </div>
-              <div class="timeline__ticks mono"><span>0:00</span><span style="left:13.4%">Intro ends 2:30</span><span style="left:49.9%">09:20</span><span style="left:86.8%">16:14</span><span class="timeline__end">18:42</span></div>
-            </div>
-            <p class="video__foot"><a class="link" href="#fig3" id="jump">Jump to payoff</a> <span class="mono">09:20 → 16:14</span></p>
+      <figure class="fig reveal" id="fig3">
+        <span class="fig__tag">Fig. 03</span>
+        <div class="fig__panel segmap">
+          <div class="segmap__head">
+            <span class="mono">youtube.com · 18:42 · captions: en</span>
+            <span class="segmap__title">Building RAG from scratch</span>
+            <span class="segmap__verdict"><span class="pill pill--skim">SKIM<span class="pill__conf">· 88%</span></span><span class="sim">Simulated</span></span>
           </div>
-          <figcaption class="fig__cap mono"><span>Fig. 03 — Video payoff</span><span>Works on videos with captions</span></figcaption>
-        </figure>
-        <div class="cols cols--2 cols--stack">
-          <div class="col">
-            <p class="tag mono">Payload Location</p>
-            <p>For a video with captions, Winnow asks where the useful part sits and which caption segment it starts in. The card shows the range and a link that seeks the player to it.</p>
+          <div class="segmap__cols" role="group" aria-label="Probability that each of eight caption segments holds the core idea. Hover or focus a column for its caption snippet.">
+          <button class="seg" type="button" style="--h:4.9%;--i:0" aria-label="s0, 0:00 to 2:20, probability 0.02">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.02</span><span class="seg__tip" aria-hidden="true"><span class="mono">s0 · 0:00 → 2:20</span><span class="seg__snip">Today we build retrieval-augmented generation from nothing: no frameworks, just Python and an API key.</span><span class="mono">P(core idea) = 0.02</span></span></span></span>
+            <span class="seg__t mono">0:00</span><span class="seg__id mono">s0</span>
+          </button>
+          <button class="seg" type="button" style="--h:7.3%;--i:1" aria-label="s1, 2:20 to 4:40, probability 0.03">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.03</span><span class="seg__tip" aria-hidden="true"><span class="mono">s1 · 2:20 → 4:40</span><span class="seg__snip">RAG in one sentence: fetch the passages that matter, put them in the prompt, let the model answer from them.</span><span class="mono">P(core idea) = 0.03</span></span></span></span>
+            <span class="seg__t mono">2:20</span><span class="seg__id mono">s1</span>
+          </button>
+          <button class="seg" type="button" style="--h:12.2%;--i:2" aria-label="s2, 4:40 to 7:00, probability 0.05">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.05</span><span class="seg__tip" aria-hidden="true"><span class="mono">s2 · 4:40 → 7:00</span><span class="seg__snip">Pick an embedding model, embed every chunk once, and store the vectors next to the text they came from.</span><span class="mono">P(core idea) = 0.05</span></span></span></span>
+            <span class="seg__t mono">4:40</span><span class="seg__id mono">s2</span>
+          </button>
+          <button class="seg" type="button" style="--h:19.5%;--i:3" aria-label="s3, 7:00 to 9:20, probability 0.08">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.08</span><span class="seg__tip" aria-hidden="true"><span class="mono">s3 · 7:00 → 9:20</span><span class="seg__snip">Chunk size is a trade-off. Too small and you lose context, too big and the retriever drowns in noise.</span><span class="mono">P(core idea) = 0.08</span></span></span></span>
+            <span class="seg__t mono">7:00</span><span class="seg__id mono">s3</span>
+          </button>
+          <button class="seg seg--top" type="button" style="--h:100.0%;--i:4" aria-label="s4, 9:20 to 11:40, probability 0.41, top segment">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.41</span><span class="seg__tip" aria-hidden="true"><span class="mono">s4 · 9:20 → 11:40</span><span class="seg__snip">Here is why naive RAG fails: top-k by cosine similarity returns near-duplicates and misses the one passage that actually answers the question.</span><span class="mono">P(core idea) = 0.41</span></span></span></span>
+            <span class="seg__t mono">9:20</span><span class="seg__id mono">s4</span>
+          </button>
+          <button class="seg seg--run" type="button" style="--h:70.7%;--i:5" aria-label="s5, 11:40 to 14:00, probability 0.29, runner-up">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.29</span><span class="seg__tip" aria-hidden="true"><span class="mono">s5 · 11:40 → 14:00</span><span class="seg__snip">The fix is two stages: retrieve wide, rerank narrow, then dedupe before anything reaches the prompt.</span><span class="mono">P(core idea) = 0.29</span></span></span></span>
+            <span class="seg__t mono">11:40</span><span class="seg__id mono">s5</span>
+          </button>
+          <button class="seg" type="button" style="--h:22.0%;--i:6" aria-label="s6, 14:00 to 16:20, probability 0.09">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.09</span><span class="seg__tip" aria-hidden="true"><span class="mono">s6 · 14:00 → 16:20</span><span class="seg__snip">To evaluate, hold out fifty questions with known answers and score recall at k, not vibes.</span><span class="mono">P(core idea) = 0.09</span></span></span></span>
+            <span class="seg__t mono">14:00</span><span class="seg__id mono">s6</span>
+          </button>
+          <button class="seg" type="button" style="--h:7.3%;--i:7" aria-label="s7, 16:20 to 18:42, probability 0.03">
+            <span class="seg__track"><span class="seg__bar"><span class="seg__p mono">0.03</span><span class="seg__tip" aria-hidden="true"><span class="mono">s7 · 16:20 → 18:42</span><span class="seg__snip">That is the whole pipeline. Code is in the description; next video we add citations.</span><span class="mono">P(core idea) = 0.03</span></span></span></span>
+            <span class="seg__t mono">16:20</span><span class="seg__id mono">s7</span>
+          </button>
           </div>
-          <div class="col">
-            <p class="tag mono">Honest Limit</p>
-            <p>No captions, no skip-to. Winnow still judges the title and description, but it will not guess a timestamp it cannot see.</p>
+          <div class="segmap__track" role="img" aria-label="Playhead scrubs the 2:30 intro, jumps to 9:20, then plays through 14:00.">
+            <span class="segmap__ann mono">skipped 6:50 of intro</span>
+            <span class="segmap__range"></span>
+            <span class="segmap__ph" id="playhead"></span>
+            <span class="segmap__end mono">18:42</span>
           </div>
+          <p class="segmap__tipline mono" id="seg-tipline" aria-live="polite">Tap a column for its caption.</p>
+          <div class="segmap__foot">
+            <p class="segmap__jump"><a class="segmap__link" href="#fig3" id="jump">Jump to payoff</a><span class="mono">09:20 → 14:00 · 4 min 40 s of 18:42</span></p>
+            <dl class="segmap__nums">
+              <div><dt class="segmap__num">4:40</dt><dd class="mono">worth watching, out of 18:42</dd></div>
+              <div><dt class="segmap__num">25%</dt><dd class="mono">of the runtime</dd></div>
+            </dl>
+          </div>
+        </div>
+        <figcaption class="fig__cap mono"><span>Fig. 03 — Payload probability per caption segment</span><span>One Choice question · eight options</span></figcaption>
+      </figure>
+      <div class="cols cols--2 segmap__text reveal">
+        <div class="col">
+          <p class="tag mono">Payload Location</p>
+          <p>For a video with captions, Winnow splits the transcript into eight segments and asks Jev which one holds the core idea. It answers with a probability for every segment. The tallest becomes the Skip to range, and a runner-up joins it when Jev gives it at least a one-in-four chance.</p>
+        </div>
+        <div class="col">
+          <p class="tag mono">Honest Limit</p>
+          <p>No captions, no skip-to. Winnow still judges the title and description, but it will not guess a timestamp it cannot see.</p>
         </div>
       </div>
     </section>

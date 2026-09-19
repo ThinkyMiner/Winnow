@@ -165,21 +165,42 @@ button.pill::after { content: ""; position: absolute; inset: -10px; } /* 44px hi
 .pop-wrap:hover .pop, .pop-wrap:focus-within .pop { opacity: 1; visibility: visible; }
 .feed__row:last-child .pop { top: auto; bottom: calc(100% + 10px); }
 
-/* video timeline */
-.timeline { margin-top: 24px; }
-.timeline__bar { position: relative; height: 12px; background: var(--border); }
-.timeline__seg { position: absolute; top: 0; height: 100%; }
-.timeline__seg--intro { background: var(--slate); opacity: .5; transition: opacity 600ms var(--ease); }
-.timeline__seg--payoff { background: var(--blue); opacity: .35; transition: opacity 600ms var(--ease) 200ms; }
-.timeline__head { position: absolute; top: -6px; left: 0; width: 2px; height: 24px; background: var(--ink); transition: left 900ms var(--ease) 300ms; }
-#fig3.is-in .timeline__seg--intro { opacity: .18; }
-#fig3.is-in .timeline__seg--payoff { opacity: 1; }
-#fig3.is-in .timeline__head { left: 49.9%; }
-.timeline__ticks { position: relative; height: 18px; margin-top: 10px; font-size: 11px; color: var(--fg2); }
-.timeline__ticks span { position: absolute; top: 0; white-space: nowrap; }
-.timeline__end { right: 0; }
-.video__foot { display: flex; gap: 14px; align-items: baseline; margin-top: 28px; font-weight: 500; }
-.video__foot .mono { font-size: 11px; color: var(--fg2); }
+/* video segment map (Fig. 03) */
+.segmap__sub { margin-top: 24px; max-width: 880px; }
+.segmap__head { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; font-size: 11px; color: var(--fg2); }
+.segmap__title { font: 600 22px/1.25 var(--body); letter-spacing: -.01em; text-align: center; color: var(--fg); }
+.segmap__verdict { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+.segmap__cols { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; align-items: end; margin-top: 40px; }
+.seg { position: relative; display: flex; flex-direction: column; align-items: center; min-width: 0; text-align: center; }
+.seg__track { display: flex; flex-direction: column; justify-content: flex-end; width: 100%; height: 260px; margin-top: 24px; }
+.seg__bar { position: relative; width: 100%; height: var(--h); min-height: 6px; background: color-mix(in srgb, var(--ink) 22%, transparent); }
+.seg--top .seg__bar { background: var(--blue); }
+.seg--run .seg__bar { background: var(--signal); }
+.seg:not(.seg--top):not(.seg--run):hover .seg__bar, .seg:not(.seg--top):not(.seg--run):focus-visible .seg__bar { background: color-mix(in srgb, var(--ink) 40%, transparent); }
+.seg__p { position: absolute; bottom: 100%; left: 0; right: 0; padding-bottom: 6px; font-size: 12px; line-height: 1; color: var(--ink); }
+.seg__t { margin-top: 10px; font-size: 11px; line-height: 1; color: var(--fg2); }
+.seg__id { margin-top: 6px; font-size: 10px; line-height: 1; color: var(--fg2); opacity: .55; }
+.seg__tip { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); z-index: 3; width: 250px; padding: 10px 12px; margin-bottom: 26px; background: var(--paper); color: var(--ink); text-align: left; display: flex; flex-direction: column; gap: 6px; font-size: 11px; opacity: 0; visibility: hidden; transition: opacity 160ms var(--ease); pointer-events: none; }
+.seg:first-child .seg__tip { left: 0; transform: none; }
+.seg:last-child .seg__tip { left: auto; right: 0; transform: none; }
+.seg__snip { font: 400 14px/1.4 var(--body); }
+.segmap:not(.is-hush) .seg:hover .seg__tip, .seg:focus-visible .seg__tip { opacity: 1; visibility: visible; }
+.segmap__track { position: relative; height: 2px; margin-top: 52px; background: color-mix(in srgb, var(--ink) 30%, transparent); }
+.segmap__range { position: absolute; top: 0; left: 49.91%; width: 24.96%; height: 100%; background: var(--blue); }
+.segmap__ph { position: absolute; top: -9px; left: 74.87%; width: 2px; height: 20px; margin-left: -1px; background: var(--ink); }
+.segmap__ph::before { content: ""; position: absolute; top: -3px; left: -3px; width: 8px; height: 8px; background: var(--ink); }
+.segmap__ann { position: absolute; bottom: 22px; left: 31.6%; transform: translateX(-50%); white-space: nowrap; font-size: 11px; color: var(--fg2); }
+.segmap__end { position: absolute; right: 0; top: 12px; font-size: 11px; color: var(--fg2); }
+.segmap__tipline { display: none; margin-top: 36px; font-size: 11px; min-height: 2.8em; color: var(--fg2); }
+.segmap__foot { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px 48px; margin-top: 56px; }
+.segmap__jump { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 20px; }
+.segmap__jump .mono { font-size: 11px; color: var(--fg2); }
+.segmap__link { font: 700 32px/1.1 var(--display); letter-spacing: -.02em; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.segmap__link:hover { color: var(--blue); }
+.segmap__nums { display: flex; gap: 56px; margin: 0; }
+.segmap__num { font: 700 72px/.95 var(--display); letter-spacing: -.035em; }
+.segmap__nums dd { margin: 8px 0 0; font-size: 11px; color: var(--fg2); }
+.segmap__text { margin-top: 64px; }
 
 /* reader toggle */
 .toggle { display: inline-flex; border: 1px solid var(--ink); margin-bottom: 20px; }
@@ -217,13 +238,26 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
 @media (prefers-reduced-motion: no-preference) {
   .reveal { opacity: 0; transform: translateY(12px); transition: opacity 360ms var(--ease), transform 360ms var(--ease); }
   .reveal.is-in { opacity: 1; transform: none; }
+  /* Fig. 03: bars grow staggered, then the playhead scrubs the intro, jumps to 9:20 and creeps to 14:00. Replay = re-add .is-in. */
+  #fig3 .seg__bar { height: 0; min-height: 0; transition: height 500ms var(--ease) calc(var(--i) * 60ms); }
+  #fig3.is-in .seg__bar { height: var(--h); min-height: 6px; }
+  #fig3 .segmap__ph { left: 0; }
+  #fig3.is-in .segmap__ph { animation: seg-ph 7780ms linear 920ms forwards; }
+  #fig3 .segmap__ann { opacity: 0; }
+  #fig3.is-in .segmap__ann { animation: seg-ann 300ms var(--ease) 2520ms forwards; }
 }
+/* 0:00 → 2:30 over 1.2s (linear), hold 400ms, jump to 9:20 in 180ms, creep to 14:00 over 6s. Percentages of 7780ms. */
+@keyframes seg-ph {
+  0% { left: 0; }
+  15.42% { left: 13.37%; }
+  20.57% { left: 13.37%; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+  22.88% { left: 49.91%; }
+  100% { left: 74.87%; }
+}
+@keyframes seg-ann { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
   #fig1 .feed__row--noise { opacity: .3; filter: grayscale(1); }
-  #fig3 .timeline__head { left: 49.9%; }
-  #fig3 .timeline__seg--intro { opacity: .18; }
-  #fig3 .timeline__seg--payoff { opacity: 1; }
 }
 
 /* ---------- responsive ---------- */
@@ -253,7 +287,21 @@ details[open] .chev::after { top: 8px; transform: rotate(-135deg); }
   .pop { width: min(280px, calc(100vw - 64px)); }
   .footer__lockup { gap: 14px; }
   .strip--h { padding: 0 16px 20px; }
+  .segmap__head { grid-template-columns: 1fr; gap: 8px; }
+  .segmap__title { text-align: left; }
+  .segmap__verdict { justify-content: flex-start; }
+  .segmap__cols { gap: 4px; margin-top: 28px; }
+  .seg__track { height: 180px; }
+  .seg__p, .seg__t { font-size: 10px; }
+  .seg__tip { display: none; }
+  .segmap__tipline { display: block; }
+  .segmap__ann { left: 0; transform: none; font-size: 10px; }
+  .segmap__foot { flex-direction: column; align-items: flex-start; }
+  .segmap__nums { flex-direction: column; gap: 24px; }
+  .segmap__num { font-size: 56px; }
+  .segmap__text { margin-top: 48px; }
 }
+@media (max-width: 480px) { .seg__id { display: none; } }
 @media (max-width: 420px) {
   .h1 { font-size: 3.6rem; }
   .feed__t { font-size: 14px; }
