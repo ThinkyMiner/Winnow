@@ -64,6 +64,13 @@ describe("JUDGE_PAGE guards", () => {
     const r = await handle(page, "https://example.com/post");
     expect(!r.ok && r.error.code).toBe("disabled");
   });
+  it("site switched off covers page mode too", async () => {
+    store.set(STORAGE_KEYS.apiKey, "k");
+    store.set(STORAGE_KEYS.settings, { feedSites: { youtube: false } });
+    const r = await handle(page, "https://www.youtube.com/watch?v=abc");
+    expect(!r.ok && r.error.code).toBe("disabled");
+    expect((await handle(page, "https://news.ycombinator.com/item?id=1")).ok).toBe(true);
+  });
   it("delegates to judgePage with key + settings", async () => {
     store.set(STORAGE_KEYS.apiKey, "k");
     const r = await handle(page, "https://example.com/post");

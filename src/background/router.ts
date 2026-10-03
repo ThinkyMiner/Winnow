@@ -42,6 +42,19 @@ export function isExcluded(pageUrl: string | undefined, excludedHosts: string[])
   return excludedHosts.some((h) => u.hostname === h || u.hostname.endsWith("." + h));
 }
 
+/** Sites with their own switch in options; unticking one turns Winnow off there in both modes. */
+function siteOff(pageUrl: string | undefined, feedSites: Settings["feedSites"]): boolean {
+  let host: string;
+  try {
+    host = new URL(pageUrl ?? "").hostname;
+  } catch {
+    return false;
+  }
+  if (host === "youtube.com" || host.endsWith(".youtube.com")) return !feedSites.youtube;
+  if (host === "news.ycombinator.com") return !feedSites.hn;
+  return false;
+}
+
 /** Only extension pages (onboarding/options) may change key, settings, or state. */
 const PRIVILEGED = new Set<Msg["type"]>([
   "SET_KEY", "CLEAR_KEY", "SET_SETTINGS", "SET_GOALS", "CLEAR_CACHE", "RESET_READER_STATE",
@@ -79,6 +92,7 @@ async function route(msg: Msg, senderUrl?: string): Promise<Result<unknown>> {
       const ctx = { apiKey, settings };
       if (msg.type === "JUDGE_PAGE") {
         if (!settings.pageMode) return err("disabled", "Page mode is off.");
+        if (siteOff(senderUrl, settings.feedSites)) return err("disabled", "Winnow is off on this site.");
         return judgePage(msg.content, ctx);
       }
       if (!settings.feedMode || !settings.feedSites[msg.adapter]) return err("disabled", "Feed mode is off.");
