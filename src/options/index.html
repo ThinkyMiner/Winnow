@@ -49,7 +49,7 @@
             <span class="reg" aria-hidden="true"></span>
             <p class="eyebrow">02 · Surfaces</p>
             <h2 class="h2">Where Winnow runs</h2>
-            <p class="desc">Two modes: a card on the page you are reading, and pills on the links in a feed.</p>
+            <p class="desc">Two modes: a card on the page you are reading, and pills on the links in a feed. Then pick the sites they run on.</p>
             <div class="opt__body">
               <fieldset>
                 <legend class="field__label">Modes</legend>
@@ -62,11 +62,11 @@
                   <span class="check__text">Feed mode<small>Badge the links in a feed before you click them.</small></span>
                 </label>
               </fieldset>
-              <fieldset class="subset">
-                <legend class="field__label">Feeds</legend>
-                <label class="check" for="feed-hn"><input type="checkbox" id="feed-hn" /><span class="check__text">Hacker News</span></label>
-                <label class="check" for="feed-youtube"><input type="checkbox" id="feed-youtube" /><span class="check__text">YouTube</span></label>
-                <label class="check" for="feed-generic"><input type="checkbox" id="feed-generic" /><span class="check__text">Other link-heavy pages</span></label>
+              <fieldset>
+                <legend class="field__label">Sites</legend>
+                <label class="check" for="feed-hn"><input type="checkbox" id="feed-hn" /><span class="check__text">Hacker News<small>The front page and every thread. Untick to turn Winnow off on Hacker News.</small></span></label>
+                <label class="check" for="feed-youtube"><input type="checkbox" id="feed-youtube" /><span class="check__text">YouTube<small>Videos, the home page and search. Untick to turn Winnow off on YouTube.</small></span></label>
+                <label class="check" for="feed-generic"><input type="checkbox" id="feed-generic" /><span class="check__text">Other link-heavy pages<small>Pills on link lists anywhere else. Page mode still judges the articles you open; use Excluded sites to silence a site.</small></span></label>
               </fieldset>
             </div>
           </section>
